@@ -3,6 +3,9 @@
 ### Trello Board
 https://trello.com/b/twdr40dU/agile-board
 
+### Github flow
+https://guides.github.com/introduction/flow/
+
 ## Project setup
 ```
 npm install
