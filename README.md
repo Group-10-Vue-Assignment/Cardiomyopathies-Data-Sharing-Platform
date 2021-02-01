@@ -1,5 +1,8 @@
 # group10_vue_assignment
 
+### Trello Board
+https://trello.com/b/twdr40dU/agile-board
+
 ## Project setup
 ```
 npm install
