@@ -1,5 +1,13 @@
 # group10_vue_assignment
 
+### Trello Board
+https://trello.com/b/twdr40dU/agile-board
+
+### Github flow
+https://guides.github.com/introduction/flow/
+
+https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+
 ## Project setup
 ```
 npm install
