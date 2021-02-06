@@ -14,7 +14,7 @@
     <input type="address" placeholder="address" v-model="address" />
     <input type="tel" id="phone" name="phone" v-model="phoneNumber" />
     <div v-if="error" class="error">{{ error }}</div>
-    <button v-if="!isPending">Log in</button>
+    <button v-if="!isPending">Registar</button>
     <button v-if="isPending" disabled>Loading...</button>
   </form>
 </template>
@@ -22,8 +22,10 @@
 <script>
 /* eslint-disable */
 import { ref } from 'vue';
+import useSignup from '../firebaseFunctions/useSignup.js';
 export default {
   setup() {
+    const { error, signup, isPending } = useSignup();
     const displayName = ref(null);
     const institution = ref(null);
     const email = ref(null);
@@ -32,15 +34,20 @@ export default {
     const phoneNumber = ref(null);
 
     const handleSubmit = async () => {
-      console.log(
-        displayName.value,
-        institution.value,
+      await signup(
         email.value,
         password.value,
+        displayName.value,
+        institution.value,
         address.value,
         phoneNumber.value
       );
+
+      if (!error.value) {
+        console.log('user signed up');
+      }
     };
+
     return {
       displayName,
       institution,
