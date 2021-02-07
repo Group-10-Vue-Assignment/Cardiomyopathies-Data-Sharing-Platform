@@ -33,7 +33,11 @@ const signup = async (
       throw new Error("Could not complete signup");
     }
     await res.user.updateProfile({ displayName });
-    await projectFireStore.collection("users").add(user);
+    console.log(res.user.uid);
+    await projectFireStore
+      .collection("users")
+      .doc(`${res.user.uid}`)
+      .set(user);
     error.value = null;
     isPending.value = false;
 

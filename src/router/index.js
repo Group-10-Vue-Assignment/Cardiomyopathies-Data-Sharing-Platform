@@ -3,6 +3,19 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import DashBaord from "../views/DashBoard.vue";
+
+// route guard
+import { projectAuth } from "../firebase/config";
+
+const requireAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+  if (!user) {
+    next({ name: "Login" });
+  } else {
+    next();
+  }
+};
+
 const routes = [
   {
     path: "/",
@@ -21,8 +34,9 @@ const routes = [
   },
   {
     path: "/dashboard",
-    name: "DashBaord",
-    component: DashBaord
+    name: "DashBoard",
+    component: DashBaord,
+    beforeEnter: requireAuth
   }
 ];
 
