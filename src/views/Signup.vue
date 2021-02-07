@@ -39,6 +39,7 @@ export default {
 
     const longitude = ref(0);
     const latitude = ref(0);
+
     function showPosition(position) {
       return position.coords.latitude, position.coords.longitude;
     }
