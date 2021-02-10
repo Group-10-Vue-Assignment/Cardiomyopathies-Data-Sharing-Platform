@@ -47,6 +47,6 @@ export default {
 .success {
   margin: 21px;
   text-align: center;
-  color: chartreuse;
+  color: #28a745;
 }
 </style>
