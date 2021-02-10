@@ -9,7 +9,7 @@
     <div class="switch-user">
       <router-link to="/signup">Not registared?</router-link>
 
-      <router-link to="#">Forgotten password?</router-link>
+      <router-link to="/forgotpassword">Forgotten password?</router-link>
     </div>
   </form>
 </template>
@@ -36,7 +36,7 @@ export default {
 
 <style>
 .error {
-  margin: 20px;
+  margin: 21px;
   text-align: center;
   color: red;
 }

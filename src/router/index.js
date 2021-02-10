@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import DashBaord from "../views/DashBoard.vue";
 import AddGraph from "@/views/AddGraph.vue";
+import ForgotPassword from "../views/ForgotPassword.vue";
 
 // route guard
 import { projectAuth } from "../firebase/config";
@@ -44,6 +45,11 @@ const routes = [
     name: "AddGraph",
     component: AddGraph,
     beforeEnter: requireAuth
+  },
+  {
+    path: "/forgotpassword",
+    name: "ForgotPassword",
+    component: ForgotPassword
   }
 ];
 
