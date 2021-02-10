@@ -17,4 +17,7 @@ const projectAuth = firebase.auth();
 const projectFireStore = firebase.firestore();
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-export { projectFireStore, timestamp, projectAuth };
+// collection references
+const graphsCollection = projectFireStore.collection("graphs");
+
+export { projectFireStore, timestamp, projectAuth, graphsCollection };

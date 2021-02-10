@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import DashBaord from "../views/DashBoard.vue";
+import AddGraph from "@/views/AddGraph.vue";
 
 // route guard
 import { projectAuth } from "../firebase/config";
@@ -36,6 +37,12 @@ const routes = [
     path: "/dashboard",
     name: "DashBoard",
     component: DashBaord,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/add-graph",
+    name: "AddGraph",
+    component: AddGraph,
     beforeEnter: requireAuth
   }
 ];

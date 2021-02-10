@@ -10,6 +10,7 @@
         </div>
         <div v-else class="user-items">
           <router-link class="nav-item" to="/dashboard">Dashboard</router-link>
+          <router-link class="nav-item" to="/add-graph">Add Graph</router-link>
           <button @click="handleClick" class="logout-btn">Log out</button>
         </div>
       </div>
