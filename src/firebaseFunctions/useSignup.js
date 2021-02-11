@@ -33,6 +33,9 @@ const signup = async (
       throw new Error("Could not complete signup");
     }
     await res.user.updateProfile({ displayName });
+
+    //sends verification email
+    await res.user.sendEmailVerification();
     console.log(res.user.uid);
     await projectFireStore
       .collection("users")
