@@ -1,120 +1,120 @@
 <template>
-  <div class="home">
-    <div>
-      <h2>Insert graph data</h2>
-      <div>
-        <form @submit.prevent>
-          <label for="cardiomyopathyType">Enter the Cardiomyopathy type</label>
-          <input
-            v-model="cardiomyopathyData.cardiomyopathyType"
-            type="text"
-            id="cardiomyopathyType"
-            placeholder="e.g: hypertrophic cardiomyopathy"
-            required
-          />
-          <br />
-          <label for="mutatedGeneType">Enter the mutated gene type</label>
-          <input
-            v-model="cardiomyopathyData.mutatedGeneType"
-            type="text"
-            id="mutatedGeneType"
-            placeholder="e.g: TNNT"
-            required
-          />
-          <br />
-          <label for="paper">Enter the paper the data was sourced from</label>
-          <input
-            v-model="cardiomyopathyData.paper"
-            type="text"
-            id="paper"
-            placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
-            required
-          />
-          <br />
-          <label for="typeOfData">Enter the type of data</label>
-          <input
-            v-model="cardiomyopathyData.typeOfData"
-            type="text"
-            id="typeOfData"
-            placeholder="e.g: sarcomere length vs time"
-            required
-          />
-          <br />
-          <h5>Graph information</h5>
-          <label for="xAxisTitle">Enter the title for the x Axis</label>
-          <input
-            v-model="cardiomyopathyData.xAxisTitle"
-            type="text"
-            id="xAxisTitle"
-            placeholder="e.g: Time (sec)"
-            required
-          />
-          <br />
-          <label for="yAxisTitle">Enter the title for the y Axis</label>
-          <input
-            v-model="cardiomyopathyData.yAxisTitle"
-            type="text"
-            id="yAxisTitle"
-            placeholder="e.g: Sarcomere length (µm)"
-            required
-          />
-          <br />
-          <label for="roundYAxisDP"
-            >Enter the decimal place to round Y Axis too</label
-          >
-          <input
-            v-model="cardiomyopathyData.roundYAxisDP"
-            type="number"
-            id="roundYAxisDP"
-            placeholder="e.g: 3"
-            required
-          />
-          <br />
-          <label for="xTickAmount"
-            >Enter the amount of X axis ticks you wish to be displayed on the
-            rendered graph</label
-          >
-          <input
-            v-model="cardiomyopathyData.xTickAmount"
-            type="number"
-            id="xTickAmount"
-            placeholder="e.g: 5"
-            required
-          />
-          <br />
-          <label for="yTickAmount"
-            >Enter the amount of Y axis ticks you wish to be displayed on the
-            rendered graph</label
-          >
-          <input
-            v-model="cardiomyopathyData.yTickAmount"
-            type="number"
-            id="yTickAmount"
-            placeholder="e.g: 7"
-            required
-          />
-          <p>Select a csv to pull data from</p>
-          <FileReader @load="csvData = $event" />
-          <br />
-          <div v-if="csvData != ''">
-            <button
-              type="button"
-              @click="parseCSVData"
-              :disabled="csvData === ''"
+  <div class="container">
+    <section>
+      <div class="add-data">
+        <h2>Insert graph data</h2>
+        <div>
+          <form @submit.prevent="submitData">
+            <label for="cardiomyopathyType"
+              >Enter the Cardiomyopathy type</label
             >
-              Add data
-            </button>
+            <input
+              v-model="cardiomyopathyData.cardiomyopathyType"
+              type="text"
+              id="cardiomyopathyType"
+              placeholder="e.g: hypertrophic cardiomyopathy"
+              required
+            />
             <br />
+            <label for="mutatedGeneType">Enter the mutated gene type</label>
+            <input
+              v-model="cardiomyopathyData.mutatedGeneType"
+              type="text"
+              id="mutatedGeneType"
+              placeholder="e.g: TNNT"
+              required
+            />
             <br />
-          </div>
-          <input
-            type="submit"
-            @click="submitData"
-            :disabled="parsedData == ''"
-          />
-        </form>
+            <label for="paper">Enter the paper the data was sourced from</label>
+            <input
+              v-model="cardiomyopathyData.paper"
+              type="text"
+              id="paper"
+              placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
+              required
+            />
+            <br />
+            <label for="typeOfData">Enter the type of data</label>
+            <input
+              v-model="cardiomyopathyData.typeOfData"
+              type="text"
+              id="typeOfData"
+              placeholder="e.g: sarcomere length vs time"
+              required
+            />
+            <br />
+            <h5>Graph information</h5>
+            <label for="xAxisTitle">Enter the title for the x Axis</label>
+            <input
+              v-model="cardiomyopathyData.xAxisTitle"
+              type="text"
+              id="xAxisTitle"
+              placeholder="e.g: Time (sec)"
+              required
+            />
+            <br />
+            <label for="yAxisTitle">Enter the title for the y Axis</label>
+            <input
+              v-model="cardiomyopathyData.yAxisTitle"
+              type="text"
+              id="yAxisTitle"
+              placeholder="e.g: Sarcomere length (µm)"
+              required
+            />
+            <br />
+            <label for="roundYAxisDP"
+              >Enter the decimal place to round Y Axis too</label
+            >
+            <input
+              v-model="cardiomyopathyData.roundYAxisDP"
+              type="number"
+              id="roundYAxisDP"
+              placeholder="e.g: 3"
+              required
+            />
+            <br />
+            <label for="xTickAmount"
+              >Enter the amount of X axis ticks you wish to be displayed on the
+              rendered graph</label
+            >
+            <input
+              v-model="cardiomyopathyData.xTickAmount"
+              type="number"
+              id="xTickAmount"
+              placeholder="e.g: 5"
+              required
+            />
+            <br />
+            <label for="yTickAmount"
+              >Enter the amount of Y axis ticks you wish to be displayed on the
+              rendered graph</label
+            >
+            <input
+              v-model="cardiomyopathyData.yTickAmount"
+              type="number"
+              id="yTickAmount"
+              placeholder="e.g: 7"
+              required
+            />
+            <p>Select a csv to pull data from</p>
+            <FileReader @load="csvData = $event" />
+            <br />
+            <div v-if="csvData != ''">
+              <button
+                type="button"
+                @click="parseCSVData"
+                :disabled="csvData === ''"
+              >
+                Add data
+              </button>
+              <br />
+              <br />
+            </div>
+            <input type="submit" :disabled="parsedData == null" />
+          </form>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -152,13 +152,13 @@ export default {
       });
     }
 
-    let parsedData = {};
+    let parsedData = ref(null);
     let xPlots = [];
 
     const csvData = ref("");
 
     function parseCSVData() {
-      parsedData = Papa.parse(csvData.value, {
+      parsedData.value = Papa.parse(csvData.value, {
         skipEmptyLines: "greedy",
         dynamicTyping: true
       });
@@ -170,13 +170,17 @@ export default {
       xPlots = getXPlots();
       xPlots.shift();
 
-      const docRef = await addGraphToFirestoreCollection();
-
-      addYPlotsToFirestoreGraphCollection(docRef);
+      try {
+        const docRef = await addGraphToFirestoreCollection();
+        addYPlotsToFirestoreGraphCollection(docRef);
+      } catch (err) {
+        // add success / fail notification system
+        console.log(err);
+      }
     }
 
     function getXPlots() {
-      xPlots = parsedData.data.map(function(pair) {
+      xPlots = parsedData.value.data.map(function(pair) {
         return pair[0];
       });
       return xPlots;
@@ -202,11 +206,11 @@ export default {
     }
 
     async function addYPlotsToFirestoreGraphCollection(docRef) {
-      for (let i = 1; i < parsedData.data[0].length; i++) {
+      for (let i = 1; i < parsedData.value.data[0].length; i++) {
         let yPlots = [];
         let yDataName = "";
 
-        yPlots = parsedData.data.map(function(pair) {
+        yPlots = parsedData.value.data.map(function(pair) {
           return pair[i];
         });
 

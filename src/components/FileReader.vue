@@ -15,18 +15,38 @@
 export default {
   emits: ["load"],
   setup(props, context) {
-    // If we need to reset the data in input for some reason, we need to attach ref to element
-    //const graphData = ref("test")
     function loadDataFromFile(e) {
       const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.onload = e => context.emit("load", e.target.result);
-      reader.readAsText(file);
-
-      //graphData.value = ''
+      if (isValidFileType(file)) {
+        const reader = new FileReader();
+        reader.onload = e => context.emit("load", e.target.result);
+        reader.readAsText(file);
+      } else {
+        //display error notification about wrong file type
+      }
+      e.target.value = "";
     }
 
+    function isValidFileType(file) {
+      // removed "text/plain", unsure if some "csv" files are classed as text/plain
+      // in certain browsers.
+      const validFileTypes = [
+        "application/vnd.ms-excel",
+        "text/x-csv",
+        "application/csv",
+        "application/x-csv",
+        "text/comma-separated-values",
+        "text/x-comma-separated-values"
+      ];
+
+      for (const fileType of validFileTypes) {
+        if (file.type == fileType) {
+          console.log(file);
+          return true;
+        }
+      }
+      return false;
+    }
     return { loadDataFromFile };
   }
 };
