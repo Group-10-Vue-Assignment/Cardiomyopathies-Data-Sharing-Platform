@@ -19,7 +19,7 @@
       v-model="phoneNumber"
     />
 
-    <button>Registar</button>
+    <button>Register</button>
     <div class="switch-user">
       <router-link to="/login"> Already have an account?</router-link>
     </div>
@@ -30,9 +30,9 @@
 
 <script>
 /* eslint-disable */
-import { ref } from 'vue';
-import useSignup from '../firebaseFunctions/useSignup.js';
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import useSignup from "../firebaseFunctions/useSignup.js";
+import { useRouter } from "vue-router";
 export default {
   setup() {
     function showPosition(position) {
@@ -72,8 +72,8 @@ export default {
       );
 
       if (!error.value) {
-        console.log('user signed up');
-        router.push({ name: 'DashBoard' });
+        console.log("user signed up");
+        router.push({ name: "DashBoard" });
       }
     };
 
@@ -133,7 +133,7 @@ select {
   border-bottom: 1px solid #ddd;
   color: #555;
 }
-input[type='checkbox'] {
+input[type="checkbox"] {
   display: inline-block;
   width: 16px;
   margin: 0 10px 0 0;

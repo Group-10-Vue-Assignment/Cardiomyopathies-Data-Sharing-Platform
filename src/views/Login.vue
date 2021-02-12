@@ -7,7 +7,7 @@
     <button>Log in</button>
 
     <div class="switch-user">
-      <router-link to="/signup">Not registared?</router-link>
+      <router-link to="/signup">Not registered?</router-link>
 
       <router-link to="/forgotpassword">Forgotten password?</router-link>
     </div>
