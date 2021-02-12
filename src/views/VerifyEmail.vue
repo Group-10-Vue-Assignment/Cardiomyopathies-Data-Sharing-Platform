@@ -1,17 +1,19 @@
 <template>
-  <div v-if="user.emailVerified">
-    <h1>Your account has been successfully verified by email</h1>
+  <div class="verify-section">
+    <div v-if="user.emailVerified">
+      <h1>Your account has been successfully verified by email</h1>
+    </div>
+    <div v-else>
+      <h1>Your account needs to be verified</h1>
+      <p class="verify-message">
+        Please check your email for a verification link, or click the button
+        below to recieve a new link
+      </p>
+      <button v-if="!success" @click="handleClick">verify email</button>
+    </div>
+    <div v-if="error" class="error">{{ error }}</div>
+    <div v-if="success" class="success">{{ success }}</div>
   </div>
-  <div v-else>
-    <h1>Your account needs to be verified</h1>
-    <p>
-      Please check your email for a verification link, or click the button below
-      to recieve a new link
-    </p>
-    <button v-if="!success" @click="handleClick">verify email</button>
-  </div>
-  <div v-if="error" class="error">{{ error }}</div>
-  <div v-if="success" class="success">{{ success }}</div>
 </template>
 
 <script>
@@ -44,4 +46,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.verify-section {
+  margin: 100px;
+}
+
+.verify-message {
+  margin: 20px;
+}
+</style>
