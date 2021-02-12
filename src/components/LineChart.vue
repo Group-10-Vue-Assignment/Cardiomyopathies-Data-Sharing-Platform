@@ -67,15 +67,15 @@ export default {
       xaxis: {
         categories: xPlots,
         // tick (how many plots on axis, - 1 to actually make what user wanted)
-        tickAmount: graphInformation.value.xTickAmount - 1,
+        //tickAmount: graphInformation.value.xTickAmount - 1,
         type: "numeric",
         title: {
           text: graphInformation.value.xAxisTitle
         }
       },
       yaxis: {
-        min: 1.6,
-        max: 1.9,
+        //min: 1.6,
+        //max: 1.9,
         tickAmount: graphInformation.value.yTickAmount - 1,
         title: {
           text: graphInformation.value.yAxisTitle
