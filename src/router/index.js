@@ -5,7 +5,7 @@ import Signup from "../views/Signup.vue";
 import DashBaord from "../views/DashBoard.vue";
 import AddGraph from "@/views/AddGraph.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
-
+import VerifyEmail from "../views/VerifyEmail.vue";
 // route guard
 import { projectAuth } from "../firebase/config";
 
@@ -14,8 +14,14 @@ const requireAuth = (to, from, next) => {
   if (!user) {
     next({ name: "Login" });
   } else {
-    next();
+    if (user.emailVerified) {
+      next();
+    } else {
+      next({ name: "VerifyEmail" });
+    }
   }
+
+  console.log(user.emailVerified);
 };
 
 const routes = [
@@ -50,6 +56,11 @@ const routes = [
     path: "/forgotpassword",
     name: "ForgotPassword",
     component: ForgotPassword
+  },
+  {
+    path: "/verifyemail",
+    name: "VerifyEmail",
+    component: VerifyEmail
   }
 ];
 

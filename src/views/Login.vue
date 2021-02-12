@@ -21,6 +21,7 @@ import { useRouter } from "vue-router";
 export default {
   setup() {
     const router = useRouter();
+
     const { login, error } = useLogin();
     const email = ref(null);
     const password = ref(null);
