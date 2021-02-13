@@ -1,7 +1,10 @@
 <template>
   <div>
     <nav class="nav-bar">
-      <div class="logo">cardiomyopathie</div>
+      <div class="logo">
+        CDSP
+        <p class="slogan">Cardiomyopathies-Data-Sharing-Platform</p>
+      </div>
       <div class="nav-items">
         <div v-if="!user">
           <router-link class="nav-item" to="/">Home</router-link>
@@ -46,8 +49,8 @@ export default {
 
 <style scoped>
 .nav-bar {
-  padding: 30px;
-  background: #0b6dff;
+  padding: 2%;
+  background: #618bca;
   display: flex;
   justify-content: space-between;
 }
@@ -57,8 +60,17 @@ export default {
 }
 
 .logo {
+  font-size: 25px;
   color: white;
   text-transform: uppercase;
+  font-weight: bold;
+}
+
+.slogan {
+  font-size: 15px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .logout-btn {

@@ -81,6 +81,7 @@ select {
   box-sizing: border-box;
   border: none;
   border-bottom: 1px solid #ddd;
+  border-radius: 4px;
   color: #555;
 }
 input[type="checkbox"] {

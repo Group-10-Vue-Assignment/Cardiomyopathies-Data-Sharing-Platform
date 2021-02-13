@@ -1,8 +1,8 @@
 <template>
-  <h1>User dashboard</h1>
+  <h1>User Dashboard</h1>
 
   <div v-if="error">{{ error }}</div>
-  <div v-if="userDetails">
+  <div class="userDetails" v-if="userDetails">
     <label>{{ userDetails.name }}</label>
     <br />
     <label>{{ userDetails.institution }}</label>
@@ -36,4 +36,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+h1 {
+  padding: 0.5%;
+}
+.userDetails {
+  padding: 0.5%;
+}
+</style>
