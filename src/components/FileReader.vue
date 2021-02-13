@@ -12,18 +12,28 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+
 export default {
   emits: ["load"],
   setup(props, context) {
+    const store = useStore();
+
     function loadDataFromFile(e) {
       const file = e.target.files[0];
+
+      let notification = {};
       if (isValidFileType(file)) {
         const reader = new FileReader();
         reader.onload = e => context.emit("load", e.target.result);
         reader.readAsText(file);
       } else {
-        //display error notification about wrong file type
+        notification = {
+          type: "error",
+          message: "Wrong file type selected! Please select a CSV file"
+        };
       }
+      store.dispatch("addNotification", notification);
       e.target.value = "";
     }
 
@@ -58,7 +68,6 @@ export default {
   overflow: hidden;
   display: inline-block;
 
-  /* Fancy button style 😎 */
   border: 2px solid black;
   border-radius: 5px;
   padding: 8px 12px;

@@ -124,15 +124,18 @@ import getUser from "../firebaseFunctions/getUser.js";
 import FileReader from "@/components/FileReader";
 import Papa from "papaparse";
 import { graphsCollection } from "@/firebase/config";
-
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default {
   name: "AddGraph",
   components: {
     FileReader
   },
   setup() {
-    const { user } = getUser();
+    const store = useStore();
+    const router = useRouter();
 
+    const { user } = getUser();
     const cardiomyopathyData = createFreshCardiomyopathyDataObject();
 
     // matches graphs on firebase, havent included graphdata
@@ -163,6 +166,12 @@ export default {
         dynamicTyping: true
       });
 
+      let notification = {
+        type: "success",
+        message: "CSV file has uploaded successfully!"
+      };
+
+      store.dispatch("addNotification", notification);
       csvData.value = "";
     }
 
@@ -170,13 +179,29 @@ export default {
       xPlots = getXPlots();
       xPlots.shift();
 
+      let notification = {};
       try {
         const docRef = await addGraphToFirestoreCollection();
         addYPlotsToFirestoreGraphCollection(docRef);
+        notification = {
+          type: "success",
+          message: "Your data has been submitted successfully!"
+        };
+        router.push({
+          // Cold add params and push them to their specific graph to show it worked
+          name: "DashBoard"
+          //params: { id: graphId}
+        });
+        // because we are using an object, we need a new object reference for future
+        this.cardiomyopathyData = createFreshCardiomyopathyDataObject();
       } catch (err) {
-        // add success / fail notification system
+        notification = {
+          type: "error",
+          message: "There was a problem submitting your data: " + err.message
+        };
         console.log(err);
       }
+      store.dispatch("addNotification", notification);
     }
 
     function getXPlots() {
@@ -205,6 +230,9 @@ export default {
       return docRef;
     }
 
+    // We skip the first column as that is xPlots column.
+    // Every column after is yPlots.
+    // First row on each column is the header
     async function addYPlotsToFirestoreGraphCollection(docRef) {
       for (let i = 1; i < parsedData.value.data[0].length; i++) {
         let yPlots = [];
