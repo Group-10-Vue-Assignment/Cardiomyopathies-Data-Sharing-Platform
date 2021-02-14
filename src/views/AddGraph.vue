@@ -3,116 +3,92 @@
     <section>
       <div class="add-data">
         <h2>Insert graph data</h2>
-        <div>
-          <form @submit.prevent="submitData">
-            <label for="cardiomyopathyType"
-              >Enter the Cardiomyopathy type</label
+        <form @submit.prevent="submitData">
+          <BaseSelect
+            :options="cardiomyopathyTypeOptions"
+            v-model="cardiomyopathyData.cardiomyopathyType"
+            label="Select Cardiomyopathy Type"
+          />
+          <br />
+          <BaseSelect
+            :options="mutatedGeneTypeOptions"
+            v-model="cardiomyopathyData.mutatedGeneType"
+            label="Select Mutated Gene Type"
+          />
+          <br />
+          <label for="paper">Enter the paper the data was sourced from</label>
+          <input
+            v-model="cardiomyopathyData.paper"
+            type="text"
+            id="paper"
+            placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
+            required
+          />
+          <br />
+          <BaseSelect
+            :options="dataTypeOptions"
+            v-model="cardiomyopathyData.typeOfData"
+            label="Select Data Type"
+          />
+          <h5>Graph information</h5>
+          <label for="xAxisTitle">Enter the title for the x Axis</label>
+          <input
+            v-model="cardiomyopathyData.xAxisTitle"
+            type="text"
+            id="xAxisTitle"
+            placeholder="e.g: Time (sec)"
+            required
+          />
+          <br />
+          <label for="yAxisTitle">Enter the title for the y Axis</label>
+          <input
+            v-model="cardiomyopathyData.yAxisTitle"
+            type="text"
+            id="yAxisTitle"
+            placeholder="e.g: Sarcomere length (µm)"
+            required
+          />
+          <br />
+          <label for="roundYAxisDP"
+            >Enter the decimal place to round Y Axis too</label
+          >
+          <input
+            v-model="cardiomyopathyData.roundYAxisDP"
+            type="number"
+            id="roundYAxisDP"
+            min="0"
+            max="4"
+            required
+          />
+          <br />
+          <label for="yTickAmount"
+            >Enter the amount of Y axis ticks you wish to be displayed on the
+            rendered graph</label
+          >
+          <input
+            v-model="cardiomyopathyData.yTickAmount"
+            type="number"
+            id="yTickAmount"
+            min="3"
+            max="10"
+            required
+          />
+          <p>Select a csv to pull data from</p>
+          <FileReader @load="csvData = $event" />
+          <br />
+          <div v-if="csvData != ''">
+            <button
+              type="button"
+              @click="parseCSVData"
+              :disabled="csvData === ''"
             >
-            <input
-              v-model="cardiomyopathyData.cardiomyopathyType"
-              type="text"
-              id="cardiomyopathyType"
-              placeholder="e.g: hypertrophic cardiomyopathy"
-              required
-            />
+              Add data
+            </button>
             <br />
-            <label for="mutatedGeneType">Enter the mutated gene type</label>
-            <input
-              v-model="cardiomyopathyData.mutatedGeneType"
-              type="text"
-              id="mutatedGeneType"
-              placeholder="e.g: TNNT"
-              required
-            />
             <br />
-            <label for="paper">Enter the paper the data was sourced from</label>
-            <input
-              v-model="cardiomyopathyData.paper"
-              type="text"
-              id="paper"
-              placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
-              required
-            />
-            <br />
-            <label for="typeOfData">Enter the type of data</label>
-            <input
-              v-model="cardiomyopathyData.typeOfData"
-              type="text"
-              id="typeOfData"
-              placeholder="e.g: sarcomere length vs time"
-              required
-            />
-            <br />
-            <h5>Graph information</h5>
-            <label for="xAxisTitle">Enter the title for the x Axis</label>
-            <input
-              v-model="cardiomyopathyData.xAxisTitle"
-              type="text"
-              id="xAxisTitle"
-              placeholder="e.g: Time (sec)"
-              required
-            />
-            <br />
-            <label for="yAxisTitle">Enter the title for the y Axis</label>
-            <input
-              v-model="cardiomyopathyData.yAxisTitle"
-              type="text"
-              id="yAxisTitle"
-              placeholder="e.g: Sarcomere length (µm)"
-              required
-            />
-            <br />
-            <label for="roundYAxisDP"
-              >Enter the decimal place to round Y Axis too</label
-            >
-            <input
-              v-model="cardiomyopathyData.roundYAxisDP"
-              type="number"
-              id="roundYAxisDP"
-              placeholder="e.g: 3"
-              required
-            />
-            <br />
-            <label for="xTickAmount"
-              >Enter the amount of X axis ticks you wish to be displayed on the
-              rendered graph</label
-            >
-            <input
-              v-model="cardiomyopathyData.xTickAmount"
-              type="number"
-              id="xTickAmount"
-              placeholder="e.g: 5"
-              required
-            />
-            <br />
-            <label for="yTickAmount"
-              >Enter the amount of Y axis ticks you wish to be displayed on the
-              rendered graph</label
-            >
-            <input
-              v-model="cardiomyopathyData.yTickAmount"
-              type="number"
-              id="yTickAmount"
-              placeholder="e.g: 7"
-              required
-            />
-            <p>Select a csv to pull data from</p>
-            <FileReader @load="csvData = $event" />
-            <br />
-            <div v-if="csvData != ''">
-              <button
-                type="button"
-                @click="parseCSVData"
-                :disabled="csvData === ''"
-              >
-                Add data
-              </button>
-              <br />
-              <br />
-            </div>
-            <input type="submit" :disabled="parsedData == null" />
-          </form>
-        </div>
+          </div>
+          <input type="submit" :disabled="parsedData == null" />
+        </form>
       </div>
     </section>
   </div>
@@ -126,10 +102,12 @@ import Papa from "papaparse";
 import { graphsCollection } from "@/firebase/config";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import BaseSelect from "@/components/BaseSelect.vue";
 export default {
   name: "AddGraph",
   components: {
-    FileReader
+    FileReader,
+    BaseSelect
   },
   setup() {
     const store = useStore();
@@ -144,16 +122,36 @@ export default {
         cardiomyopathyType: "",
         mutatedGeneType: "",
         paper: "",
-        roundYAxisDP: null,
+        roundYAxisDP: 2,
         timeOfInsert: "Date placeholder",
         typeOfData: "",
-        xTickAmount: null,
         xAxisTitle: "",
-        yTickAmount: null,
         yAxisTitle: "",
+        yTickAmount: 7,
         userId: user.value.uid
       });
     }
+
+    let dataTypeOptions = ref([
+      "Force-time Curve",
+      "Sarcomere Length vs Time",
+      "Sliding Velocity vs Calcium Concentration",
+      "Tension vs Calcium Concentration",
+      "Force vs Calcium Concentration",
+      "Tension vs Sarcomere Shortening Velocity",
+      "Force vs Sarcomere Shortening Velocity",
+      "Sarcomere Shortening vs Time"
+    ]);
+
+    let mutatedGeneTypeOptions = ref(["TNNT", "MYH", "MYBPC3", "TPM1"]);
+
+    let cardiomyopathyTypeOptions = ref([
+      "Hypertrophic Cardiomyopathy",
+      "Dilated Cardiomyopathy",
+      "Restrictive Cardiomyopathy",
+      "Transthyretin Amyloid Cardiomyopathy (ATTR-CM)",
+      "Arrhythmogenic Right Ventricular Dysplasia"
+    ]);
 
     let parsedData = ref(null);
     let xPlots = [];
@@ -219,7 +217,6 @@ export default {
         roundYAxisDP: cardiomyopathyData.roundYAxisDP,
         timeOfInsert: new Date(),
         typeOfData: cardiomyopathyData.typeOfData,
-        xTickAmount: cardiomyopathyData.xTickAmount,
         xAxisTitle: cardiomyopathyData.xAxisTitle,
         yTickAmount: cardiomyopathyData.yTickAmount,
         yAxisTitle: cardiomyopathyData.yAxisTitle,
@@ -257,7 +254,10 @@ export default {
       csvData,
       parseCSVData,
       submitData,
-      parsedData
+      parsedData,
+      dataTypeOptions,
+      mutatedGeneTypeOptions,
+      cardiomyopathyTypeOptions
     };
   }
 };
