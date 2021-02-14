@@ -87,7 +87,11 @@
             <br />
             <br />
           </div>
-          <input type="submit" :disabled="parsedData == null" />
+          <input
+            type="submit"
+            :disabled="parsedData == null"
+            :class="{ clickable: parsedData != null }"
+          />
         </form>
       </div>
     </section>
@@ -262,3 +266,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.clickable {
+  cursor: pointer;
+}
+</style>
