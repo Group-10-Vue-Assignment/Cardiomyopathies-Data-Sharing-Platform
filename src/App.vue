@@ -1,7 +1,9 @@
 <template>
   <NavBar />
   <NotificationContainer />
-  <router-view />
+  <Suspense>
+    <router-view />
+  </Suspense>
 </template>
 <script>
 import NavBar from "./components/NavBar.vue";

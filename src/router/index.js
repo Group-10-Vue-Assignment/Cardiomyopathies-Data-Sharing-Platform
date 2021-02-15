@@ -7,6 +7,7 @@ import AddGraph from "@/views/AddGraph.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
 import SearchPage from "../views/SearchPage.vue";
+import GraphDetails from "@/views/GraphDetails";
 // route guard
 import { projectAuth } from "../firebase/config";
 
@@ -51,6 +52,13 @@ const routes = [
     path: "/add-graph",
     name: "AddGraph",
     component: AddGraph,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/graph-details/:id",
+    name: "GraphDetails",
+    component: GraphDetails,
+    props: true,
     beforeEnter: requireAuth
   },
   {

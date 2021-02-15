@@ -2,20 +2,23 @@
   <h3>Graphs Created By You</h3>
   <p v-if="error != ''">No graphs found, add a graph and come back.</p>
   <div>
-    <Suspense>
-      <line-chart
-        class="center"
-        v-for="graph in graphs"
-        :key="graph.graphId"
-        :graph="graph"
-      ></line-chart>
-    </Suspense>
+    <line-chart
+      class="center"
+      v-for="graph in graphs"
+      :key="graph.graphId"
+      :graphInformation="graph.graphInformation"
+      :yPlots="graph.yPlots"
+      ><router-link
+        :to="{ name: 'GraphDetails', params: { id: graph.graphId } }"
+        >View Details
+      </router-link></line-chart
+    >
   </div>
 </template>
 
 <script>
 import LineChart from "@/components/LineChart";
-import { graphsCollection } from "@/firebase/config";
+import { getGraphsBySearchTerm } from "@/firebaseFunctions/getGraph";
 import { ref } from "vue";
 
 export default {
@@ -29,26 +32,8 @@ export default {
     }
   },
   async setup(props) {
-    const graphs = ref(await getGraphs());
+    const graphs = ref(await getGraphsBySearchTerm("userId", props.userId));
     const error = ref("");
-
-    async function getGraphs() {
-      let graphCollection = [];
-
-      await graphsCollection
-        .where("userId", "==", props.userId)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            let graph = {
-              graphId: doc.id,
-              graphInformation: doc.data()
-            };
-            graphCollection.push(graph);
-          });
-        });
-      return graphCollection;
-    }
 
     if (graphs.value.length === 0) {
       error.value = "No graphs found matching search";
