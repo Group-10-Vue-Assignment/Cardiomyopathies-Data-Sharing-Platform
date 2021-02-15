@@ -77,11 +77,7 @@
           <FileReader @load="csvData = $event" />
           <br />
           <div v-if="csvData != ''">
-            <button
-              type="button"
-              @click="parseCSVData"
-              :disabled="csvData === ''"
-            >
+            <button @click="parseCSVData">
               Add data
             </button>
             <br />
@@ -191,8 +187,8 @@ export default {
         };
         router.push({
           // Cold add params and push them to their specific graph to show it worked
-          name: "DashBoard"
-          //params: { id: graphId}
+          name: "GraphDetails",
+          params: { id: docRef.id }
         });
         // because we are using an object, we need a new object reference for future
         this.cardiomyopathyData = createFreshCardiomyopathyDataObject();

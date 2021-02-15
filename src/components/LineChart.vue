@@ -7,38 +7,28 @@
       :options="chartOptions"
       :series="series"
     ></apexchart>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
-import { graphsCollection } from "@/firebase/config";
 
 export default {
   props: {
-    graph: {
+    graphInformation: {
       type: Object,
+      required: true
+    },
+    yPlots: {
+      type: Array,
       required: true
     }
   },
-  async setup(props) {
-    let yPlots = ref(await getYPlotsForGraph(props.graph.graphId));
-    let xPlots = ref(props.graph.graphInformation.xPlots);
-    let graphInformation = ref(props.graph.graphInformation);
-
-    async function getYPlotsForGraph(graphId) {
-      let plots = [];
-      await graphsCollection
-        .doc(graphId)
-        .collection("yPlots")
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            plots.push(doc.data());
-          });
-        });
-      return plots;
-    }
+  setup(props) {
+    let yPlots = ref(props.yPlots);
+    let xPlots = ref(props.graphInformation.xPlots);
+    let graphInformation = ref(props.graphInformation);
 
     const chartOptions = ref({
       chart: {

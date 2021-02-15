@@ -20,7 +20,7 @@ const getUserDetails = id => {
         };
         error.value = null;
       } else {
-        error.value = "user dosent exisit";
+        error.value = "user does not exist";
       }
     },
     err => {
