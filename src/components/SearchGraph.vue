@@ -28,6 +28,9 @@ export default {
     },
     cardioMyopathyType: {
       type: String
+    },
+    mutatedGeneType: {
+      type: String
     }
   },
   async setup(props) {
@@ -39,6 +42,8 @@ export default {
 
       await graphsCollection
         .where("userId", "==", props.userId)
+        // .where("cardioMyopathyType", "==", props.cardioMyopathyType)
+        // .where("mutatedGeneType", "==", props.mutatedGeneType)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {

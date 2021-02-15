@@ -16,49 +16,30 @@
             label="Select Mutated Gene Type"
           />
           <br />
-          <label for="paper">Enter the paper the data was sourced from</label>
-          <input
-            v-model="cardiomyopathyData.paper"
-            type="text"
-            id="paper"
-            placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
-            required
-          />
-          <br />
-          <BaseSelect
-            :options="dataTypeOptions"
-            v-model="cardiomyopathyData.typeOfData"
-            label="Select Data Type"
-          />
 
-          <input
-            type="submit"
-            :disabled="parsedData == null"
-            :class="{ clickable: parsedData != null }"
-          />
+          <input type="submit" />
         </form>
       </div>
 
       <div class="graphs">
         <Suspense>
-          <GraphsCollection :userId="user.uid" />
+          <SearchGraph :userId="user.uid" />
         </Suspense>
       </div>
     </section>
   </div>
-  npm
 </template>
 
 <script>
 import { reactive, ref } from "vue";
 import getUser from "../firebaseFunctions/getUser.js";
 import BaseSelect from "@/components/BaseSelect.vue";
-import GraphsCollection from "@/components/GraphsCollection.vue";
+import SearchGraph from "@/components/SearchGraph.vue";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 
 export default {
   components: {
-    GraphsCollection,
+    SearchGraph,
     BaseSelect
   },
   setup() {
@@ -74,22 +55,9 @@ export default {
       return reactive({
         cardiomyopathyType: "",
         mutatedGeneType: "",
-        paper: "",
-        typeOfData: "",
         userId: user.value.uid
       });
     }
-
-    let dataTypeOptions = ref([
-      "Force-time Curve",
-      "Sarcomere Length vs Time",
-      "Sliding Velocity vs Calcium Concentration",
-      "Tension vs Calcium Concentration",
-      "Force vs Calcium Concentration",
-      "Tension vs Sarcomere Shortening Velocity",
-      "Force vs Sarcomere Shortening Velocity",
-      "Sarcomere Shortening vs Time"
-    ]);
 
     let mutatedGeneTypeOptions = ref(["TNNT", "MYH", "MYBPC3", "TPM1"]);
 
@@ -103,7 +71,6 @@ export default {
 
     return {
       cardiomyopathyData,
-      dataTypeOptions,
       mutatedGeneTypeOptions,
       cardiomyopathyTypeOptions,
       user,
