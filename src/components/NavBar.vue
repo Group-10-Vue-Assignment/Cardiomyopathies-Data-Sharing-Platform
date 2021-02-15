@@ -60,7 +60,6 @@ export default {
 
 .user-items {
   display: flex;
-  margin-top: 16px;
 }
 
 .non-user {
@@ -86,6 +85,7 @@ export default {
   padding: 0;
   font-size: 16px;
   margin-left: 20px;
+  margin-top: 16px;
   background: #618bca;
 }
 
