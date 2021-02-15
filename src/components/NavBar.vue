@@ -6,7 +6,7 @@
         <p class="slogan">Cardiomyopathies-Data-Sharing-Platform</p>
       </div>
       <div class="nav-items">
-        <div v-if="!user">
+        <div v-if="!user" class="non-user">
           <router-link class="nav-item" to="/">Home</router-link>
           <router-link class="nav-item" to="/login">Login</router-link>
           <router-link class="nav-item" to="/signup">Sign up</router-link>
@@ -63,6 +63,10 @@ export default {
   margin-top: 16px;
 }
 
+.non-user {
+  display: flex;
+}
+
 .logo {
   font-size: 25px;
   color: white;
@@ -87,6 +91,7 @@ export default {
 
 .nav-item {
   color: white;
+  margin-top: 16px;
   margin-left: 20px;
 
   text-decoration: none;
