@@ -6,6 +6,7 @@ import DashBaord from "../views/DashBoard.vue";
 import AddGraph from "@/views/AddGraph.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
+import SearchPage from "../views/SearchPage.vue";
 // route guard
 import { projectAuth } from "../firebase/config";
 
@@ -61,6 +62,11 @@ const routes = [
     path: "/verifyemail",
     name: "VerifyEmail",
     component: VerifyEmail
+  },
+  {
+    path: "/searchpage",
+    name: "SearchPage",
+    component: SearchPage
   }
 ];
 
