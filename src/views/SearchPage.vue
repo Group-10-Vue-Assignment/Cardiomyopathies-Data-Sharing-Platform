@@ -38,27 +38,35 @@
           />
         </form>
       </div>
+
+      <div class="graphs">
+        <Suspense>
+          <GraphsCollection :userId="user.uid" />
+        </Suspense>
+      </div>
     </section>
   </div>
+  npm
 </template>
 
 <script>
 import { reactive, ref } from "vue";
 import getUser from "../firebaseFunctions/getUser.js";
-// import { useStore } from "vuex";
-// import { useRouter } from "vue-router";
 import BaseSelect from "@/components/BaseSelect.vue";
+import GraphsCollection from "@/components/GraphsCollection.vue";
+import getUserDetails from "../firebaseFunctions/getUserDetails.js";
+
 export default {
-  name: "AddGraph",
   components: {
-    // FileReader,
+    GraphsCollection,
     BaseSelect
   },
   setup() {
-    // const store = useStore();
-    // const router = useRouter();
-
     const { user } = getUser();
+
+    const { userDetails, error } = getUserDetails(`${user.value.uid}`);
+    console.log(userDetails.value);
+
     const cardiomyopathyData = createFreshCardiomyopathySearchObject();
 
     // matches graphs on firebase, havent included graphdata
@@ -97,7 +105,10 @@ export default {
       cardiomyopathyData,
       dataTypeOptions,
       mutatedGeneTypeOptions,
-      cardiomyopathyTypeOptions
+      cardiomyopathyTypeOptions,
+      user,
+      userDetails,
+      error
     };
   }
 };
