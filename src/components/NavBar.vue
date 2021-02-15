@@ -60,6 +60,7 @@ export default {
 
 .user-items {
   display: flex;
+  margin-top: 16px;
 }
 
 .logo {
@@ -81,11 +82,13 @@ export default {
   padding: 0;
   font-size: 16px;
   margin-left: 20px;
+  background: #618bca;
 }
 
 .nav-item {
   color: white;
   margin-left: 20px;
+
   text-decoration: none;
 }
 
