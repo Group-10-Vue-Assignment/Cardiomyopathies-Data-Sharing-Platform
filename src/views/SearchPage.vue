@@ -4,18 +4,31 @@
       <div class="search">
         <h2>Search Graphs</h2>
 
+        <div class="search-btns">
+          <button v-bind:disabled="!hideCardioType" @click="toggleCardioType">
+            Cardiomyopathy Type
+          </button>
+          <button v-bind:disabled="!hideGeneType" @click="toggleGeneType">
+            MutatedGene Type
+          </button>
+        </div>
+
         <form @submit.prevent="queryData">
-          <BaseSelect
-            :options="cardiomyopathyTypeOptions"
-            v-model="cardiomyopathyData.cardiomyopathyType"
-            label="Select Cardiomyopathy Type"
-          />
-          <br />
-          <BaseSelect
-            :options="mutatedGeneTypeOptions"
-            v-model="cardiomyopathyData.mutatedGeneType"
-            label="Select Mutated Gene Type"
-          />
+          <div v-if="!hideCardioType">
+            <BaseSelect
+              :options="cardiomyopathyTypeOptions"
+              v-model="cardiomyopathyData.cardiomyopathyType"
+              label="Select Cardiomyopathy Type"
+            />
+          </div>
+
+          <div v-if="!hideGeneType">
+            <BaseSelect
+              :options="mutatedGeneTypeOptions"
+              v-model="cardiomyopathyData.mutatedGeneType"
+              label="Select Mutated Gene Type"
+            />
+          </div>
 
           <br />
 
@@ -25,7 +38,7 @@
       <div class="graphs">
         <Suspense>
           <GraphsCollection
-            :searchTerm="'cardiomyopathyType'"
+            :searchTerm="searchTerm"
             :searchValue="chosenCardiomyopathyType"
             :key="searchId"
           />
@@ -49,6 +62,20 @@ export default {
   },
   setup() {
     const searchId = ref(0);
+
+    const hideCardioType = ref(false);
+    const hideGeneType = ref(true);
+    const searchTerm = ref("cardiomyopathyType");
+
+    const toggleCardioType = () => {
+      hideCardioType.value = !hideCardioType.value;
+      hideGeneType.value = true;
+    };
+
+    const toggleGeneType = () => {
+      hideGeneType.value = !hideGeneType.value;
+      hideCardioType.value = true;
+    };
 
     const { user } = getUser();
 
@@ -78,7 +105,16 @@ export default {
     ]);
 
     function queryData() {
-      chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
+      if (!hideCardioType.value) {
+        chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
+        searchTerm.value = "cardiomyopathyType";
+      } else {
+        chosenCardiomyopathyType.value = cardiomyopathyData.mutatedGeneType;
+        searchTerm.value = "mutatedGeneType";
+      }
+
+      console.log(chosenCardiomyopathyType.value);
+
       searchId.value += 1;
     }
 
@@ -91,7 +127,12 @@ export default {
       user,
       userDetails,
       error,
-      queryData
+      queryData,
+      hideCardioType,
+      hideGeneType,
+      toggleCardioType,
+      toggleGeneType,
+      searchTerm
     };
   }
 };
