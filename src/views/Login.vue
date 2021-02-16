@@ -92,7 +92,7 @@ input[type="checkbox"] {
 
 button {
   display: block;
-  background: #618bca;
+  background-color: #618bca;
   border: 0;
   margin: auto;
   padding: 10px 20px;
@@ -100,5 +100,10 @@ button {
   margin-top: 20px;
   color: white;
   border-radius: 20px;
+}
+
+button:disabled {
+  background-color: rgb(97 139 202 / 52%);
+  cursor: -moz-grab;
 }
 </style>

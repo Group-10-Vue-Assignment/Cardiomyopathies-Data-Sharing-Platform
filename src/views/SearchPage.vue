@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
-    <section>
+  <div>
+    <section class="container">
       <div class="search">
         <h2>Search Graphs</h2>
+
         <form @submit.prevent="queryData">
           <BaseSelect
             :options="cardiomyopathyTypeOptions"
@@ -15,6 +16,7 @@
             v-model="cardiomyopathyData.mutatedGeneType"
             label="Select Mutated Gene Type"
           />
+
           <br />
 
           <input type="submit" />
@@ -47,6 +49,7 @@ export default {
   },
   setup() {
     const searchId = ref(0);
+
     const { user } = getUser();
 
     const { userDetails, error } = getUserDetails(`${user.value.uid}`);
@@ -95,16 +98,33 @@ export default {
 </script>
 
 <style scoped>
+/*
 .search {
   width: 20%;
   margin: 5px;
   padding: 1em;
   float: left;
 }
+*/
+
+.container {
+  display: flex;
+  padding: 60px;
+  justify-content: center;
+}
+.search-btns {
+  display: flex;
+}
+
+.graphs {
+  gap: 332px;
+}
+/*
 .graphs {
   width: 60%;
   margin: 5px;
   padding: 1em;
   float: right;
 }
+*/
 </style>
