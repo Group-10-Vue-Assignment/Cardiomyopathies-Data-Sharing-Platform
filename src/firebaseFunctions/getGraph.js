@@ -15,7 +15,7 @@ const getGraph = async id => {
 };
 
 const getGraphsBySearchTerm = async (searchTerm, searchValue) => {
-  let graphCollection = ref([]);
+  let graphCollection = [];
 
   await graphsCollection
     .where(searchTerm, "==", searchValue)
@@ -26,12 +26,12 @@ const getGraphsBySearchTerm = async (searchTerm, searchValue) => {
           graphId: doc.id,
           graphInformation: doc.data()
         };
-        graphCollection.value.push(graph);
+        graphCollection.push(graph);
       });
     });
 
   await Promise.all(
-    graphCollection.value.map(async graph => {
+    graphCollection.map(async graph => {
       graph.yPlots = await getYPlotsForGraph(graph.graphId);
     })
   );

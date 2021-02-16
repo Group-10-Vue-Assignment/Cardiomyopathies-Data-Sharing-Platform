@@ -3,7 +3,7 @@
     <section>
       <div class="search">
         <h2>Search Graphs</h2>
-        <form @submit.prevent="submitData">
+        <form @submit.prevent="queryData">
           <BaseSelect
             :options="cardiomyopathyTypeOptions"
             v-model="cardiomyopathyData.cardiomyopathyType"
@@ -20,10 +20,13 @@
           <input type="submit" />
         </form>
       </div>
-
       <div class="graphs">
         <Suspense>
-          <SearchGraph :userId="user.uid" />
+          <GraphsCollection
+            :searchTerm="'cardiomyopathyType'"
+            :searchValue="chosenCardiomyopathyType"
+            :key="searchId"
+          />
         </Suspense>
       </div>
     </section>
@@ -34,21 +37,23 @@
 import { reactive, ref } from "vue";
 import getUser from "../firebaseFunctions/getUser.js";
 import BaseSelect from "@/components/BaseSelect.vue";
-import SearchGraph from "@/components/SearchGraph.vue";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
+import GraphsCollection from "@/components/GraphsCollection.vue";
 
 export default {
   components: {
-    SearchGraph,
+    GraphsCollection,
     BaseSelect
   },
   setup() {
+    const searchId = ref(0);
     const { user } = getUser();
 
     const { userDetails, error } = getUserDetails(`${user.value.uid}`);
     console.log(userDetails.value);
 
     const cardiomyopathyData = createFreshCardiomyopathySearchObject();
+    const chosenCardiomyopathyType = ref("");
 
     // matches graphs on firebase, havent included graphdata
     function createFreshCardiomyopathySearchObject() {
@@ -69,13 +74,21 @@ export default {
       "Arrhythmogenic Right Ventricular Dysplasia"
     ]);
 
+    function queryData() {
+      chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
+      searchId.value += 1;
+    }
+
     return {
+      searchId,
       cardiomyopathyData,
       mutatedGeneTypeOptions,
       cardiomyopathyTypeOptions,
+      chosenCardiomyopathyType,
       user,
       userDetails,
-      error
+      error,
+      queryData
     };
   }
 };

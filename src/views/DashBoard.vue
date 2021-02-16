@@ -9,7 +9,7 @@
   </div>
   <div>
     <Suspense>
-      <GraphsCollection :userId="user.uid" />
+      <GraphsCollection :searchTerm="'userId'" :searchValue="user.uid" />
     </Suspense>
   </div>
 </template>

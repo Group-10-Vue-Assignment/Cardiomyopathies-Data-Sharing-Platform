@@ -26,13 +26,20 @@ export default {
     LineChart
   },
   props: {
-    userId: {
+    searchTerm: {
+      type: String,
+      required: true
+    },
+    searchValue: {
       type: String,
       required: true
     }
   },
   async setup(props) {
-    const graphs = ref(await getGraphsBySearchTerm("userId", props.userId));
+    console.log(props.searchValue);
+    const graphs = ref(
+      await getGraphsBySearchTerm(props.searchTerm, props.searchValue)
+    );
     const error = ref("");
 
     if (graphs.value.length === 0) {
