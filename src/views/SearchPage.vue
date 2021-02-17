@@ -35,13 +35,23 @@
           <input type="submit" />
         </form>
       </div>
-      <div class="graphs">
+      <div
+        class="graphs"
+        v-if="chosenCardiomyopathyType && chosenMutatedGeneType"
+      >
         <Suspense>
-          <GraphsCollection
-            :searchTerm="searchTerm"
-            :searchValue="chosenCardiomyopathyType"
-            :key="searchId"
-          />
+          <template #default>
+            <GraphsCollection
+              :searchTermOne="searchTermOne"
+              :searchValueOne="chosenCardiomyopathyType"
+              :searchTermTwo="searchTermTwo"
+              :searchValueTwo="chosenMutatedGeneType"
+              :key="searchId"
+            />
+          </template>
+          <template #fallback>
+            <div>LOADING</div>
+          </template>
         </Suspense>
       </div>
     </section>
@@ -65,7 +75,8 @@ export default {
 
     const hideCardioType = ref(false);
     const hideGeneType = ref(true);
-    const searchTerm = ref("cardiomyopathyType");
+    const searchTermOne = ref("cardiomyopathyType");
+    const searchTermTwo = ref("mutatedGeneType");
 
     const toggleCardioType = () => {
       hideCardioType.value = !hideCardioType.value;
@@ -84,6 +95,7 @@ export default {
 
     const cardiomyopathyData = createFreshCardiomyopathySearchObject();
     const chosenCardiomyopathyType = ref("");
+    const chosenMutatedGeneType = ref("");
 
     // matches graphs on firebase, havent included graphdata
     function createFreshCardiomyopathySearchObject() {
@@ -105,16 +117,11 @@ export default {
     ]);
 
     function queryData() {
-      if (!hideCardioType.value) {
-        chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
-        searchTerm.value = "cardiomyopathyType";
-      } else {
-        chosenCardiomyopathyType.value = cardiomyopathyData.mutatedGeneType;
-        searchTerm.value = "mutatedGeneType";
-      }
+      chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
+      chosenMutatedGeneType.value = cardiomyopathyData.mutatedGeneType;
 
       console.log(chosenCardiomyopathyType.value);
-
+      console.log(chosenMutatedGeneType.value);
       searchId.value += 1;
     }
 
@@ -124,6 +131,7 @@ export default {
       mutatedGeneTypeOptions,
       cardiomyopathyTypeOptions,
       chosenCardiomyopathyType,
+      chosenMutatedGeneType,
       user,
       userDetails,
       error,
@@ -132,7 +140,8 @@ export default {
       hideGeneType,
       toggleCardioType,
       toggleGeneType,
-      searchTerm
+      searchTermOne,
+      searchTermTwo
     };
   }
 };

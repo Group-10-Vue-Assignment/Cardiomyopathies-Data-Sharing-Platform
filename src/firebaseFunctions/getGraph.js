@@ -61,6 +61,37 @@ const getGraphsBySearchTerm = async (searchTerm, searchValue) => {
   return graphCollection;
 };
 
+const getGraphsByTwoSearchTerms = async (
+  searchTerm1,
+  searchValue1,
+  searchTerm2,
+  searchValue2
+) => {
+  let graphCollection = [];
+
+  await graphsCollection
+    .where(searchTerm1, "==", searchValue1)
+    .where(searchTerm2, "==", searchValue2)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        let graph = {
+          graphId: doc.id,
+          graphInformation: doc.data()
+        };
+        graphCollection.push(graph);
+      });
+    });
+
+  await Promise.all(
+    graphCollection.map(async graph => {
+      graph.yPlots = await getYPlotsForGraph(graph.graphId);
+    })
+  );
+
+  return graphCollection;
+};
+
 async function getYPlotsForGraph(graphId) {
   let plots = [];
   await graphsCollection
@@ -75,4 +106,9 @@ async function getYPlotsForGraph(graphId) {
   return plots;
 }
 
-export { getGraph, getAllGraphs, getGraphsBySearchTerm };
+export {
+  getGraph,
+  getAllGraphs,
+  getGraphsBySearchTerm,
+  getGraphsByTwoSearchTerms
+};

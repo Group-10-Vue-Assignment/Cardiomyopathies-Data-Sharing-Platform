@@ -83,6 +83,7 @@
             <br />
             <br />
           </div>
+          <p>Placeholder - display selected csv file name</p>
           <input
             type="submit"
             :disabled="parsedData == null"

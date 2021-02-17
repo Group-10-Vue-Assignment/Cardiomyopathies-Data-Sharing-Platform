@@ -9,7 +9,12 @@
   </div>
   <div>
     <Suspense>
-      <GraphsCollection />
+      <template #default>
+        <GraphsCollection />
+      </template>
+      <template #fallback>
+        <div>LOADING</div>
+      </template>
     </Suspense>
   </div>
 </template>

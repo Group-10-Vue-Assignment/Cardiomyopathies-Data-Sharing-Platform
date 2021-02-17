@@ -9,9 +9,10 @@
       :yPlots="graph.yPlots"
       ><router-link
         :to="{ name: 'GraphDetails', params: { id: graph.graphId } }"
-        >View Details
-      </router-link></line-chart
-    >
+        ><button>View Details</button>
+      </router-link>
+      <button>Delete Graph</button>
+    </line-chart>
   </div>
 </template>
 
@@ -19,7 +20,7 @@
 import LineChart from "@/components/LineChart";
 import {
   getAllGraphs,
-  getGraphsBySearchTerm
+  getGraphsByTwoSearchTerms
 } from "@/firebaseFunctions/getGraph";
 import { ref } from "vue";
 
@@ -28,22 +29,36 @@ export default {
     LineChart
   },
   props: {
-    searchTerm: {
+    searchTermOne: {
       type: String,
       required: false
     },
-    searchValue: {
+    searchValueOne: {
+      type: String,
+      required: false
+    },
+    searchTermTwo: {
+      type: String,
+      required: false
+    },
+    searchValueTwo: {
       type: String,
       required: false
     }
   },
   async setup(props) {
-    console.log(props.searchValue);
     const graphs = ref([]);
-    if (props.searchTerm && props.searchValue) {
-      graphs.value = await getGraphsBySearchTerm(
-        props.searchTerm,
-        props.searchValue
+    if (
+      props.searchTermOne &&
+      props.searchTermTwo &&
+      props.searchValueOne &&
+      props.searchValueTwo
+    ) {
+      graphs.value = await getGraphsByTwoSearchTerms(
+        props.searchTermOne,
+        props.searchValueOne,
+        props.searchTermTwo,
+        props.searchValueTwo
       );
     } else {
       graphs.value = await getAllGraphs();
