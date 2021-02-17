@@ -14,6 +14,28 @@ const getGraph = async id => {
   return { graphInformation, yPlots, error };
 };
 
+const getAllGraphs = async () => {
+  let graphCollection = [];
+
+  await graphsCollection.get().then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      let graph = {
+        graphId: doc.id,
+        graphInformation: doc.data()
+      };
+      graphCollection.push(graph);
+    });
+  });
+
+  await Promise.all(
+    graphCollection.map(async graph => {
+      graph.yPlots = await getYPlotsForGraph(graph.graphId);
+    })
+  );
+
+  return graphCollection;
+};
+
 const getGraphsBySearchTerm = async (searchTerm, searchValue) => {
   let graphCollection = [];
 
@@ -53,4 +75,4 @@ async function getYPlotsForGraph(graphId) {
   return plots;
 }
 
-export { getGraph, getGraphsBySearchTerm };
+export { getGraph, getAllGraphs, getGraphsBySearchTerm };

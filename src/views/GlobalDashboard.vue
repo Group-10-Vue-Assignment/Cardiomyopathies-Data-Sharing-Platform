@@ -1,6 +1,6 @@
 <template>
-  <h1>User Dashboard</h1>
-
+  <h1>Global Dashboard</h1>
+  <h3>Graphs created by everyone (sorted by newest first *todo*)</h3>
   <div v-if="error">{{ error }}</div>
   <div class="userDetails" v-if="userDetails">
     <label>{{ userDetails.name }}</label>
@@ -9,7 +9,7 @@
   </div>
   <div>
     <Suspense>
-      <GraphsCollection :searchTerm="'userId'" :searchValue="user.uid" />
+      <GraphsCollection />
     </Suspense>
   </div>
 </template>

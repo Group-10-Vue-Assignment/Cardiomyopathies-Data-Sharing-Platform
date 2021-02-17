@@ -12,7 +12,12 @@
           <router-link class="nav-item" to="/signup">Sign up</router-link>
         </div>
         <div v-else class="user-items">
-          <router-link class="nav-item" to="/dashboard">Dashboard</router-link>
+          <router-link class="nav-item" to="/global-dashboard"
+            >Global Dashboard</router-link
+          >
+          <router-link class="nav-item" to="/user-dashboard"
+            >User Dashboard</router-link
+          >
           <router-link class="nav-item" to="/searchpage"
             >Search Graphs</router-link
           >
