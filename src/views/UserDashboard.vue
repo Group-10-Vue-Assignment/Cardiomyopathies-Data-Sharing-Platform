@@ -10,7 +10,10 @@
   <div>
     <Suspense>
       <template #default>
-        <GraphsCollection :searchTerm="'userId'" :searchValue="user.uid" />
+        <GraphsCollection
+          :searchTermOne="'userId'"
+          :searchValueOne="user.uid"
+        />
       </template>
       <template #fallback>
         <div>LOADING</div>
