@@ -13,7 +13,7 @@
             MutatedGene Type
           </button>
         </div>
-        Might want to add this switch back in later
+        Might want to add this switch back
         -->
 
         <form @submit.prevent="queryData">
@@ -32,7 +32,7 @@
 
           <br />
 
-          <input type="submit" />
+          <button type="submit">Search</button>
         </form>
       </div>
       <div
