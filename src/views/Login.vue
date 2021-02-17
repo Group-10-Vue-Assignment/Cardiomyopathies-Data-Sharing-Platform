@@ -27,7 +27,7 @@ export default {
     const password = ref(null);
     const handleSubmit = async () => {
       await login(email.value, password.value);
-      router.push({ name: "DashBoard" });
+      router.push({ name: "UserDashboard" });
     };
 
     return { email, password, handleSubmit, error };
@@ -95,11 +95,13 @@ button {
   background-color: #618bca;
   border: 0;
   margin: auto;
+  width: 130px;
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 20px;
   color: white;
   border-radius: 20px;
+  text-decoration: none;
 }
 
 button:disabled {

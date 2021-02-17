@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Graph Details</h1>
+
     <p>{{ graphInformation.cardiomyopathyType }}</p>
     <p>{{ graphInformation.mutatedGeneType }}</p>
     <p>{{ graphInformation.typeOfData }}</p>
@@ -14,6 +15,7 @@
       />
     </div>
   </div>
+
   <div v-if="error" class="error">{{ error }}</div>
 </template>
 

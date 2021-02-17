@@ -3,15 +3,18 @@ import { graphsCollection } from "@/firebase/config";
 
 const getGraph = async id => {
   const error = ref(null);
+  const loader = ref(true);
   let docRef = await graphsCollection.doc(id).get();
   let graphInformation = docRef.data();
   let yPlots = [];
   if (graphInformation) {
     yPlots = await getYPlotsForGraph(id);
+    loader.value = false;
   } else {
     error.value = "graph does not exist";
+    loader.value = false;
   }
-  return { graphInformation, yPlots, error };
+  return { graphInformation, yPlots, error, loader };
 };
 
 const getAllGraphs = async () => {

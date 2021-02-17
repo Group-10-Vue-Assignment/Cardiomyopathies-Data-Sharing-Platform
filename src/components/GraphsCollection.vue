@@ -7,17 +7,18 @@
       :key="graph.graphId"
       :graphInformation="graph.graphInformation"
       :yPlots="graph.yPlots"
-      ><router-link
-        :to="{ name: 'GraphDetails', params: { id: graph.graphId } }"
-        ><button>View Details</button>
-      </router-link>
-      <button>Delete Graph</button>
+    >
+      <div>
+        <button @click="graphDetails(graph.graphId)">View Details</button>
+        <button>Delete</button>
+      </div>
     </line-chart>
   </div>
 </template>
 
 <script>
 import LineChart from "@/components/LineChart";
+import { useRouter } from "vue-router";
 import {
   getAllGraphs,
   getGraphsBySearchTerm,
@@ -48,6 +49,7 @@ export default {
     }
   },
   async setup(props) {
+    const router = useRouter();
     const graphs = ref([]);
     if (
       props.searchTermOne &&
@@ -77,7 +79,11 @@ export default {
       error.value = "No graphs found matching search";
     }
 
-    return { graphs, error };
+    const graphDetails = id => {
+      router.push({ name: "GraphDetails", params: { id: id } });
+    };
+
+    return { graphs, error, graphDetails };
   }
 };
 </script>

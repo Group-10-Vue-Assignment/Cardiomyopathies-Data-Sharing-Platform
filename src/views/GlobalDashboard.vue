@@ -13,7 +13,7 @@
         <GraphsCollection />
       </template>
       <template #fallback>
-        <div>LOADING</div>
+        <Loader />
       </template>
     </Suspense>
   </div>
@@ -23,10 +23,12 @@
 import getUser from "../firebaseFunctions/getUser.js";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import GraphsCollection from "@/components/GraphsCollection.vue";
+import Loader from "../components/Loader.vue";
 
 export default {
   components: {
-    GraphsCollection
+    GraphsCollection,
+    Loader
   },
   setup() {
     //will get user auth

@@ -4,6 +4,7 @@
       <div class="search">
         <h2>Search Graphs</h2>
 
+        <!--
         <div class="search-btns">
           <button v-bind:disabled="!hideCardioType" @click="toggleCardioType">
             Cardiomyopathy Type
@@ -12,23 +13,22 @@
             MutatedGene Type
           </button>
         </div>
+        Might want to add this switch back in later
+        -->
 
         <form @submit.prevent="queryData">
-          <div v-if="!hideCardioType">
-            <BaseSelect
-              :options="cardiomyopathyTypeOptions"
-              v-model="cardiomyopathyData.cardiomyopathyType"
-              label="Select Cardiomyopathy Type"
-            />
-          </div>
+          <BaseSelect
+            :options="cardiomyopathyTypeOptions"
+            v-model="cardiomyopathyData.cardiomyopathyType"
+            label="Select Cardiomyopathy Type"
+          />
 
-          <div v-if="!hideGeneType">
-            <BaseSelect
-              :options="mutatedGeneTypeOptions"
-              v-model="cardiomyopathyData.mutatedGeneType"
-              label="Select Mutated Gene Type"
-            />
-          </div>
+          <br />
+          <BaseSelect
+            :options="mutatedGeneTypeOptions"
+            v-model="cardiomyopathyData.mutatedGeneType"
+            label="Select Mutated Gene Type"
+          />
 
           <br />
 
@@ -50,7 +50,7 @@
             />
           </template>
           <template #fallback>
-            <div>LOADING</div>
+            <Loader />
           </template>
         </Suspense>
       </div>
@@ -64,11 +64,13 @@ import getUser from "../firebaseFunctions/getUser.js";
 import BaseSelect from "@/components/BaseSelect.vue";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import GraphsCollection from "@/components/GraphsCollection.vue";
+import Loader from "../components/Loader.vue";
 
 export default {
   components: {
     GraphsCollection,
-    BaseSelect
+    BaseSelect,
+    Loader
   },
   setup() {
     const searchId = ref(0);
