@@ -8,7 +8,7 @@
       :graphInformation="graph.graphInformation"
       :yPlots="graph.yPlots"
     >
-      <div>
+      <div class="graph-btns">
         <button @click="graphDetails(graph.graphId)">View Details</button>
         <button>Delete</button>
       </div>
@@ -90,8 +90,12 @@ export default {
 
 <style scoped>
 .center {
-  margin: 0 auto;
   display: flex;
+  align-items: center;
   justify-content: center;
+}
+
+.graph-btns {
+  margin-right: -8.5%;
 }
 </style>
