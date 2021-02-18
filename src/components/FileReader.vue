@@ -15,7 +15,7 @@
 import { useStore } from "vuex";
 
 export default {
-  emits: ["load"],
+  emits: ["load", "filename"],
   setup(props, context) {
     const store = useStore();
 
@@ -24,6 +24,7 @@ export default {
 
       let notification = {};
       if (isValidFileType(file)) {
+        context.emit("filename", file.name);
         const reader = new FileReader();
         reader.onload = e => context.emit("load", e.target.result);
         reader.readAsText(file);
@@ -51,7 +52,6 @@ export default {
 
       for (const fileType of validFileTypes) {
         if (file.type == fileType) {
-          console.log(file);
           return true;
         }
       }

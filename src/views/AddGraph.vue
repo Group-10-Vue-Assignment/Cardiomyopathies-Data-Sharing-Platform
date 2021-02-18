@@ -74,8 +74,12 @@
             required
           />
           <p>Select a csv to pull data from</p>
-          <FileReader @load="csvData = $event" />
+          <FileReader
+            @load="csvData = $event"
+            @filename="tmpFilename = $event"
+          />
           <br />
+          <p v-if="chosenFilename">Selected File: {{ chosenFilename }}</p>
           <div v-if="csvData != ''">
             <button @click="parseCSVData">
               Add data
@@ -83,7 +87,6 @@
             <br />
             <br />
           </div>
-          <p>Placeholder - display selected csv file name</p>
           <input
             type="submit"
             :disabled="parsedData == null"
@@ -158,7 +161,8 @@ export default {
     let xPlots = [];
 
     const csvData = ref("");
-
+    const tmpFilename = ref("");
+    const chosenFilename = ref("");
     function parseCSVData() {
       parsedData.value = Papa.parse(csvData.value, {
         skipEmptyLines: "greedy",
@@ -171,7 +175,10 @@ export default {
       };
 
       store.dispatch("addNotification", notification);
+
+      chosenFilename.value = tmpFilename.value;
       csvData.value = "";
+      tmpFilename.value = "";
     }
 
     async function submitData() {
@@ -253,6 +260,8 @@ export default {
     return {
       cardiomyopathyData,
       csvData,
+      tmpFilename,
+      chosenFilename,
       parseCSVData,
       submitData,
       parsedData,
