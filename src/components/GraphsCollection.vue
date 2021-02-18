@@ -21,7 +21,7 @@ import LineChart from "@/components/LineChart";
 import { useRouter } from "vue-router";
 import {
   getAllGraphs,
-  //  getGraphsBySearchTerm,
+  getGraphsBySearchTerm,
   getGraphsByTwoSearchTerms
 } from "@/firebaseFunctions/getGraph";
 import { ref } from "vue";
@@ -57,13 +57,21 @@ export default {
       props.searchValueOne &&
       props.searchValueTwo
     ) {
+      console.log("Search page");
       graphs.value = await getGraphsByTwoSearchTerms(
         props.searchTermOne,
         props.searchValueOne,
         props.searchTermTwo,
         props.searchValueTwo
       );
+    } else if (props.searchTermOne && props.searchValueOne) {
+      console.log("User Dashboard");
+      graphs.value = await getGraphsBySearchTerm(
+        props.searchTermOne,
+        props.searchValueOne
+      );
     } else {
+      console.log("Global Dashboard");
       graphs.value = await getAllGraphs();
     }
 

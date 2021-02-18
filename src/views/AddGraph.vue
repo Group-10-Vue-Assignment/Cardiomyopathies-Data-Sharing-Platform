@@ -194,7 +194,6 @@ export default {
           message: "Your data has been submitted successfully!"
         };
         router.push({
-          // Cold add params and push them to their specific graph to show it worked
           name: "GraphDetails",
           params: { id: docRef.id }
         });
