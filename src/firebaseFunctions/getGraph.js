@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { graphsCollection } from "@/firebase/config";
+import store from "@/store";
 
 const getGraph = async id => {
   const error = ref(null);
@@ -37,6 +38,37 @@ const getAllGraphs = async () => {
   );
 
   return graphCollection;
+};
+
+const getAllGraphsPagination = async lastVisible => {
+  let graphs = [];
+  let first = graphsCollection
+    .orderBy("timeOfInsert", "desc")
+    .startAfter(lastVisible)
+    .limit(2);
+
+  await first.get().then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      let graph = {
+        graphId: doc.id,
+        graphInformation: doc.data()
+      };
+      graphs.push(graph);
+    });
+
+    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    console.log("last", lastVisible);
+  });
+
+  await Promise.all(
+    graphs.map(async graph => {
+      graph.yPlots = await getYPlotsForGraph(graph.graphId);
+    })
+  );
+
+  console.log(graphs);
+  store.commit("SET_GRAPHS", graphs);
+  return lastVisible;
 };
 
 const getGraphsBySearchTerm = async (searchTerm, searchValue) => {
@@ -112,6 +144,7 @@ async function getYPlotsForGraph(graphId) {
 export {
   getGraph,
   getAllGraphs,
+  getAllGraphsPagination,
   getGraphsBySearchTerm,
   getGraphsByTwoSearchTerms
 };

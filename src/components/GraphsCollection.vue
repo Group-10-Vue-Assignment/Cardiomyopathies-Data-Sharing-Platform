@@ -14,18 +14,18 @@
       </div>
     </line-chart>
   </div>
+  <button @click="getGraphs"></button>
 </template>
 
 <script>
 import LineChart from "@/components/LineChart";
 import { useRouter } from "vue-router";
 import {
-  getAllGraphs,
   getGraphsBySearchTerm,
   getGraphsByTwoSearchTerms
 } from "@/firebaseFunctions/getGraph";
-import { ref } from "vue";
-
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 export default {
   components: {
     LineChart
@@ -50,7 +50,14 @@ export default {
   },
   async setup(props) {
     const router = useRouter();
-    const graphs = ref([]);
+    const store = useStore();
+
+    let graphs = "";
+
+    async function getGraphs() {
+      console.log("clicked");
+      await store.dispatch("fetchGraphs");
+    }
     if (
       props.searchTermOne &&
       props.searchTermTwo &&
@@ -71,8 +78,12 @@ export default {
         props.searchValueOne
       );
     } else {
+      graphs = computed(() => store.state.globalGraphs);
+      console.log(graphs.value.length);
+      if (graphs.value.length == 0) {
+        await getGraphs();
+      }
       console.log("Global Dashboard");
-      graphs.value = await getAllGraphs();
     }
 
     const error = ref("");
@@ -85,7 +96,7 @@ export default {
       router.push({ name: "GraphDetails", params: { id: id } });
     };
 
-    return { graphs, error, graphDetails };
+    return { graphs, error, graphDetails, getGraphs };
   }
 };
 </script>
