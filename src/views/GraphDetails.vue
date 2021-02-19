@@ -2,7 +2,7 @@
   <h1>Graph Details</h1>
   <Suspense>
     <template #default>
-      <SingleGraph :id="id" />
+      <DetailGraph :id="id" />
     </template>
     <template #fallback>
       <Loader />
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import SingleGraph from "@/components/SingleGraph.vue";
+import DetailGraph from "@/components/DetailGraph.vue";
 import Loader from "../components/Loader.vue";
 export default {
   components: {
-    SingleGraph,
+    DetailGraph,
     Loader
   },
   props: {
