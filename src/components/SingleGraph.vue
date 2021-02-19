@@ -3,7 +3,7 @@
   <p>{{ graphInformation.mutatedGeneType }}</p>
   <p>{{ graphInformation.typeOfData }}</p>
   <p>{{ graphInformation.paper }}</p>
-  <p>{{ graphInformation.timeOfInsert }}</p>
+  <p>Added on: {{ date.toDateString() }}</p>
   <div>
     <LineChart
       class="center"
@@ -33,6 +33,7 @@ export default {
 
     return {
       graphInformation: ref(graphInformation),
+      date: graphInformation.timeOfInsert.toDate(),
       yPlots: ref(yPlots),
       error
     };
