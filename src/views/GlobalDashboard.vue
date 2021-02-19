@@ -1,6 +1,6 @@
 <template>
   <h1>Global Dashboard</h1>
-  <h3>Graphs created by everyone (sorted by newest first *todo*)</h3>
+  <h3>Graphs created by everyone</h3>
   <div v-if="error">{{ error }}</div>
   <div class="userDetails" v-if="userDetails">
     <label>{{ userDetails.name }}</label>
@@ -10,7 +10,7 @@
   <div>
     <Suspense>
       <template #default>
-        <GraphsCollection />
+        <GlobalGraph />
       </template>
       <template #fallback>
         <Loader />
@@ -22,12 +22,12 @@
 <script>
 import getUser from "../firebaseFunctions/getUser.js";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
-import GraphsCollection from "@/components/GraphsCollection.vue";
+import GlobalGraph from "@/components/GlobalGraph.vue";
 import Loader from "../components/Loader.vue";
 
 export default {
   components: {
-    GraphsCollection,
+    GlobalGraph,
     Loader
   },
   setup() {
