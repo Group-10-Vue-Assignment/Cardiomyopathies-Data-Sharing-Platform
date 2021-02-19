@@ -1,13 +1,33 @@
 import { createStore } from "vuex";
-import { getAllGraphsPagination } from "@/firebaseFunctions/getGraph";
+import {
+  getNextGlobalGraph,
+  getPreviousGlobalGraph,
+  getNextUserGraph,
+  getPreviousUserGraph,
+  getNextSearchGraph,
+  getPreviousSearchGraph
+} from "@/firebaseFunctions/getGraph";
 
 let nextNotificationId = 1;
-let lastVisible = "";
+let lastVisibleDocForGlobalDashboard = "";
+let lastVisibleDocForUserDashboard = "";
+
+// moved to vuex state, so we can reset back to empty string on new query
+//let lastVisibleDocForSearch = "";
 
 export default createStore({
   state: {
     notifications: [],
-    globalGraphs: []
+    globalGraph: [],
+    globalDashboardNextButton: false,
+    globalDashboardPreviousButton: true,
+    userGraph: [],
+    userDashboardNextButton: false,
+    userDashboardPreviousButton: true,
+    searchGraph: [],
+    searchNextButton: false,
+    searchPreviousButton: true,
+    lastVisibleDocForSearch: ""
   },
   mutations: {
     DELETE_NOTIFICATION(state, notificationToRemove) {
@@ -21,9 +41,36 @@ export default createStore({
         id: nextNotificationId++
       });
     },
-    SET_GRAPHS(state, graphs) {
-      console.log("testing", graphs);
-      state.globalGraphs = graphs;
+    SET_GLOBAL_DASBOARD_GRAPH(state, graph) {
+      state.globalGraph = graph;
+    },
+    DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON(state, result) {
+      state.globalDashboardNextButton = result;
+    },
+    DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON(state, result) {
+      state.globalDashboardPreviousButton = result;
+    },
+    SET_USER_DASHBOARD_GRAPH(state, graph) {
+      state.userGraph = graph;
+    },
+    DISABLE_USER_DASHBOARD_NEXT_BUTTON(state, result) {
+      state.userDashboardNextButton = result;
+    },
+    DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON(state, result) {
+      state.userDashboardPreviousButton = result;
+    },
+    SET_SEARCH_GRAPH(state, graph) {
+      state.searchGraph = graph;
+    },
+    DISABLE_SEARCH_NEXT_BUTTON(state, result) {
+      state.searchNextButton = result;
+    },
+    DISABLE_SEARCH_PREVIOUS_BUTTON(state, result) {
+      state.searchPreviousButton = result;
+    },
+    SET_SEARCH_LAST_VISIBLE_DOC(state, doc) {
+      state.lastVisibleDocForSearch = doc;
+      console.log(state.lastVisibleDocForSearch);
     }
   },
   actions: {
@@ -34,9 +81,92 @@ export default createStore({
       commit("ADD_NOTIFICATION", notificationToAdd);
       console.log(nextNotificationId);
     },
-    async fetchGraphs({ dispatch }) {
+    async fetchNextGlobalDashboardGraph({ dispatch }) {
       try {
-        lastVisible = await getAllGraphsPagination(lastVisible);
+        lastVisibleDocForGlobalDashboard = await getNextGlobalGraph(
+          lastVisibleDocForGlobalDashboard
+        );
+      } catch (error) {
+        const notification = {
+          type: "error",
+          message: "There was a problem fetching graphs: " + error
+        };
+        dispatch("addNotification", notification);
+      }
+    },
+    async fetchPreviousGlobalDashboardGraph({ dispatch }) {
+      try {
+        lastVisibleDocForGlobalDashboard = await getPreviousGlobalGraph(
+          lastVisibleDocForGlobalDashboard
+        );
+      } catch (error) {
+        const notification = {
+          type: "error",
+          message: "There was a problem fetching graphs: " + error
+        };
+        dispatch("addNotification", notification);
+      }
+    },
+    async fetchNextUserDashboardGraph({ dispatch }, userId) {
+      try {
+        lastVisibleDocForUserDashboard = await getNextUserGraph(
+          lastVisibleDocForUserDashboard,
+          userId
+        );
+      } catch (error) {
+        const notification = {
+          type: "error",
+          message: "There was a problem fetching graphs: " + error
+        };
+        dispatch("addNotification", notification);
+      }
+    },
+    async fetchPreviousUserDashboardGraph({ dispatch }, userId) {
+      try {
+        lastVisibleDocForUserDashboard = await getPreviousUserGraph(
+          lastVisibleDocForUserDashboard,
+          userId
+        );
+      } catch (error) {
+        const notification = {
+          type: "error",
+          message: "There was a problem fetching graphs: " + error
+        };
+        dispatch("addNotification", notification);
+      }
+    },
+    async fetchNextSearchGraph(
+      { state, dispatch, commit },
+      { cardiomyopathyTypeValue, mutatedGeneTypeValue }
+    ) {
+      try {
+        let lastVisibleDocForSearch = await getNextSearchGraph(
+          state.lastVisibleDocForSearch,
+          cardiomyopathyTypeValue,
+          mutatedGeneTypeValue
+        );
+        console.log("VUEX STATE", state.lastVisibleDocForSearch);
+        console.log("TMP STATE", lastVisibleDocForSearch);
+        commit("SET_SEARCH_LAST_VISIBLE_DOC", lastVisibleDocForSearch);
+      } catch (error) {
+        const notification = {
+          type: "error",
+          message: "There was a problem fetching graphs: " + error
+        };
+        dispatch("addNotification", notification);
+      }
+    },
+    async fetchPreviousSearchGraph(
+      { state, dispatch, commit },
+      { cardiomyopathyTypeValue, mutatedGeneTypeValue }
+    ) {
+      try {
+        let lastVisibleDocForSearch = await getPreviousSearchGraph(
+          state.lastVisibleDocForSearch,
+          cardiomyopathyTypeValue,
+          mutatedGeneTypeValue
+        );
+        commit("SET_SEARCH_LAST_VISIBLE_DOC", lastVisibleDocForSearch);
       } catch (error) {
         const notification = {
           type: "error",

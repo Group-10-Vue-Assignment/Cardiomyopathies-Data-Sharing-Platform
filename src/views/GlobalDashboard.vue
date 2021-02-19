@@ -10,7 +10,7 @@
   <div>
     <Suspense>
       <template #default>
-        <GraphsCollection />
+        <GlobalGraph />
       </template>
       <template #fallback>
         <Loader />
@@ -22,12 +22,12 @@
 <script>
 import getUser from "../firebaseFunctions/getUser.js";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
-import GraphsCollection from "@/components/GraphsCollection.vue";
+import GlobalGraph from "@/components/GlobalGraph.vue";
 import Loader from "../components/Loader.vue";
 
 export default {
   components: {
-    GraphsCollection,
+    GlobalGraph,
     Loader
   },
   setup() {

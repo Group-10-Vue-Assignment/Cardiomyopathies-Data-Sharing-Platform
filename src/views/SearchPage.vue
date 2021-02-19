@@ -41,11 +41,9 @@
       >
         <Suspense>
           <template #default>
-            <GraphsCollection
-              :searchTermOne="searchTermOne"
-              :searchValueOne="chosenCardiomyopathyType"
-              :searchTermTwo="searchTermTwo"
-              :searchValueTwo="chosenMutatedGeneType"
+            <SearchGraph
+              :cardiomyopathyTypeValue="chosenCardiomyopathyType"
+              :mutatedGeneTypeValue="chosenMutatedGeneType"
               :key="searchId"
             />
           </template>
@@ -63,22 +61,23 @@ import { reactive, ref } from "vue";
 import getUser from "../firebaseFunctions/getUser.js";
 import BaseSelect from "@/components/BaseSelect.vue";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
-import GraphsCollection from "@/components/GraphsCollection.vue";
+import SearchGraph from "@/components/SearchGraph.vue";
 import Loader from "../components/Loader.vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
-    GraphsCollection,
+    SearchGraph,
     BaseSelect,
     Loader
   },
   setup() {
+    const store = useStore();
+
     const searchId = ref(0);
 
     const hideCardioType = ref(false);
     const hideGeneType = ref(true);
-    const searchTermOne = ref("cardiomyopathyType");
-    const searchTermTwo = ref("mutatedGeneType");
 
     const toggleCardioType = () => {
       hideCardioType.value = !hideCardioType.value;
@@ -122,8 +121,8 @@ export default {
       chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
       chosenMutatedGeneType.value = cardiomyopathyData.mutatedGeneType;
 
-      console.log(chosenCardiomyopathyType.value);
-      console.log(chosenMutatedGeneType.value);
+      store.commit("SET_SEARCH_LAST_VISIBLE_DOC", "");
+      console.log("reset");
       searchId.value += 1;
     }
 
@@ -141,9 +140,7 @@ export default {
       hideCardioType,
       hideGeneType,
       toggleCardioType,
-      toggleGeneType,
-      searchTermOne,
-      searchTermTwo
+      toggleGeneType
     };
   }
 };

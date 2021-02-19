@@ -10,10 +10,7 @@
   <div>
     <Suspense>
       <template #default>
-        <GraphsCollection
-          :searchTermOne="'userId'"
-          :searchValueOne="user.uid"
-        />
+        <UserGraph :userId="user.uid" />
       </template>
       <template #fallback>
         <Loader />
@@ -25,12 +22,12 @@
 <script>
 import getUser from "../firebaseFunctions/getUser.js";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
-import GraphsCollection from "@/components/GraphsCollection.vue";
+import UserGraph from "@/components/UserGraph.vue";
 import Loader from "../components/Loader.vue";
 
 export default {
   components: {
-    GraphsCollection,
+    UserGraph,
     Loader
   },
   setup() {
