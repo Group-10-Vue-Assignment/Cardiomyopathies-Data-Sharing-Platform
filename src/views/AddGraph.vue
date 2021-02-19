@@ -107,6 +107,12 @@ import { graphsCollection } from "@/firebase/config";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import BaseSelect from "@/components/BaseSelect.vue";
+import {
+  mutatedGeneTypes,
+  cardiomyopathyTypes,
+  dataTypes
+} from "@/composables/sharedData.js";
+
 export default {
   name: "AddGraph",
   components: {
@@ -136,26 +142,11 @@ export default {
       });
     }
 
-    let dataTypeOptions = ref([
-      "Force-time Curve",
-      "Sarcomere Length vs Time",
-      "Sliding Velocity vs Calcium Concentration",
-      "Tension vs Calcium Concentration",
-      "Force vs Calcium Concentration",
-      "Tension vs Sarcomere Shortening Velocity",
-      "Force vs Sarcomere Shortening Velocity",
-      "Sarcomere Shortening vs Time"
-    ]);
+    let dataTypeOptions = ref(dataTypes);
 
-    let mutatedGeneTypeOptions = ref(["TNNT", "MYH", "MYBPC3", "TPM1"]);
+    let mutatedGeneTypeOptions = ref(mutatedGeneTypes);
 
-    let cardiomyopathyTypeOptions = ref([
-      "Hypertrophic Cardiomyopathy",
-      "Dilated Cardiomyopathy",
-      "Restrictive Cardiomyopathy",
-      "Transthyretin Amyloid Cardiomyopathy (ATTR-CM)",
-      "Arrhythmogenic Right Ventricular Dysplasia"
-    ]);
+    let cardiomyopathyTypeOptions = ref(cardiomyopathyTypes);
 
     let parsedData = ref(null);
     let xPlots = [];

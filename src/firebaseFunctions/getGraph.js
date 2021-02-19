@@ -18,28 +18,6 @@ const getGraph = async id => {
   return { graphInformation, yPlots, error, loader };
 };
 
-const getAllGraphs = async () => {
-  let graphCollection = [];
-
-  await graphsCollection.get().then(querySnapshot => {
-    querySnapshot.forEach(doc => {
-      let graph = {
-        graphId: doc.id,
-        graphInformation: doc.data()
-      };
-      graphCollection.push(graph);
-    });
-  });
-
-  await Promise.all(
-    graphCollection.map(async graph => {
-      graph.yPlots = await getYPlotsForGraph(graph.graphId);
-    })
-  );
-
-  return graphCollection;
-};
-
 const getNextGlobalGraph = async lastVisible => {
   let graphs = [];
   let current = graphsCollection
@@ -51,7 +29,6 @@ const getNextGlobalGraph = async lastVisible => {
     .get()
     .then(querySnapshot => {
       lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      console.log("last", lastVisible);
 
       querySnapshot.forEach(doc => {
         let graph = {
@@ -62,6 +39,7 @@ const getNextGlobalGraph = async lastVisible => {
       });
     })
     .then(() => {
+      // if statement as no graphs may exist to begin with
       if (lastVisible) {
         let next = graphsCollection
           .orderBy("timeOfInsert", "desc")
@@ -69,12 +47,11 @@ const getNextGlobalGraph = async lastVisible => {
           .limit(1);
         next.get().then(snap => {
           if (snap.size === 0) {
-            store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", false);
             store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", true);
           } else {
             store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", false);
-            store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", false);
           }
+          store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", false);
         });
       } else {
         store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", true);
@@ -99,7 +76,6 @@ const getPreviousGlobalGraph = async lastVisible => {
     .get()
     .then(querySnapshot => {
       lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      console.log("last", lastVisible);
 
       querySnapshot.forEach(doc => {
         let graph = {
@@ -117,11 +93,10 @@ const getPreviousGlobalGraph = async lastVisible => {
       previous.get().then(snap => {
         if (snap.size === 0) {
           store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", true);
-          store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", false);
         } else {
           store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", false);
-          store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", false);
         }
+        store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", false);
       });
     });
 
@@ -132,6 +107,7 @@ const getPreviousGlobalGraph = async lastVisible => {
   return lastVisible;
 };
 
+// Had to set up indexes in firestore in order to do .where and .orderby's together
 const getNextUserGraph = async (lastVisible, userId) => {
   let graphs = [];
   let current = graphsCollection
@@ -144,7 +120,6 @@ const getNextUserGraph = async (lastVisible, userId) => {
     .get()
     .then(querySnapshot => {
       lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      console.log("last", lastVisible);
 
       querySnapshot.forEach(doc => {
         let graph = {
@@ -163,12 +138,11 @@ const getNextUserGraph = async (lastVisible, userId) => {
           .limit(1);
         next.get().then(snap => {
           if (snap.size === 0) {
-            store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", false);
             store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", true);
           } else {
             store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", false);
-            store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", false);
           }
+          store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", false);
         });
       } else {
         store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", true);
@@ -194,7 +168,6 @@ const getPreviousUserGraph = async (lastVisible, userId) => {
     .get()
     .then(querySnapshot => {
       lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      console.log("last", lastVisible);
 
       querySnapshot.forEach(doc => {
         let graph = {
@@ -213,11 +186,10 @@ const getPreviousUserGraph = async (lastVisible, userId) => {
       previous.get().then(snap => {
         if (snap.size === 0) {
           store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", true);
-          store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", false);
         } else {
           store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", false);
-          store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", false);
         }
+        store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", false);
       });
     });
 
@@ -245,7 +217,6 @@ const getNextSearchGraph = async (
     .get()
     .then(querySnapshot => {
       lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      console.log("last", lastVisible);
 
       querySnapshot.forEach(doc => {
         let graph = {
@@ -265,12 +236,11 @@ const getNextSearchGraph = async (
           .limit(1);
         next.get().then(snap => {
           if (snap.size === 0) {
-            store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", false);
             store.commit("DISABLE_SEARCH_NEXT_BUTTON", true);
           } else {
             store.commit("DISABLE_SEARCH_NEXT_BUTTON", false);
-            store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", false);
           }
+          store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", false);
         });
       } else {
         store.commit("DISABLE_SEARCH_NEXT_BUTTON", true);
@@ -321,11 +291,10 @@ const getPreviousSearchGraph = async (
       next.get().then(snap => {
         if (snap.size === 0) {
           store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", true);
-          store.commit("DISABLE_SEARCH_NEXT_BUTTON", false);
         } else {
-          store.commit("DISABLE_SEARCH_NEXT_BUTTON", false);
           store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", false);
         }
+        store.commit("DISABLE_SEARCH_NEXT_BUTTON", false);
       });
     });
 
@@ -333,54 +302,6 @@ const getPreviousSearchGraph = async (
 
   store.commit("SET_SEARCH_GRAPH", graphs);
   return lastVisible;
-};
-
-const getGraphsBySearchTerm = async (searchTerm, searchValue) => {
-  let graphCollection = [];
-
-  await graphsCollection
-    .where(searchTerm, "==", searchValue)
-    .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let graph = {
-          graphId: doc.id,
-          graphInformation: doc.data()
-        };
-        graphCollection.push(graph);
-      });
-    });
-
-  await addYPlots(graphCollection);
-
-  return graphCollection;
-};
-
-const getGraphsByTwoSearchTerms = async (
-  searchTerm1,
-  searchValue1,
-  searchTerm2,
-  searchValue2
-) => {
-  let graphCollection = [];
-
-  await graphsCollection
-    .where(searchTerm1, "==", searchValue1)
-    .where(searchTerm2, "==", searchValue2)
-    .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let graph = {
-          graphId: doc.id,
-          graphInformation: doc.data()
-        };
-        graphCollection.push(graph);
-      });
-    });
-
-  await addYPlots(graphCollection);
-
-  return graphCollection;
 };
 
 let addYPlots = async graphCollection => {
@@ -409,13 +330,10 @@ let getYPlotsForGraph = async graphId => {
 
 export {
   getGraph,
-  getAllGraphs,
   getNextGlobalGraph,
   getPreviousGlobalGraph,
   getNextUserGraph,
   getPreviousUserGraph,
   getNextSearchGraph,
-  getPreviousSearchGraph,
-  getGraphsBySearchTerm,
-  getGraphsByTwoSearchTerms
+  getPreviousSearchGraph
 };

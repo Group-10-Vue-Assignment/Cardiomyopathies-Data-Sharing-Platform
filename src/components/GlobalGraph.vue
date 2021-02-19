@@ -1,7 +1,6 @@
 <template>
   <p v-if="error != ''">No graphs found, add a graph and come back.</p>
-  <button @click="getPreviousGraph" :disabled="disableLeftButton"></button>
-  <div>
+  <div v-if="graphs.length != 0">
     <line-chart
       class="center"
       v-for="graph in graphs"
@@ -14,8 +13,11 @@
         <button>Delete</button>
       </div>
     </line-chart>
+    <button @click="getPreviousGraph" :disabled="disablePreviousButton">
+      Previous
+    </button>
+    <button @click="getNextGraph" :disabled="disableNextButton">Next</button>
   </div>
-  <button @click="getNextGraph" :disabled="disableRightButton"></button>
 </template>
 
 <script>
@@ -27,86 +29,25 @@ export default {
   components: {
     LineChart
   },
-  props: {
-    searchTermOne: {
-      type: String,
-      required: false
-    },
-    searchValueOne: {
-      type: String,
-      required: false
-    },
-    searchTermTwo: {
-      type: String,
-      required: false
-    },
-    searchValueTwo: {
-      type: String,
-      required: false
-    }
-  },
-  async setup(props) {
+  async setup() {
     const router = useRouter();
     const store = useStore();
 
-    let graphs = [];
-    let disableLeftButton = true;
-    let disableRightButton = false;
-    let selectedNextDispatcher = "";
-    let selectedPreviousDispatcher = "";
+    let graphs = computed(() => store.state.globalGraph);
+    let disablePreviousButton = computed(
+      () => store.state.globalDashboardPreviousButton
+    );
+    let disableNextButton = computed(
+      () => store.state.globalDashboardNextButton
+    );
 
-    // Problem - getNextGraph() function is tied to our buttons, but we need to send different
-    // parameters on the dispatcher depending on whether it is global, user, or search system
-    if (
-      props.searchTermOne &&
-      props.searchTermTwo &&
-      props.searchValueOne &&
-      props.searchValueTwo
-    ) {
-      console.log("Search page");
-      // graphs.value = await getGraphsByTwoSearchTerms(
-      //   filters.searchTermOne,
-      //   filters.searchValueOne,
-      //   filters.searchTermTwo,
-      //   filters.searchValueTwo
-      // );
-    } else if (props.searchTermOne && props.searchValueOne) {
-      console.log("User Dashboard");
-      graphs = computed(() => store.state.userGraph);
-      disableLeftButton = computed(
-        () => store.state.userDashboardPreviousButton
-      );
-      disableRightButton = computed(() => store.state.userDashboardNextButton);
-      selectedNextDispatcher = "fetchNextUserDashboardGraph";
-      selectedPreviousDispatcher = "fetchPreviousUserDashboardGraph";
-      if (graphs.value.length == 0) {
-        await getNextGraph();
-        store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", true);
-      }
-      // graphs.value = await getGraphsBySearchTerm(
-      //   filters.searchTermOne,
-      //   filters.searchValueOne
-      // );
-    } else {
-      console.log("Global Dashboard");
-      graphs = computed(() => store.state.globalGraph);
-      disableLeftButton = computed(
-        () => store.state.globalDashboardPreviousButton
-      );
-      disableRightButton = computed(
-        () => store.state.globalDashboardNextButton
-      );
-      selectedNextDispatcher = "fetchNextGlobalDashboardGraph";
-      selectedPreviousDispatcher = "fetchPreviousGlobalDashboardGraph";
-      if (graphs.value.length == 0) {
-        await getNextGraph();
-        store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", true);
-      }
+    if (graphs.value.length == 0) {
+      await getNextGraph();
+      store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", true);
     }
 
     const error = ref("");
 
-    console.log(graphs);
     if (graphs.value.length === 0) {
       error.value = "No graphs found matching search";
     }
@@ -117,12 +58,12 @@ export default {
 
     async function getNextGraph() {
       console.log("clicked next button");
-      await store.dispatch(selectedNextDispatcher);
+      await store.dispatch("fetchNextGlobalDashboardGraph");
     }
 
     async function getPreviousGraph() {
       console.log("clicked previous button");
-      await store.dispatch(selectedPreviousDispatcher);
+      await store.dispatch("fetchPreviousGlobalDashboardGraph");
     }
 
     return {
@@ -131,8 +72,8 @@ export default {
       graphDetails,
       getPreviousGraph,
       getNextGraph,
-      disableLeftButton,
-      disableRightButton
+      disablePreviousButton,
+      disableNextButton
     };
   }
 };

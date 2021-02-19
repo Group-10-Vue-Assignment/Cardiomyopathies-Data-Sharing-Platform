@@ -1,7 +1,6 @@
 <template>
   <p v-if="error != ''">No graphs found, add a graph and come back.</p>
-  <button @click="getPreviousGraph" :disabled="disableLeftButton"></button>
-  <div>
+  <div v-if="graphs.length != 0">
     <line-chart
       class="center"
       v-for="graph in graphs"
@@ -14,8 +13,11 @@
         <button>Delete</button>
       </div>
     </line-chart>
+    <button @click="getPreviousGraph" :disabled="disablePreviousButton">
+      Previous
+    </button>
+    <button @click="getNextGraph" :disabled="disableNextButton">Next</button>
   </div>
-  <button @click="getNextGraph" :disabled="disableRightButton"></button>
 </template>
 
 <script>
@@ -45,8 +47,10 @@ export default {
     store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", true);
 
     let graphs = computed(() => store.state.searchGraph);
-    let disableLeftButton = computed(() => store.state.searchPreviousButton);
-    let disableRightButton = computed(() => store.state.searchNextButton);
+    let disablePreviousButton = computed(
+      () => store.state.searchPreviousButton
+    );
+    let disableNextButton = computed(() => store.state.searchNextButton);
 
     const error = ref("");
 
@@ -79,8 +83,8 @@ export default {
       graphDetails,
       getPreviousGraph,
       getNextGraph,
-      disableLeftButton,
-      disableRightButton
+      disablePreviousButton,
+      disableNextButton
     };
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <h1>Global Dashboard</h1>
-  <h3>Graphs created by everyone (sorted by newest first *todo*)</h3>
+  <h3>Graphs created by everyone</h3>
   <div v-if="error">{{ error }}</div>
   <div class="userDetails" v-if="userDetails">
     <label>{{ userDetails.name }}</label>

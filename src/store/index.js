@@ -12,9 +12,6 @@ let nextNotificationId = 1;
 let lastVisibleDocForGlobalDashboard = "";
 let lastVisibleDocForUserDashboard = "";
 
-// moved to vuex state, so we can reset back to empty string on new query
-//let lastVisibleDocForSearch = "";
-
 export default createStore({
   state: {
     notifications: [],
@@ -89,7 +86,7 @@ export default createStore({
       } catch (error) {
         const notification = {
           type: "error",
-          message: "There was a problem fetching graphs: " + error
+          message: "There was a problem the next global graph: " + error
         };
         dispatch("addNotification", notification);
       }
@@ -102,7 +99,8 @@ export default createStore({
       } catch (error) {
         const notification = {
           type: "error",
-          message: "There was a problem fetching graphs: " + error
+          message:
+            "There was a problem fetching the previous global graph: " + error
         };
         dispatch("addNotification", notification);
       }
@@ -116,7 +114,7 @@ export default createStore({
       } catch (error) {
         const notification = {
           type: "error",
-          message: "There was a problem fetching graphs: " + error
+          message: "There was a problem fetching the next user graph: " + error
         };
         dispatch("addNotification", notification);
       }
@@ -130,7 +128,8 @@ export default createStore({
       } catch (error) {
         const notification = {
           type: "error",
-          message: "There was a problem fetching graphs: " + error
+          message:
+            "There was a problem fetching the previous user graph: " + error
         };
         dispatch("addNotification", notification);
       }
@@ -145,13 +144,12 @@ export default createStore({
           cardiomyopathyTypeValue,
           mutatedGeneTypeValue
         );
-        console.log("VUEX STATE", state.lastVisibleDocForSearch);
-        console.log("TMP STATE", lastVisibleDocForSearch);
         commit("SET_SEARCH_LAST_VISIBLE_DOC", lastVisibleDocForSearch);
       } catch (error) {
         const notification = {
           type: "error",
-          message: "There was a problem fetching graphs: " + error
+          message:
+            "There was a problem fetching the next searched graph: " + error
         };
         dispatch("addNotification", notification);
       }
@@ -170,7 +168,8 @@ export default createStore({
       } catch (error) {
         const notification = {
           type: "error",
-          message: "There was a problem fetching graphs: " + error
+          message:
+            "There was a problem fetching the previous searched graph: " + error
         };
         dispatch("addNotification", notification);
       }

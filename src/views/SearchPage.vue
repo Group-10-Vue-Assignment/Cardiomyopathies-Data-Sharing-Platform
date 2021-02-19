@@ -3,19 +3,6 @@
     <section class="container">
       <div class="search">
         <h2>Search Graphs</h2>
-
-        <!--
-        <div class="search-btns">
-          <button v-bind:disabled="!hideCardioType" @click="toggleCardioType">
-            Cardiomyopathy Type
-          </button>
-          <button v-bind:disabled="!hideGeneType" @click="toggleGeneType">
-            MutatedGene Type
-          </button>
-        </div>
-        Might want to add this switch back
-        -->
-
         <form @submit.prevent="queryData">
           <BaseSelect
             :options="cardiomyopathyTypeOptions"
@@ -64,6 +51,10 @@ import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import SearchGraph from "@/components/SearchGraph.vue";
 import Loader from "../components/Loader.vue";
 import { useStore } from "vuex";
+import {
+  mutatedGeneTypes,
+  cardiomyopathyTypes
+} from "@/composables/sharedData.js";
 
 export default {
   components: {
@@ -78,16 +69,6 @@ export default {
 
     const hideCardioType = ref(false);
     const hideGeneType = ref(true);
-
-    const toggleCardioType = () => {
-      hideCardioType.value = !hideCardioType.value;
-      hideGeneType.value = true;
-    };
-
-    const toggleGeneType = () => {
-      hideGeneType.value = !hideGeneType.value;
-      hideCardioType.value = true;
-    };
 
     const { user } = getUser();
 
@@ -107,15 +88,9 @@ export default {
       });
     }
 
-    let mutatedGeneTypeOptions = ref(["TNNT", "MYH", "MYBPC3", "TPM1"]);
+    let mutatedGeneTypeOptions = ref(mutatedGeneTypes);
 
-    let cardiomyopathyTypeOptions = ref([
-      "Hypertrophic Cardiomyopathy",
-      "Dilated Cardiomyopathy",
-      "Restrictive Cardiomyopathy",
-      "Transthyretin Amyloid Cardiomyopathy (ATTR-CM)",
-      "Arrhythmogenic Right Ventricular Dysplasia"
-    ]);
+    let cardiomyopathyTypeOptions = ref(cardiomyopathyTypes);
 
     function queryData() {
       chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
@@ -138,24 +113,13 @@ export default {
       error,
       queryData,
       hideCardioType,
-      hideGeneType,
-      toggleCardioType,
-      toggleGeneType
+      hideGeneType
     };
   }
 };
 </script>
 
 <style scoped>
-/*
-.search {
-  width: 20%;
-  margin: 5px;
-  padding: 1em;
-  float: left;
-}
-*/
-
 .container {
   display: flex;
   padding: 60px;
@@ -168,12 +132,4 @@ export default {
 .graphs {
   gap: 332px;
 }
-/*
-.graphs {
-  width: 60%;
-  margin: 5px;
-  padding: 1em;
-  float: right;
-}
-*/
 </style>
