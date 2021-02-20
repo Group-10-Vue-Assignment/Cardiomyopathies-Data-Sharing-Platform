@@ -38,7 +38,7 @@ export default createStore({
         id: nextNotificationId++
       });
     },
-    SET_GLOBAL_DASBOARD_GRAPH(state, graph) {
+    SET_GLOBAL_DASHBOARD_GRAPH(state, graph) {
       state.globalGraph = graph;
     },
     DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON(state, result) {

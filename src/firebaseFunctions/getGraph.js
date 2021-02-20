@@ -22,6 +22,7 @@ const getNextGlobalGraph = async lastVisible => {
     .orderBy("timeOfInsert", "desc")
     .startAfter(lastVisible)
     .limit(1);
+  let initialLoad = lastVisible ? false : true;
 
   await current
     .get()
@@ -49,7 +50,9 @@ const getNextGlobalGraph = async lastVisible => {
           } else {
             store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", false);
           }
-          store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", false);
+          if (!initialLoad) {
+            store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", false);
+          }
         });
       } else {
         store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", true);
@@ -57,7 +60,7 @@ const getNextGlobalGraph = async lastVisible => {
       }
     });
 
-  store.commit("SET_GLOBAL_DASBOARD_GRAPH", graphs);
+  store.commit("SET_GLOBAL_DASHBOARD_GRAPH", graphs);
   return lastVisible;
 };
 
@@ -96,7 +99,7 @@ const getPreviousGlobalGraph = async lastVisible => {
       });
     });
 
-  store.commit("SET_GLOBAL_DASBOARD_GRAPH", graphs);
+  store.commit("SET_GLOBAL_DASHBOARD_GRAPH", graphs);
 
   return lastVisible;
 };
@@ -109,6 +112,7 @@ const getNextUserGraph = async (lastVisible, userId) => {
     .orderBy("timeOfInsert", "desc")
     .startAfter(lastVisible)
     .limit(1);
+  let initialLoad = lastVisible ? false : true;
 
   await current
     .get()
@@ -136,7 +140,9 @@ const getNextUserGraph = async (lastVisible, userId) => {
           } else {
             store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", false);
           }
-          store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", false);
+          if (!initialLoad) {
+            store.commit("DISABLE_USER_DASHBOARD_PREVIOUS_BUTTON", false);
+          }
         });
       } else {
         store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", true);
@@ -202,6 +208,7 @@ const getNextSearchGraph = async (
     .orderBy("timeOfInsert", "desc")
     .startAfter(lastVisible)
     .limit(1);
+  let initialLoad = lastVisible ? false : true;
 
   await current
     .get()
@@ -230,7 +237,9 @@ const getNextSearchGraph = async (
           } else {
             store.commit("DISABLE_SEARCH_NEXT_BUTTON", false);
           }
-          store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", false);
+          if (!initialLoad) {
+            store.commit("DISABLE_SEARCH_PREVIOUS_BUTTON", false);
+          }
         });
       } else {
         store.commit("DISABLE_SEARCH_NEXT_BUTTON", true);
