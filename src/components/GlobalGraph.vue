@@ -22,34 +22,26 @@
 <script>
 import LineChart from "@/components/LineChart";
 import { useRouter } from "vue-router";
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import { ref } from "vue";
+import { graphsCollection } from "@/firebase/config";
+
 export default {
   components: {
     LineChart
   },
   async setup() {
     const router = useRouter();
-    const store = useStore();
 
-    let graphs = computed(() => store.state.globalGraph);
-    console.log(graphs);
-    let disablePreviousButton = computed(
-      () => store.state.globalDashboardPreviousButton
-    );
-
-    let disableNextButton = computed(
-      () => store.state.globalDashboardNextButton
-    );
-
-    if (graphs.value.length == 0) {
-      await getNextGraph();
-      store.commit("DISABLE_GLOBAL_DASHBOARD_PREVIOUS_BUTTON", true);
-    }
+    let disablePreviousButton = ref(true);
+    let disableNextButton = ref(false);
+    let graphs = ref([]);
+    let lastVisible = "";
+    let firstVisible = "";
+    let graphPaginationLimit = 1;
 
     const error = ref("");
 
-    if (graphs.value.length === 0) {
+    if (graphs.value == {}) {
       error.value = "No graphs found matching search";
     }
 
@@ -58,15 +50,100 @@ export default {
     };
 
     async function getNextGraph() {
-      console.log("clicked next button");
-      await store.dispatch("fetchNextGlobalDashboardGraph");
+      await getNextGraphUsingPagination();
+    }
+
+    async function getNextGraphUsingPagination() {
+      let retrievedGraphs = [];
+      let current = graphsCollection
+        .orderBy("timeOfInsert", "desc")
+        .startAfter(lastVisible)
+        .limit(graphPaginationLimit);
+
+      let initialLoad = lastVisible ? false : true;
+
+      await current.get().then(querySnapshot => {
+        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        firstVisible = querySnapshot.docs[0];
+        let nextChecker = querySnapshot.docs[querySnapshot.docs.length];
+        console.log(nextChecker);
+        querySnapshot.forEach(doc => {
+          let graph = {
+            graphId: doc.id,
+            graphInformation: doc.data()
+          };
+          retrievedGraphs.push(graph);
+          console.log(retrievedGraphs);
+        });
+      });
+      console.log(retrievedGraphs);
+      // if statement as no graphs may exist to begin with
+      if (lastVisible) {
+        let next = graphsCollection
+          .orderBy("timeOfInsert", "desc")
+          .startAfter(lastVisible)
+          .limit(graphPaginationLimit);
+
+        await next.get().then(snap => {
+          if (snap.size === 0) {
+            disableNextButton.value = true;
+          } else {
+            disableNextButton.value = false;
+          }
+          if (!initialLoad) {
+            disablePreviousButton.value = false;
+          }
+        });
+      } else {
+        disableNextButton.value = true;
+        disablePreviousButton.value = true;
+      }
+      graphs.value = retrievedGraphs;
     }
 
     async function getPreviousGraph() {
-      console.log("clicked previous button");
-      await store.dispatch("fetchPreviousGlobalDashboardGraph");
+      console.log("clicked previous button! ", disablePreviousButton.value);
+      await getPreviousGraphUsingPagination();
+      console.log(disablePreviousButton.value);
     }
 
+    async function getPreviousGraphUsingPagination() {
+      let retrievedGraphs = [];
+      let current = graphsCollection
+        .orderBy("timeOfInsert", "desc")
+        .endBefore(firstVisible)
+        .limitToLast(graphPaginationLimit);
+
+      await current.get().then(querySnapshot => {
+        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        firstVisible = querySnapshot.docs[0];
+        querySnapshot.forEach(doc => {
+          let graph = {
+            graphId: doc.id,
+            graphInformation: doc.data()
+          };
+          retrievedGraphs.push(graph);
+        });
+      });
+
+      let previous = graphsCollection
+        .orderBy("timeOfInsert", "desc")
+        .endBefore(firstVisible)
+        .limitToLast(graphPaginationLimit);
+
+      await previous.get().then(snap => {
+        if (snap.size === 0) {
+          disablePreviousButton.value = true;
+        } else {
+          disablePreviousButton.value = false;
+        }
+        disableNextButton.value = false;
+      });
+
+      graphs.value = retrievedGraphs;
+    }
+
+    await getNextGraphUsingPagination();
     return {
       graphs,
       error,

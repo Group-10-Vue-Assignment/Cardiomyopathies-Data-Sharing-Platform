@@ -30,7 +30,7 @@ export default {
     GlobalGraph,
     Loader
   },
-  setup() {
+  async setup() {
     //will get user auth
     const { user } = getUser();
 
