@@ -6,7 +6,6 @@
       v-for="graph in graphs"
       :key="graph.graphId"
       :graphInformation="graph.graphInformation"
-      :yPlots="graph.yPlots"
     >
       <div class="graph-btns">
         <button @click="graphDetails(graph.graphId)">View Details</button>

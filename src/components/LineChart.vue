@@ -19,16 +19,15 @@ export default {
     graphInformation: {
       type: Object,
       required: true
-    },
-    yPlots: {
-      type: Array,
-      required: true
     }
   },
   setup(props) {
-    let yPlots = ref(props.yPlots);
-    let xPlots = ref(props.graphInformation.xPlots);
     let graphInformation = ref(props.graphInformation);
+
+    let experimentalData = JSON.parse(graphInformation.value.experimentalData);
+    console.log(experimentalData);
+    let xPlots = ref(experimentalData.xPlots);
+    let yPlots = ref(experimentalData.yPlots);
 
     const chartOptions = ref({
       chart: {

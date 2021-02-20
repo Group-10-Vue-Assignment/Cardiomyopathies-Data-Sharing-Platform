@@ -5,11 +5,7 @@
   <p>{{ graphInformation.paper }}</p>
   <p>Added on: {{ date.toDateString() }}</p>
   <div>
-    <LineChart
-      class="center"
-      :graphInformation="graphInformation"
-      :yPlots="yPlots"
-    />
+    <LineChart class="center" :graphInformation="graphInformation" />
   </div>
   <div v-if="error" class="error">{{ error }}</div>
 </template>
@@ -29,12 +25,11 @@ export default {
     }
   },
   async setup(props) {
-    const { graphInformation, yPlots, error } = await getGraph(props.id);
+    const { graphInformation, error } = await getGraph(props.id);
 
     return {
       graphInformation: ref(graphInformation),
       date: graphInformation.timeOfInsert.toDate(),
-      yPlots: ref(yPlots),
       error
     };
   }

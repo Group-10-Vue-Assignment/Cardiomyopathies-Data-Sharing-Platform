@@ -6,7 +6,6 @@
       v-for="graph in graphs"
       :key="graph.graphId"
       :graphInformation="graph.graphInformation"
-      :yPlots="graph.yPlots"
     >
       <div class="graph-btns">
         <button @click="graphDetails(graph.graphId)">View Details</button>
@@ -34,9 +33,11 @@ export default {
     const store = useStore();
 
     let graphs = computed(() => store.state.globalGraph);
+    console.log(graphs);
     let disablePreviousButton = computed(
       () => store.state.globalDashboardPreviousButton
     );
+
     let disableNextButton = computed(
       () => store.state.globalDashboardNextButton
     );

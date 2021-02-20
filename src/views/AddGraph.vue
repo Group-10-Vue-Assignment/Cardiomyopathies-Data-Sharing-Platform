@@ -149,11 +149,13 @@ export default {
     let cardiomyopathyTypeOptions = ref(cardiomyopathyTypes);
 
     let parsedData = ref(null);
-    let xPlots = [];
 
     const csvData = ref("");
     const tmpFilename = ref("");
     const chosenFilename = ref("");
+
+    let csvFileAsJSON = {};
+
     function parseCSVData() {
       parsedData.value = Papa.parse(csvData.value, {
         skipEmptyLines: "greedy",
@@ -170,16 +172,23 @@ export default {
       chosenFilename.value = tmpFilename.value;
       csvData.value = "";
       tmpFilename.value = "";
+
+      csvFileAsJSON = JSON.stringify(
+        formatCSVArrayIntoJSON(parsedData.value.data)
+      );
+
+      // // testing as if we got it from firebase
+      // let jsonNow = JSON.stringify(objectToStoreInFirestore)
+      // console.log(jsonNow)
+
+      // let objectAgain = JSON.parse(jsonNow)
+      // console.log(objectAgain)
     }
 
     async function submitData() {
-      xPlots = getXPlots();
-      xPlots.shift();
-
       let notification = {};
       try {
         const docRef = await addGraphToFirestoreCollection();
-        addYPlotsToFirestoreGraphCollection(docRef);
         notification = {
           type: "success",
           message: "Your data has been submitted successfully!"
@@ -200,11 +209,42 @@ export default {
       store.dispatch("addNotification", notification);
     }
 
-    function getXPlots() {
-      xPlots = parsedData.value.data.map(function(pair) {
+    function formatCSVArrayIntoJSON(CSVArray) {
+      let toBeStoredJSON = {
+        xPlots: getXPlots(CSVArray),
+        yPlots: getYPlotsAndLineName(CSVArray)
+      };
+      return toBeStoredJSON;
+    }
+
+    function getXPlots(CSVArray) {
+      let xPlots = CSVArray.map(function(pair) {
         return pair[0];
       });
+      xPlots.shift();
       return xPlots;
+    }
+
+    function getYPlotsAndLineName(CSVArray) {
+      let yPlotsObjectCollection = [];
+      for (let i = 1; i < CSVArray[0].length; i++) {
+        let yPlots = [];
+        let yDataName = "";
+
+        yPlots = CSVArray.map(function(pair) {
+          return pair[i];
+        });
+
+        yDataName = yPlots[0];
+        yPlots.shift();
+
+        let yPlotsObject = {
+          yDataName: yDataName,
+          yPlots: yPlots
+        };
+        yPlotsObjectCollection.push(yPlotsObject);
+      }
+      return yPlotsObjectCollection;
     }
 
     async function addGraphToFirestoreCollection() {
@@ -219,32 +259,10 @@ export default {
         yTickAmount: cardiomyopathyData.yTickAmount,
         yAxisTitle: cardiomyopathyData.yAxisTitle,
         userId: cardiomyopathyData.userId,
-        xPlots: xPlots
+        experimentalData: csvFileAsJSON
       });
 
       return docRef;
-    }
-
-    // We skip the first column as that is xPlots column.
-    // Every column after is yPlots.
-    // First row on each column is the header
-    async function addYPlotsToFirestoreGraphCollection(docRef) {
-      for (let i = 1; i < parsedData.value.data[0].length; i++) {
-        let yPlots = [];
-        let yDataName = "";
-
-        yPlots = parsedData.value.data.map(function(pair) {
-          return pair[i];
-        });
-
-        yDataName = yPlots[0];
-        yPlots.shift();
-
-        await docRef.collection("yPlots").add({
-          yDataName: yDataName,
-          yPlots: yPlots
-        });
-      }
     }
 
     return {

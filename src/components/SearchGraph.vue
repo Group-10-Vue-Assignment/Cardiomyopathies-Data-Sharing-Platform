@@ -6,7 +6,6 @@
       v-for="graph in graphs"
       :key="graph.graphId"
       :graphInformation="graph.graphInformation"
-      :yPlots="graph.yPlots"
     >
       <div class="graph-btns">
         <button @click="graphDetails(graph.graphId)">View Details</button>
@@ -32,11 +31,11 @@ export default {
   props: {
     cardiomyopathyTypeValue: {
       type: String,
-      required: false
+      required: true
     },
     mutatedGeneTypeValue: {
       type: String,
-      required: false
+      required: true
     }
   },
   async setup(props) {
@@ -54,7 +53,6 @@ export default {
 
     const error = ref("");
 
-    console.log(graphs);
     if (graphs.value.length === 0) {
       error.value = "No graphs found matching search";
     }

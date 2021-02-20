@@ -7,15 +7,13 @@ const getGraph = async id => {
   const loader = ref(true);
   let docRef = await graphsCollection.doc(id).get();
   let graphInformation = docRef.data();
-  let yPlots = [];
   if (graphInformation) {
-    yPlots = await getYPlotsForGraph(id);
     loader.value = false;
   } else {
     error.value = "graph does not exist";
     loader.value = false;
   }
-  return { graphInformation, yPlots, error, loader };
+  return { graphInformation, error, loader };
 };
 
 const getNextGlobalGraph = async lastVisible => {
@@ -59,8 +57,6 @@ const getNextGlobalGraph = async lastVisible => {
       }
     });
 
-  await addYPlots(graphs);
-
   store.commit("SET_GLOBAL_DASBOARD_GRAPH", graphs);
   return lastVisible;
 };
@@ -99,8 +95,6 @@ const getPreviousGlobalGraph = async lastVisible => {
         store.commit("DISABLE_GLOBAL_DASHBOARD_NEXT_BUTTON", false);
       });
     });
-
-  await addYPlots(graphs);
 
   store.commit("SET_GLOBAL_DASBOARD_GRAPH", graphs);
 
@@ -150,8 +144,6 @@ const getNextUserGraph = async (lastVisible, userId) => {
       }
     });
 
-  await addYPlots(graphs);
-
   store.commit("SET_USER_DASHBOARD_GRAPH", graphs);
   return lastVisible;
 };
@@ -192,8 +184,6 @@ const getPreviousUserGraph = async (lastVisible, userId) => {
         store.commit("DISABLE_USER_DASHBOARD_NEXT_BUTTON", false);
       });
     });
-
-  await addYPlots(graphs);
 
   store.commit("SET_USER_DASHBOARD_GRAPH", graphs);
 
@@ -248,8 +238,6 @@ const getNextSearchGraph = async (
       }
     });
 
-  await addYPlots(graphs);
-
   store.commit("SET_SEARCH_GRAPH", graphs);
   return lastVisible;
 };
@@ -298,34 +286,8 @@ const getPreviousSearchGraph = async (
       });
     });
 
-  await addYPlots(graphs);
-
   store.commit("SET_SEARCH_GRAPH", graphs);
   return lastVisible;
-};
-
-let addYPlots = async graphCollection => {
-  await Promise.all(
-    graphCollection.map(async graph => {
-      graph.yPlots = await getYPlotsForGraph(graph.graphId);
-    })
-  );
-
-  return graphCollection;
-};
-
-let getYPlotsForGraph = async graphId => {
-  let plots = [];
-  await graphsCollection
-    .doc(graphId)
-    .collection("yPlots")
-    .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        plots.push(doc.data());
-      });
-    });
-  return plots;
 };
 
 export {

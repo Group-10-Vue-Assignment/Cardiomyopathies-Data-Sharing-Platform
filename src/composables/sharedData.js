@@ -1,4 +1,4 @@
-let mutatedGeneTypes = ["TNNT", "MYH", "MYBPC3", "TPM1"];
+let mutatedGeneTypes = ["TNNT2", "MYH7", "MYBPC3", "TPM1"];
 
 let cardiomyopathyTypes = [
   "Hypertrophic Cardiomyopathy",
