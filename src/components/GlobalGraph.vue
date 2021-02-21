@@ -1,5 +1,5 @@
 <template>
-  <p v-if="error != ''">No graphs found, add a graph and come back.</p>
+  <p v-if="graphs.length == 0">No graphs found, add a graph and come back.</p>
   <div v-if="graphs.length != 0">
     <line-chart
       class="center"
@@ -9,7 +9,6 @@
     >
       <div class="graph-btns">
         <button @click="graphDetails(graph.graphId)">View Details</button>
-        <button>Delete</button>
       </div>
     </line-chart>
     <button @click="getPreviousGraph" :disabled="disablePreviousButton">
@@ -166,14 +165,8 @@ export default {
     // When the component is created, we want to grab the first graph
     await getNextGraphUsingPagination();
 
-    const error = ref("");
-    if (graphs.value.length === 0) {
-      error.value = "No graphs found";
-    }
-
     return {
       graphs,
-      error,
       graphDetails,
       getPreviousGraph,
       getNextGraph,
