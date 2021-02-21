@@ -21,7 +21,7 @@
       </p>
     </div>
   </div>
-  <div v-if="graphs.length != 0">
+  <div v-if="graphs.length != 0" class="pagination-btns">
     <button @click="getPreviousGraph" :disabled="disablePreviousButton">
       Previous
     </button>
@@ -224,5 +224,13 @@ export default {
 
 .graph-btns {
   margin-right: -8.5%;
+}
+
+.pagination-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  margin: auto;
 }
 </style>

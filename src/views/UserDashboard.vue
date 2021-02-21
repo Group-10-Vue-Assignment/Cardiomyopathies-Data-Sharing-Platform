@@ -2,20 +2,24 @@
   <h1>User Dashboard</h1>
   <h3>Graphs Created By You</h3>
   <div v-if="error">{{ error }}</div>
-  <div class="userDetails" v-if="userDetails">
-    <label>{{ userDetails.name }}</label>
-    <br />
-    <label>{{ userDetails.institution }}</label>
-  </div>
-  <div>
-    <Suspense>
-      <template #default>
-        <UserGraph :userId="user.uid" />
-      </template>
-      <template #fallback>
-        <Loader />
-      </template>
-    </Suspense>
+
+  <div class="user-container">
+    <div class="userDetails" v-if="userDetails">
+      <h2>User Details</h2>
+      <label>{{ userDetails.name }}</label>
+      <br />
+      <label>{{ userDetails.institution }}</label>
+    </div>
+    <div>
+      <Suspense>
+        <template #default>
+          <UserGraph :userId="user.uid" />
+        </template>
+        <template #fallback>
+          <Loader />
+        </template>
+      </Suspense>
+    </div>
   </div>
 </template>
 
@@ -49,5 +53,11 @@ h1 {
 }
 .userDetails {
   padding: 0.5%;
+}
+
+.user-container {
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
 </style>

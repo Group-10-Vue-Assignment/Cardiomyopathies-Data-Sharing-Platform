@@ -32,6 +32,7 @@ import LineChart from "@/components/LineChart";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { graphsCollection } from "@/firebase/config";
+
 export default {
   components: {
     LineChart

@@ -40,17 +40,23 @@
         </Suspense>
       </div>
     </section>
+
+    <div v-if="showData.length">
+      <div v-for="entry in showData" :key="entry">
+        <Info :entry="entry.entry" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { reactive, ref, computed } from "vue";
 import getUser from "../firebaseFunctions/getUser.js";
 import BaseSelect from "@/components/BaseSelect.vue";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import SearchGraph from "@/components/SearchGraph.vue";
 import Loader from "../components/Loader.vue";
-
+import Info from "../components/Info.vue";
 import {
   mutatedGeneTypes,
   cardiomyopathyTypes
@@ -60,7 +66,8 @@ export default {
   components: {
     SearchGraph,
     BaseSelect,
-    Loader
+    Loader,
+    Info
   },
   setup() {
     const searchId = ref(0);
@@ -89,14 +96,32 @@ export default {
     let mutatedGeneTypeOptions = ref(mutatedGeneTypes);
 
     let cardiomyopathyTypeOptions = ref(cardiomyopathyTypes);
+    const extraData = ref([]);
 
-    function queryData() {
+    const queryData = async () => {
       chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
       chosenMutatedGeneType.value = cardiomyopathyData.mutatedGeneType;
 
       console.log("reset");
       searchId.value += 1;
-    }
+
+      const apiData = await fetch(
+        `https://api.omim.org/api/entry/search?search=${chosenCardiomyopathyType.value +
+          chosenMutatedGeneType.value}&include=all&exclude=referenceList&exclude=externalLinks&exclude=contributors&format=json&start=0&limit=10&apiKey=tNhHB-RqSsSFIdWm5DPUOA`
+      );
+
+      let data = await apiData.json();
+
+      let filteredData = data.omim.searchResponse.entryList
+        .filter(e => e.entry.phenotypeMapList != null)
+        .filter(e => e.entry.clinicalSynopsis.oldFormat == null);
+      extraData.value = filteredData;
+      console.log(extraData);
+    };
+
+    const showData = computed(() => {
+      return extraData.value;
+    });
 
     return {
       searchId,
@@ -110,7 +135,8 @@ export default {
       error,
       queryData,
       hideCardioType,
-      hideGeneType
+      hideGeneType,
+      showData
     };
   }
 };

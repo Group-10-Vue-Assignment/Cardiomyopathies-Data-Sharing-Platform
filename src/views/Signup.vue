@@ -35,20 +35,6 @@ import useSignup from "../firebaseFunctions/useSignup.js";
 import { useRouter } from "vue-router";
 export default {
   setup() {
-    function showPosition(position) {
-      return position.coords.latitude, position.coords.longitude;
-    }
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        console.log(navigator);
-      } else {
-      }
-    }
-
-    getLocation();
-
     const router = useRouter();
 
     //setting up input refs
