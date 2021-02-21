@@ -39,51 +39,61 @@ export default {
     let firstVisible = "";
     let graphPaginationLimit = 1;
 
-    const error = ref("");
-
-    if (graphs.value == {}) {
-      error.value = "No graphs found matching search";
-    }
-
     const graphDetails = id => {
       router.push({ name: "GraphDetails", params: { id: id } });
     };
 
+    let lockProcessing = false;
+
     async function getNextGraph() {
-      await getNextGraphUsingPagination();
+      // Prevent the user from spamming the button and executing multiple firebase queries
+      if (!lockProcessing) {
+        lockProcessing = true;
+        await getNextGraphUsingPagination();
+        lockProcessing = false;
+      }
     }
 
     async function getNextGraphUsingPagination() {
       let retrievedGraphs = [];
+      // Preparing the next N amount of documents ready to iterate through.
+      // StartAfter puts us at the start of a new document, and limit continues onwards for the next N documents.
+      // This results in pagination
       let current = graphsCollection
         .orderBy("timeOfInsert", "desc")
         .startAfter(lastVisible)
         .limit(graphPaginationLimit);
 
+      // If the lastVisible variable is empty, the webpage has loaded for the first time
+      // This means we want to change the prevent button to disabled.
       let initialLoad = lastVisible ? false : true;
 
+      // Get the snapshot of selected
       await current.get().then(querySnapshot => {
+        // Set the last visible document, so we know where to continue on with pagination next time
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        // Set the first visible document so we know where to go backwards with pagination next time
         firstVisible = querySnapshot.docs[0];
-        let nextChecker = querySnapshot.docs[querySnapshot.docs.length];
-        console.log(nextChecker);
+        // Iterate over snapshot
         querySnapshot.forEach(doc => {
+          // Want id for future use, and for :key attribute, so placing into object
           let graph = {
             graphId: doc.id,
             graphInformation: doc.data()
           };
           retrievedGraphs.push(graph);
-          console.log(retrievedGraphs);
         });
       });
-      console.log(retrievedGraphs);
-      // if statement as no graphs may exist to begin with
+
+      // If last visible is still empty, then 0 graphs were found above and we don't want to continue
       if (lastVisible) {
+        // Grab the next snapshot of 1 document
         let next = graphsCollection
           .orderBy("timeOfInsert", "desc")
           .startAfter(lastVisible)
-          .limit(graphPaginationLimit);
+          .limit(1);
 
+        // check the snap size, if it is 0 then we have reached the end and cannot go forward
         await next.get().then(snap => {
           if (snap.size === 0) {
             disableNextButton.value = true;
@@ -94,29 +104,36 @@ export default {
             disablePreviousButton.value = false;
           }
         });
-      } else {
-        disableNextButton.value = true;
-        disablePreviousButton.value = true;
       }
+
       graphs.value = retrievedGraphs;
     }
 
     async function getPreviousGraph() {
-      console.log("clicked previous button! ", disablePreviousButton.value);
-      await getPreviousGraphUsingPagination();
-      console.log(disablePreviousButton.value);
+      // Prevent the user from spamming the button and executing multiple firebase queries
+      if (!lockProcessing) {
+        lockProcessing = true;
+        await getPreviousGraphUsingPagination();
+        lockProcessing = false;
+      }
     }
 
     async function getPreviousGraphUsingPagination() {
       let retrievedGraphs = [];
+      // Preparing the next N amount of documents ready to iterate through.
+      // endBefore puts us to the document before the last one we found,
+      // and limitToLast goes backwards N documents. This results in backwards pagination
       let current = graphsCollection
         .orderBy("timeOfInsert", "desc")
         .endBefore(firstVisible)
         .limitToLast(graphPaginationLimit);
 
+      // Get the snapshot of the above selected
       await current.get().then(querySnapshot => {
+        // Set last visible document within this snapshot, and the first visible document
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
         firstVisible = querySnapshot.docs[0];
+        // Iterate over the documents within the snapshot
         querySnapshot.forEach(doc => {
           let graph = {
             graphId: doc.id,
@@ -126,12 +143,15 @@ export default {
         });
       });
 
+      // Prepare to get a snapshot of the document before first visible, to see if we
+      // should disable the previous button or not
       let previous = graphsCollection
         .orderBy("timeOfInsert", "desc")
         .endBefore(firstVisible)
-        .limitToLast(graphPaginationLimit);
+        .limitToLast(1);
 
       await previous.get().then(snap => {
+        // If the snapshot is 0, we hit the end and can no longer go further back
         if (snap.size === 0) {
           disablePreviousButton.value = true;
         } else {
@@ -143,7 +163,14 @@ export default {
       graphs.value = retrievedGraphs;
     }
 
+    // When the component is created, we want to grab the first graph
     await getNextGraphUsingPagination();
+
+    const error = ref("");
+    if (graphs.value.length === 0) {
+      error.value = "No graphs found";
+    }
+
     return {
       graphs,
       error,

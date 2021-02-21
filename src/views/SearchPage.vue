@@ -50,7 +50,7 @@ import BaseSelect from "@/components/BaseSelect.vue";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import SearchGraph from "@/components/SearchGraph.vue";
 import Loader from "../components/Loader.vue";
-import { useStore } from "vuex";
+
 import {
   mutatedGeneTypes,
   cardiomyopathyTypes
@@ -63,8 +63,6 @@ export default {
     Loader
   },
   setup() {
-    const store = useStore();
-
     const searchId = ref(0);
 
     const hideCardioType = ref(false);
@@ -96,7 +94,6 @@ export default {
       chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
       chosenMutatedGeneType.value = cardiomyopathyData.mutatedGeneType;
 
-      store.commit("SET_SEARCH_LAST_VISIBLE_DOC", "");
       console.log("reset");
       searchId.value += 1;
     }

@@ -25,7 +25,6 @@ export default {
     let graphInformation = ref(props.graphInformation);
 
     let experimentalData = JSON.parse(graphInformation.value.experimentalData);
-    console.log(experimentalData);
     let xPlots = ref(experimentalData.xPlots);
     let yPlots = ref(experimentalData.yPlots);
 
@@ -49,7 +48,7 @@ export default {
       },
       grid: {
         row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          colors: ["#f3f3f3", "transparent"],
           opacity: 0.5
         }
       },
