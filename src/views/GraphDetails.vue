@@ -13,6 +13,7 @@
 <script>
 import DetailGraph from "@/components/DetailGraph.vue";
 import Loader from "../components/Loader.vue";
+
 export default {
   components: {
     DetailGraph,

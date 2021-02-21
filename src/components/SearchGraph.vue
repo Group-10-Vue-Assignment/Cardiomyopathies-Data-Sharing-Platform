@@ -1,17 +1,25 @@
 <template>
   <p v-if="graphs.length == 0">No graphs found, add a graph and come back.</p>
-  <div v-if="graphs.length != 0">
-    <line-chart
-      class="center"
-      v-for="graph in graphs"
-      :key="graph.graphId"
-      :graphInformation="graph.graphInformation"
-    >
+  <div v-for="graph in graphs" :key="graph.graphId">
+    <line-chart class="center" :graphInformation="graph.graphInformation">
       <div class="graph-btns">
         <button @click="graphDetails(graph.graphId)">View Details</button>
-        <button>Delete</button>
       </div>
     </line-chart>
+    <div>
+      <p>
+        Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
+      </p>
+      <p>Mutated Gene Type: {{ graph.graphInformation.mutatedGeneType }}</p>
+      <p>Type of Data: {{ graph.graphInformation.typeOfData }}</p>
+      <p>Paper: {{ graph.graphInformation.paper }}</p>
+      <p>
+        Added on:
+        {{ graph.graphInformation.timeOfInsert.toDate().toDateString() }}
+      </p>
+    </div>
+  </div>
+  <div v-if="graphs.length != 0">
     <button @click="getPreviousGraph" :disabled="disablePreviousButton">
       Previous
     </button>
@@ -204,5 +212,9 @@ export default {
 
 .graph-btns {
   margin-right: -8.5%;
+}
+
+.graphInfo {
+  float: right;
 }
 </style>
