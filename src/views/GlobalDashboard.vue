@@ -1,12 +1,16 @@
 <template>
-  <h1>Global Dashboard</h1>
-  <h3>Graphs created by everyone</h3>
-  <div v-if="error">{{ error }}</div>
-  <div class="userDetails" v-if="userDetails">
-    <label>{{ userDetails.name }}</label>
-    <br />
-    <label>{{ userDetails.institution }}</label>
+  <div class="col s6 m6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Global Dashboard</span>
+        <p>
+          The graphs generated on this page are the ones that have been created
+          by other people.
+        </p>
+      </div>
+    </div>
   </div>
+  <div v-if="error">{{ error }}</div>
   <div>
     <Suspense>
       <template #default>
@@ -44,10 +48,7 @@ export default {
 </script>
 
 <style>
-h1 {
-  padding: 0.5%;
-}
 .userDetails {
-  padding: 0.5%;
+  color: white;
 }
 </style>

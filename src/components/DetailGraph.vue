@@ -4,7 +4,7 @@
   <p>{{ graphInformation.typeOfData }}</p>
   <p>{{ graphInformation.paper }}</p>
   <p>Added on: {{ date.toDateString() }}</p>
-  <div>
+  <div class="graph">
     <LineChart class="center" :graphInformation="graphInformation" />
   </div>
   <div v-if="error" class="error">{{ error }}</div>

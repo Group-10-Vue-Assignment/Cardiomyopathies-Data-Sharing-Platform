@@ -1,29 +1,33 @@
 <template>
-  <div>
-    <nav class="nav-bar">
-      <div class="logo">
-        CDSP
-        <p class="slogan">Cardiomyopathies-Data-Sharing-Platform</p>
+  <div v-if="!user" class="non-user">
+    <nav class="blue-grey lighten-1">
+      <div class="nav-wrapper">
+        <a class="brand-logo">Cardiomyopathies Data-Sharing Platform</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/login">Login</router-link></li>
+          <li><router-link to="/signup">Sign up</router-link></li>
+        </ul>
       </div>
-      <div class="nav-items">
-        <div v-if="!user" class="non-user">
-          <router-link class="nav-item" to="/">Home</router-link>
-          <router-link class="nav-item" to="/login">Login</router-link>
-          <router-link class="nav-item" to="/signup">Sign up</router-link>
-        </div>
-        <div v-else class="user-items">
-          <router-link class="nav-item" to="/global-dashboard"
-            >Global Dashboard</router-link
-          >
-          <router-link class="nav-item" to="/user-dashboard"
-            >User Dashboard</router-link
-          >
-          <router-link class="nav-item" to="/searchpage"
-            >Search Graphs</router-link
-          >
-          <router-link class="nav-item" to="/add-graph">Add Graph</router-link>
-          <button @click="handleClick" class="logout-btn">Log out</button>
-        </div>
+    </nav>
+  </div>
+  <div v-else class="user-items">
+    <nav class="blue-grey lighten-1">
+      <div class="nav-wrapper">
+        <a class="brand-logo">Cardiomyopathies Data-Sharing Platform</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>
+            <router-link to="/global-dashboard">Global Dashboard</router-link>
+          </li>
+          <li>
+            <router-link to="/user-dashboard">User Dashboard</router-link>
+          </li>
+          <li><router-link to="/searchpage">Search Graphs</router-link></li>
+          <li><router-link to="/add-graph">Add Graph</router-link></li>
+          <li class="logout-btn" @click="handleClick">
+            <i class="small material-icons">exit_to_app</i>
+          </li>
+        </ul>
       </div>
     </nav>
   </div>
@@ -56,11 +60,8 @@ export default {
 </script>
 
 <style scoped>
-.nav-bar {
-  padding: 2%;
-  background: #618bca;
-  display: flex;
-  justify-content: space-between;
+.brand-logo {
+  margin-left: -48.5%;
 }
 
 .user-items {
@@ -71,38 +72,13 @@ export default {
   display: flex;
 }
 
-.logo {
-  font-size: 25px;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.slogan {
-  font-size: 15px;
-  color: white;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
 .logout-btn {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  margin-left: 20px;
-  margin-top: 16px;
-  background: #618bca;
-}
-
-.nav-item {
-  color: white;
-  margin-top: 16px;
-  margin-left: 20px;
-
-  text-decoration: none;
+  margin-right: 8px;
+  cursor: pointer;
 }
 
 a.router-link-exact-active {
-  text-decoration: underline;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
 }
 </style>

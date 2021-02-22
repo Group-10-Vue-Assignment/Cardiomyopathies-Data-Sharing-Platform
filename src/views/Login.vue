@@ -1,17 +1,32 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleSubmit" class="col s12">
     <h3>Login</h3>
-    <input type="email" placeholder="Email" v-model="email" />
-    <input type="password" placeholder="Password" v-model="password" />
-    <div v-if="error" class="error">{{ error }}</div>
-    <button>Log in</button>
-
-    <div class="switch-user">
-      <router-link to="/signup">Not registered?</router-link>
-
-      <router-link to="/forgotpassword">Forgotten password?</router-link>
+    <div v-if="error" class="error card-panel red">
+      <span>{{ error }}</span>
     </div>
+    <label>Enter your username (Email):</label>
+    <input class="validate" type="email" placeholder="Email" v-model="email" />
+    <label>Enter your password:</label>
+    <input
+      class="validate"
+      type="password"
+      placeholder="Password"
+      v-model="password"
+    />
+    <button class="waves-effect waves-light btn-small blue">Log in</button>
   </form>
+  <div class="switch-user">
+    <router-link to="/signup">
+      <button class="waves-effect waves-light btn-small green">
+        Sign Up
+      </button>
+    </router-link>
+    <router-link to="/forgotpassword">
+      <button class="waves-effect waves-light btn-small red">
+        Reset Password
+      </button>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -37,9 +52,9 @@ export default {
 
 <style>
 .error {
-  margin: 21px;
+  font-size: 90%;
+  color: white;
   text-align: center;
-  color: red;
 }
 
 .switch-user {
@@ -59,49 +74,25 @@ export default {
 }
 
 form {
-  width: 450px;
+  width: 35%;
   display: block;
   margin: 50px auto;
-  background: white;
   text-align: left;
-  padding: 40px;
-  border-radius: 10px;
 }
 
-form h3 {
-  margin-left: 15px;
-  margin-bottom: 20px;
+.icon_style {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
 }
 
-input,
-select {
-  display: block;
-  padding: 15px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  border-radius: 4px;
-  color: #555;
-}
 input[type="checkbox"] {
   display: inline-block;
   width: 16px;
   margin: 0 10px 0 0;
-}
-
-button {
-  display: block;
-  background-color: #618bca;
-  border: 0;
-  margin: auto;
-  width: 130px;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-top: 20px;
-  color: white;
-  border-radius: 20px;
-  text-decoration: none;
 }
 
 button:disabled {

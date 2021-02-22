@@ -8,13 +8,29 @@
       :graphInformation="graph.graphInformation"
     >
       <div class="graph-btns">
-        <button @click="graphDetails(graph.graphId)">View Details</button>
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-2"
+          @click="graphDetails(graph.graphId)"
+        >
+          View Details
+        </button>
       </div>
     </line-chart>
-    <button @click="getPreviousGraph" :disabled="disablePreviousButton">
-      Previous
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getPreviousGraph"
+      :disabled="disablePreviousButton"
+    >
+      <i class="material-icons">arrow_back</i>
     </button>
-    <button @click="getNextGraph" :disabled="disableNextButton">Next</button>
+    <a class="noSelect">⠀</a>
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getNextGraph"
+      :disabled="disableNextButton"
+    >
+      <i class="material-icons">arrow_forward</i>
+    </button>
   </div>
 </template>
 
@@ -182,6 +198,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.noSelect {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .graph-btns {

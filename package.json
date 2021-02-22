@@ -11,6 +11,8 @@
     "apexcharts": "^3.24.0",
     "core-js": "^3.6.5",
     "firebase": "^8.2.5",
+    "material-design-icons": "^3.0.1",
+    "materialize-css": "^1.0.0-rc.2",
     "papaparse": "^5.3.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
@@ -18,6 +20,7 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/materialize-css": "^1.0.8",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",

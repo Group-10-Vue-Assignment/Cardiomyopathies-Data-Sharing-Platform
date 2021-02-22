@@ -8,14 +8,31 @@
       :graphInformation="graph.graphInformation"
     >
       <div class="graph-btns">
-        <button @click="graphDetails(graph.graphId)">View Details</button>
-        <button>Delete</button>
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-2"
+          @click="graphDetails(graph.graphId)"
+        >
+          View Details
+        </button>
+        <button class="waves-effect waves-light btn-small blue-grey lighten-2">
+          <i class="material-icons">delete</i>
+        </button>
       </div>
     </line-chart>
-    <button @click="getPreviousGraph" :disabled="disablePreviousButton">
-      Previous
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getPreviousGraph"
+      :disabled="disablePreviousButton"
+    >
+      <i class="material-icons">arrow_back</i>
     </button>
-    <button @click="getNextGraph" :disabled="disableNextButton">Next</button>
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getNextGraph"
+      :disabled="disableNextButton"
+    >
+      <i class="material-icons">arrow_forward</i>
+    </button>
   </div>
 </template>
 

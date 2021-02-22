@@ -2,29 +2,62 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <h3>Sign up</h3>
-    <input type="text" placeholder="name" v-model="displayName" required />
+    <label>Enter your name:</label>
     <input
+      class="validate"
       type="text"
-      placeholder="institutional affiliation "
+      placeholder="Name"
+      v-model="displayName"
+      required
+    />
+    <label
+      >Enter the institution you affiliate with (leave blank if none):</label
+    >
+    <input
+      class="validate"
+      type="text"
+      placeholder="Institutional Affiliation"
       v-model="institution"
       required
     />
-    <input type="email" placeholder="Email" v-model="email" required />
-    <input type="password" placeholder="Password" v-model="password" required />
-    <input type="address" placeholder="address" v-model="address" />
+    <label>Enter your email address (required):</label>
     <input
+      class="validate"
+      type="email"
+      placeholder="Email*"
+      v-model="email"
+      required
+    />
+    <label>Enter your password (required):</label>
+    <input
+      class="validate"
+      type="password"
+      placeholder="Password*"
+      v-model="password"
+      required
+    />
+    <label>Enter your address:</label>
+    <input
+      class="validate"
+      type="text"
+      placeholder="Address"
+      v-model="address"
+    />
+    <label>Enter your number:</label>
+    <input
+      class="validate"
       type="tel"
-      placeholder="phone number"
-      name="phone"
+      placeholder="Phone Number"
       v-model="phoneNumber"
     />
-
-    <button>Register</button>
-    <div class="switch-user">
-      <router-link to="/login"> Already have an account?</router-link>
-    </div>
-
+    <button class="waves-effect waves-light btn-small green">Register</button>
     <div v-if="error" class="error">{{ error }}</div>
+    <div class="switch-user">
+      Already have an account?
+      <router-link to="/login">
+        <button class="waves-effect waves-light btn-small blue">Login</button>
+      </router-link>
+    </div>
   </form>
 </template>
 
@@ -91,63 +124,53 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .error {
-  margin: 20px;
+  font-size: 90%;
+  color: white;
   text-align: center;
-  color: red;
 }
 
 .switch-user {
-  margin-top: 15px;
+  margin-top: 10px;
   text-align: center;
   color: #555;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .switch-user a {
+  margin-top: 7px;
   text-decoration: none;
-  color: #555;
+  color: rgb(255, 255, 255);
 }
 
 form {
-  width: 450px;
-  margin: 10px auto;
-  background: white;
-  text-align: left;
-  padding: 40px;
-  border-radius: 10px;
-}
-
-form h3 {
-  margin-left: 15px;
-  margin-bottom: 20px;
-}
-
-input,
-select {
+  width: 35%;
   display: block;
-  padding: 15px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  color: #555;
+  margin: 50px auto;
+  text-align: left;
 }
+
+.icon_style{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: white;
+    cursor:pointer; 
+}
+
 input[type="checkbox"] {
   display: inline-block;
   width: 16px;
   margin: 0 10px 0 0;
 }
 
-button {
-  display: block;
-  background: #618bca;
-  border: 0;
-  margin: auto;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-top: 20px;
-  color: white;
-  border-radius: 20px;
+button:disabled {
+  background-color: rgb(97 139 202 / 52%);
+  cursor: -moz-grab;
 }
 </style>
