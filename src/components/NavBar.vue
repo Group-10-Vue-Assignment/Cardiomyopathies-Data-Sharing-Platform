@@ -2,7 +2,7 @@
   <div v-if="!user" class="non-user">
     <nav class="blue-grey lighten-1">
       <div class="nav-wrapper">
-        <a class="brand-logo">Cardiomyopathies Data-Sharing Platform</a>
+        <a class="brand-logo">Cardiomyopathies Data Sharing Platform</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/login">Login</router-link></li>

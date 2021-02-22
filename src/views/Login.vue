@@ -13,16 +13,23 @@
       placeholder="Password"
       v-model="password"
     />
-    <button class="waves-effect waves-light btn-small blue">Log in</button>
+    <center>
+      <button
+        class="btn-position waves-effect waves-light btn-small blue-grey lighten-1"
+      >
+        Log in
+      </button>
+    </center>
   </form>
   <div class="switch-user">
+    <p>Haven't registered or forgotten your password?</p>
     <router-link to="/signup">
-      <button class="waves-effect waves-light btn-small green">
+      <button class="waves-effect waves-light btn-small light-green darken-2">
         Sign Up
       </button>
     </router-link>
     <router-link to="/forgotpassword">
-      <button class="waves-effect waves-light btn-small red">
+      <button class="waves-effect waves-light btn-small red darken-1">
         Reset Password
       </button>
     </router-link>
@@ -65,6 +72,10 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.btn-position {
+  margin-bottom: -50px;
 }
 
 .switch-user a {
