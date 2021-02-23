@@ -6,16 +6,17 @@
       @click="toggleAnswer(question.id)"
       class="card-panel blue-grey lighten-1"
     >
-      <h4 class="left-align white-text">
-        {{ question.questions }}
-      </h4>
+      <div class="question-icon">
+        <h6 class="left-align white-text ">{{ question.questions }}</h6>
+        <i class="material-icons">help</i>
+      </div>
 
       <div
         v-if="question.displayAnswer"
         class="card-panel white  blue-grey-text text-lighten-1"
       >
         <div v-if="question.type == 'para'">
-          <p class="left-align">{{ question.answer }}</p>
+          <p class="left-align ">{{ question.answer }}</p>
         </div>
         <div v-if="question.type == 'list'">
           <ul v-for="list in question.answer" :key="list">
@@ -43,9 +44,22 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .question-cards {
   padding: 0 8rem;
   cursor: pointer;
+}
+
+h6 {
+  font-weight: 200;
+}
+
+.question-icon {
+  display: flex;
+}
+
+.question-icon i {
+  margin-left: 5px;
+  margin-top: 9px;
 }
 </style>
