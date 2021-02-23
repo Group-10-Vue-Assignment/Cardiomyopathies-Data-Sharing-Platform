@@ -5,6 +5,11 @@
         <a class="brand-logo">Cardiomyopathies Data Sharing Platform</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li>
+            <router-link to="/helper"
+              ><i class="material-icons right">help</i>Help</router-link
+            >
+          </li>
+          <li>
             <router-link to="/"
               ><i class="material-icons right">home</i>Home</router-link
             >
@@ -35,6 +40,11 @@
       <div class="nav-wrapper">
         <a class="brand-logo">Cardiomyopathies Data-Sharing Platform</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>
+            <router-link to="/helper"
+              ><i class="material-icons right">help</i>Help</router-link
+            >
+          </li>
           <li>
             <router-link to="/global-dashboard">Global Dashboard</router-link>
           </li>

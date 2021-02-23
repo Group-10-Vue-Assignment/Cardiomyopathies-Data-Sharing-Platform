@@ -5,9 +5,10 @@
     <label>clinicalSynopsis</label>:
     {{ entry.clinicalSynopsis.inheritance }}
     <label>Phenotype:</label>
-
     {{ entry.phenotypeMapList[0].phenotypeMap.phenotype }}
     <div>
+      <label>Gene:</label>
+      {{ entry.phenotypeMapList[0].phenotypeMap.geneSymbols }}
       <h1>Text</h1>
       {{ entry.textSectionList[0].textSection.textSectionContent }}
     </div>

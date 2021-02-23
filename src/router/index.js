@@ -9,6 +9,8 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
 import SearchPage from "../views/SearchPage.vue";
 import GraphDetails from "@/views/GraphDetails";
+import Helper from "../views/Helper.vue";
+
 // route guard
 import { projectAuth } from "../firebase/config";
 
@@ -82,7 +84,13 @@ const routes = [
   {
     path: "/searchpage",
     name: "SearchPage",
-    component: SearchPage
+    component: SearchPage,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/helper",
+    name: "Helper",
+    component: Helper
   }
 ];
 

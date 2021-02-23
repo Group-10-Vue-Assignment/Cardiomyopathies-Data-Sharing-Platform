@@ -108,8 +108,7 @@ export default {
       searchId.value += 1;
 
       const apiData = await fetch(
-        `https://api.omim.org/api/entry/search?search=${chosenCardiomyopathyType.value +
-          chosenMutatedGeneType.value}&include=all&exclude=referenceList&exclude=externalLinks&exclude=contributors&format=json&start=0&limit=10&apiKey=tNhHB-RqSsSFIdWm5DPUOA`
+        `https://api.omim.org/api/entry/search?search=${chosenCardiomyopathyType.value}%20${chosenMutatedGeneType.value}&include=all&exclude=referenceList&exclude=externalLinks&exclude=contributors&format=json&start=0&limit=10&apiKey=tNhHB-RqSsSFIdWm5DPUOA`
       );
 
       let data = await apiData.json();
