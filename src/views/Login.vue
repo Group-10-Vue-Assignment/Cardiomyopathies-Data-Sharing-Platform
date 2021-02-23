@@ -1,16 +1,47 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <h3>Login</h3>
-    <input type="email" placeholder="Email" v-model="email" />
-    <input type="password" placeholder="Password" v-model="password" />
-    <div v-if="error" class="error">{{ error }}</div>
-    <button>Log in</button>
-
-    <div class="switch-user">
-      <router-link to="/signup">Not registered?</router-link>
-
-      <router-link to="/forgotpassword">Forgotten password?</router-link>
+    <h3 class="header">Login</h3>
+    <div v-if="error" class="white-text card-panel red">
+      <span>{{ error }}</span>
     </div>
+    <div class="card-panel col s10 m10">
+      <label>Enter your username (Email):</label>
+      <input
+        class="validate"
+        type="email"
+        min="5"
+        max="50"
+        placeholder="Email"
+        v-model="email"
+      />
+      <label>Enter your password:</label>
+      <input
+        class="validate"
+        type="password"
+        placeholder="Password"
+        v-model="password"
+      />
+    </div>
+    <button class="waves-effect waves-light btn-small blue-grey lighten-1">
+      Login
+    </button>
+    <p class="noSelect">⠀</p>
+    <center>
+      <div class="button">
+        <router-link to="/signup">
+          <button class="waves-effect waves-light btn-small green lighten-1">
+            Sign Up
+          </button>
+        </router-link>
+      </div>
+      <div class="button">
+        <router-link to="/forgotpassword">
+          <button class="waves-effect waves-light btn-small red lighten-2">
+            Reset Password
+          </button>
+        </router-link>
+      </div>
+    </center>
   </form>
 </template>
 
@@ -27,7 +58,7 @@ export default {
     const password = ref(null);
     const handleSubmit = async () => {
       await login(email.value, password.value);
-      router.push({ name: "UserDashboard" });
+      router.push({ name: "GlobalDashboard" });
     };
 
     return { email, password, handleSubmit, error };
@@ -35,77 +66,8 @@ export default {
 };
 </script>
 
-<style>
-.error {
-  margin: 21px;
-  text-align: center;
-  color: red;
-}
-
-.switch-user {
-  margin-top: 10px;
-  text-align: center;
-  color: #555;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.switch-user a {
-  margin-top: 7px;
-  text-decoration: none;
-  color: #555;
-}
-
-form {
-  width: 450px;
-  display: block;
-  margin: 50px auto;
-  background: white;
-  text-align: left;
-  padding: 40px;
-  border-radius: 10px;
-}
-
-form h3 {
-  margin-left: 15px;
-  margin-bottom: 20px;
-}
-
-input,
-select {
-  display: block;
-  padding: 15px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  border-radius: 4px;
-  color: #555;
-}
-input[type="checkbox"] {
-  display: inline-block;
-  width: 16px;
-  margin: 0 10px 0 0;
-}
-
-button {
-  display: block;
-  background-color: #618bca;
-  border: 0;
-  margin: auto;
-  width: 130px;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-top: 20px;
-  color: white;
-  border-radius: 20px;
-  text-decoration: none;
-}
-
-button:disabled {
-  background-color: rgb(97 139 202 / 52%);
-  cursor: -moz-grab;
+<style scoped>
+.button {
+  padding: 1%;
 }
 </style>

@@ -3,11 +3,15 @@
   <div v-for="graph in graphs" :key="graph.graphId">
     <line-chart class="center" :graphInformation="graph.graphInformation">
       <div class="graph-btns">
-        <button @click="graphDetails(graph.graphId)">View Details</button>
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-2"
+          @click="graphDetails(graph.graphId)"
+        >
+          View Details
+        </button>
       </div>
     </line-chart>
-    <!-- Below div needs styling - moving to the right in a fixed position -->
-    <div>
+    <div class="white-text card-panel blue-grey lighten-1">
       <p>
         Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
       </p>
@@ -21,10 +25,21 @@
     </div>
   </div>
   <div v-if="graphs.length != 0" class="pagination-btns">
-    <button @click="getPreviousGraph" :disabled="disablePreviousButton">
-      Previous
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getPreviousGraph"
+      :disabled="disablePreviousButton"
+    >
+      <i class="material-icons">arrow_back</i>
     </button>
-    <button @click="getNextGraph" :disabled="disableNextButton">Next</button>
+    <a class="noSelect">⠀</a>
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getNextGraph"
+      :disabled="disableNextButton"
+    >
+      <i class="material-icons">arrow_forward</i>
+    </button>
   </div>
 </template>
 
@@ -192,6 +207,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.noSelect {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .graph-btns {

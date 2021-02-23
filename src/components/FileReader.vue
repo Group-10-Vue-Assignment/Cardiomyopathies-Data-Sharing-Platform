@@ -49,12 +49,17 @@ export default {
         "text/comma-separated-values",
         "text/x-comma-separated-values"
       ];
+      let extensionType = file.name.split(".").pop();
 
       for (const fileType of validFileTypes) {
         if (file.type == fileType) {
           return true;
         }
       }
+      if (extensionType == "csv") {
+        return true;
+      }
+
       return false;
     }
     return { loadDataFromFile };

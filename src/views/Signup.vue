@@ -2,29 +2,70 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <h3>Sign up</h3>
-    <input type="text" placeholder="name" v-model="displayName" required />
-    <input
-      type="text"
-      placeholder="institutional affiliation "
-      v-model="institution"
-      required
-    />
-    <input type="email" placeholder="Email" v-model="email" required />
-    <input type="password" placeholder="Password" v-model="password" required />
-    <input type="address" placeholder="address" v-model="address" />
-    <input
-      type="tel"
-      placeholder="phone number"
-      name="phone"
-      v-model="phoneNumber"
-    />
-
-    <button>Register</button>
-    <div class="switch-user">
-      <router-link to="/login"> Already have an account?</router-link>
+    <div class="card-panel col s10 m10">
+      <label>Enter your name:</label>
+      <input
+        class="validate"
+        type="text"
+        placeholder="Name"
+        v-model="displayName"
+        required
+      />
+      <label
+        >Enter the institution you affiliate with (leave blank if none):</label
+      >
+      <input
+        class="validate"
+        type="text"
+        placeholder="Institutional Affiliation"
+        v-model="institution"
+        required
+      />
+      <label>Enter your email address (required):</label>
+      <input
+        class="validate"
+        type="email"
+        placeholder="Email*"
+        v-model="email"
+        required
+      />
+      <label>Enter your password (required):</label>
+      <input
+        class="validate"
+        type="password"
+        placeholder="Password*"
+        v-model="password"
+        required
+      />
+      <label>Enter your address:</label>
+      <input
+        class="validate"
+        type="text"
+        placeholder="Address"
+        v-model="address"
+      />
+      <label>Enter your number:</label>
+      <input
+        class="validate"
+        type="number"
+        placeholder="Phone Number"
+        v-model="phoneNumber"
+      />
     </div>
-
-    <div v-if="error" class="error">{{ error }}</div>
+    <button class="waves-effect waves-light btn-small green lighten-1">
+      Register
+    </button>
+    <div v-if="error" class="white-text card-panel red">
+      <span>{{ error }}</span>
+    </div>
+    <div>
+      <br />
+      <center>
+        <button class="waves-effect waves-light btn-small blue-grey lighten-1">
+          <router-link to="/login">Return to Login</router-link>
+        </button>
+      </center>
+    </div>
   </form>
 </template>
 
@@ -77,63 +118,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.error {
-  margin: 20px;
-  text-align: center;
-  color: red;
-}
-
-.switch-user {
-  margin-top: 15px;
-  text-align: center;
-  color: #555;
-}
-
-.switch-user a {
-  text-decoration: none;
-  color: #555;
-}
-
-form {
-  width: 450px;
-  margin: 10px auto;
-  background: white;
-  text-align: left;
-  padding: 40px;
-  border-radius: 10px;
-}
-
-form h3 {
-  margin-left: 15px;
-  margin-bottom: 20px;
-}
-
-input,
-select {
-  display: block;
-  padding: 15px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  color: #555;
-}
-input[type="checkbox"] {
-  display: inline-block;
-  width: 16px;
-  margin: 0 10px 0 0;
-}
-
-button {
-  display: block;
-  background: #618bca;
-  border: 0;
-  margin: auto;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-top: 20px;
+<style>
+a {
   color: white;
-  border-radius: 20px;
 }
 </style>

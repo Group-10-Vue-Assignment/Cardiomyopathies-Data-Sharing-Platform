@@ -1,5 +1,4 @@
 <template>
-  <h1>Graph Details</h1>
   <Suspense>
     <template #default>
       <DetailGraph :id="id" />

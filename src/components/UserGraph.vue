@@ -3,12 +3,24 @@
   <div v-for="graph in graphs" :key="graph.graphId">
     <line-chart class="center" :graphInformation="graph.graphInformation">
       <div class="graph-btns">
-        <button @click="graphDetails(graph.graphId)">View Details</button>
-        <button @click="deleteGraph(graph.graphId)">Delete</button>
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-2"
+          @click="graphDetails(graph.graphId)"
+        >
+          View Details
+        </button>
+        <br />
+        <br />
+        <button
+          class="waves-effect waves-light btn-small red lighten-2"
+          @click="deleteGraph(graph.graphId)"
+        >
+          Delete
+        </button>
       </div>
     </line-chart>
     <!-- Below div needs styling - moving to the right in a fixed position -->
-    <div>
+    <div class="white-text card-panel blue-grey lighten-1">
       <p>
         Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
       </p>
@@ -22,10 +34,21 @@
     </div>
   </div>
   <div v-if="graphs.length != 0" class="pagination-btns">
-    <button @click="getPreviousGraph" :disabled="disablePreviousButton">
-      Previous
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getPreviousGraph"
+      :disabled="disablePreviousButton"
+    >
+      <i class="material-icons">arrow_back</i>
     </button>
-    <button @click="getNextGraph" :disabled="disableNextButton">Next</button>
+    <a class="noSelect">⠀</a>
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getNextGraph"
+      :disabled="disableNextButton"
+    >
+      <i class="material-icons">arrow_forward</i>
+    </button>
   </div>
 </template>
 

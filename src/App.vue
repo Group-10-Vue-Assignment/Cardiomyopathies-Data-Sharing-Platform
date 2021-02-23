@@ -6,12 +6,16 @@
   </Suspense>
 </template>
 <script>
+import M from "materialize-css";
 import NavBar from "./components/NavBar.vue";
 import NotificationContainer from "@/components/NotificationContainer.vue";
 export default {
   components: {
     NavBar,
     NotificationContainer
+  },
+  mounted() {
+    M.AutoInit();
   }
 };
 </script>
@@ -19,6 +23,15 @@ export default {
 * {
   padding: 0%;
   margin: 0%;
+}
+form {
+  width: 40%;
+  display: block;
+  margin: 50px auto;
+  text-align: left;
+}
+.displayBlock {
+  display: block;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

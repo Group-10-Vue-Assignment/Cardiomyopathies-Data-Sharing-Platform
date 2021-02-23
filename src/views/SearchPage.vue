@@ -1,50 +1,52 @@
 <template>
-  <div>
-    <section class="container">
-      <div class="search">
-        <h2>Search Graphs</h2>
-        <form @submit.prevent="queryData">
-          <BaseSelect
-            :options="cardiomyopathyTypeOptions"
-            v-model="cardiomyopathyData.cardiomyopathyType"
-            label="Select Cardiomyopathy Type"
+  <div class="row">
+    <div class="col s6 m6">
+      <form @submit.prevent="queryData">
+        <h5 class="header">Search Graphs</h5>
+        <BaseSelect
+          :options="cardiomyopathyTypeOptions"
+          v-model="cardiomyopathyData.cardiomyopathyType"
+          label="Select Cardiomyopathy Type"
+        />
+        <br />
+        <BaseSelect
+          :options="mutatedGeneTypeOptions"
+          v-model="cardiomyopathyData.mutatedGeneType"
+          label="Select Mutated Gene Type"
+        />
+
+        <br />
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-1"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+    <div
+      class="col s6 m6"
+      v-if="chosenCardiomyopathyType && chosenMutatedGeneType"
+    >
+      <Suspense>
+        <template #default>
+          <SearchGraph
+            :cardiomyopathyTypeValue="chosenCardiomyopathyType"
+            :mutatedGeneTypeValue="chosenMutatedGeneType"
+            :key="searchId"
           />
-
-          <br />
-          <BaseSelect
-            :options="mutatedGeneTypeOptions"
-            v-model="cardiomyopathyData.mutatedGeneType"
-            label="Select Mutated Gene Type"
-          />
-
-          <br />
-
-          <button type="submit">Search</button>
-        </form>
-      </div>
-      <div
-        class="graphs"
-        v-if="chosenCardiomyopathyType && chosenMutatedGeneType"
-      >
-        <Suspense>
-          <template #default>
-            <SearchGraph
-              :cardiomyopathyTypeValue="chosenCardiomyopathyType"
-              :mutatedGeneTypeValue="chosenMutatedGeneType"
-              :key="searchId"
-            />
-          </template>
-          <template #fallback>
-            <Loader />
-          </template>
-        </Suspense>
-      </div>
-    </section>
-
-    <div v-if="showData.length">
-      <div v-for="entry in showData" :key="entry">
-        <Info :entry="entry.entry" />
-      </div>
+        </template>
+        <template #fallback>
+          <Loader />
+        </template>
+      </Suspense>
+    </div>
+    <p v-else>Please search for a graph, results will show here.</p>
+  </div>
+  <!-- fix wahab styling -->
+  <div v-if="showData.length">
+    <div v-for="entry in showData" :key="entry">
+      <Info :entry="entry.entry" />
     </div>
   </div>
 </template>
@@ -143,11 +145,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  padding: 60px;
-  justify-content: center;
-}
 .search-btns {
   display: flex;
 }

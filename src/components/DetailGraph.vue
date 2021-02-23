@@ -1,14 +1,20 @@
 <template>
-  <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
-  <p>Mutated Gene Type: {{ graphInformation.mutatedGeneType }}</p>
-  <p>Type of Data: {{ graphInformation.typeOfData }}</p>
-  <p>Paper: {{ graphInformation.paper }}</p>
-  <p>
-    Added on:
-    {{ date.toDateString() }}
-  </p>
-  <div>
-    <LineChart class="center" :graphInformation="graphInformation"> </LineChart>
+  <div class="col s6 m6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Graph Details</span>
+        <div>
+          <p>{{ graphInformation.cardiomyopathyType }}</p>
+          <p>{{ graphInformation.mutatedGeneType }}</p>
+          <p>{{ graphInformation.typeOfData }}</p>
+          <p>{{ graphInformation.paper }}</p>
+          <p>Added on: {{ date.toDateString() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="graph">
+    <LineChart class="center" :graphInformation="graphInformation" />
   </div>
   <button v-if="user.uid == graphInformation.userId" @click="deleteGraph(id)">
     Delete My Graph

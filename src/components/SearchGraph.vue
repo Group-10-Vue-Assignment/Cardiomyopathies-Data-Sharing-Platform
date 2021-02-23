@@ -1,29 +1,45 @@
 <template>
   <p v-if="graphs.length == 0">No graphs found, add a graph and come back.</p>
   <div v-for="graph in graphs" :key="graph.graphId">
-    <line-chart class="center" :graphInformation="graph.graphInformation">
-      <div class="graph-btns">
-        <button @click="graphDetails(graph.graphId)">View Details</button>
+    <line-chart class="center" :graphInformation="graph.graphInformation" />
+    <div class="graph-btns">
+      <button
+        class="waves-effect waves-light btn-small blue-grey lighten-2"
+        @click="graphDetails(graph.graphId)"
+      >
+        View Details
+      </button>
+    </div>
+    <div class="container">
+      <div class="white-text card-panel blue-grey lighten-1">
+        <p>
+          Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
+        </p>
+        <p>Mutated Gene Type: {{ graph.graphInformation.mutatedGeneType }}</p>
+        <p>Type of Data: {{ graph.graphInformation.typeOfData }}</p>
+        <p>Paper: {{ graph.graphInformation.paper }}</p>
+        <p>
+          Added on:
+          {{ graph.graphInformation.timeOfInsert.toDate().toDateString() }}
+        </p>
       </div>
-    </line-chart>
-    <div>
-      <p>
-        Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
-      </p>
-      <p>Mutated Gene Type: {{ graph.graphInformation.mutatedGeneType }}</p>
-      <p>Type of Data: {{ graph.graphInformation.typeOfData }}</p>
-      <p>Paper: {{ graph.graphInformation.paper }}</p>
-      <p>
-        Added on:
-        {{ graph.graphInformation.timeOfInsert.toDate().toDateString() }}
-      </p>
     </div>
   </div>
   <div v-if="graphs.length != 0">
-    <button @click="getPreviousGraph" :disabled="disablePreviousButton">
-      Previous
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getPreviousGraph"
+      :disabled="disablePreviousButton"
+    >
+      <i class="material-icons">arrow_back</i>
     </button>
-    <button @click="getNextGraph" :disabled="disableNextButton">Next</button>
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      @click="getNextGraph"
+      :disabled="disableNextButton"
+    >
+      <i class="material-icons">arrow_forward</i>
+    </button>
   </div>
 </template>
 
@@ -203,19 +219,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.graph-btns {
-  margin-right: -8.5%;
-}
-
-.graphInfo {
-  float: right;
-}
-</style>

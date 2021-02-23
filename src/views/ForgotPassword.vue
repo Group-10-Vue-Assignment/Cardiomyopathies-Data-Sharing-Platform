@@ -1,17 +1,39 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <h3>Forgotten password?</h3>
-    <input type="email" placeholder="Email" v-model="email" />
-
-    <div v-if="success" class="success">
-      Link was successfully sent to email, also check in junk
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Forgot Password</span>
+        <p>
+          Enter your email below to be sent a one-time link to reset your
+          password.
+        </p>
+      </div>
     </div>
-    <div v-if="error" class="error">{{ error }}</div>
-
-    <button>Send email link</button>
-
-    <div class="switch-user">
-      <router-link to="/login">Back to login</router-link>
+    <div class="card-panel col s10 m10">
+      <label>Enter your email address:</label>
+      <input
+        class="validate"
+        type="email"
+        placeholder="Email"
+        v-model="email"
+      />
+    </div>
+    <div v-if="success" class="white-text card light-green lighten-1 popup">
+      <span>Link was successfully delivered to your (junk) email.</span>
+    </div>
+    <div v-if="error" class="white-text card-panel red popup">
+      <span>{{ error }}</span>
+    </div>
+    <button class="waves-effect waves-light btn-small red lighten-2">
+      Reset Password
+    </button>
+    <div>
+      <br />
+      <center>
+        <button class="waves-effect waves-light btn-small blue-grey lighten-1">
+          <router-link to="/login">Return to login</router-link>
+        </button>
+      </center>
     </div>
   </form>
 </template>
@@ -43,10 +65,13 @@ export default {
 };
 </script>
 
-<style>
-.success {
-  margin: 21px;
+<style scoped>
+a {
+  color: white;
+}
+
+.popup {
+  padding: 2%;
   text-align: center;
-  color: #28a745;
 }
 </style>

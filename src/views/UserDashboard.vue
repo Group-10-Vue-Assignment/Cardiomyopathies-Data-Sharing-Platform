@@ -1,15 +1,17 @@
 <template>
-  <h1>User Dashboard</h1>
-  <h3>Graphs Created By You</h3>
-  <div v-if="error">{{ error }}</div>
-
-  <div class="user-container">
-    <div class="userDetails" v-if="userDetails">
-      <h2>User Details</h2>
-      <label>{{ userDetails.name }}</label>
-      <br />
-      <label>{{ userDetails.institution }}</label>
+  <div class="col s6 m6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">User Dashboard</span>
+        <p>
+          Hello {{ userDetails.name }} from {{ userDetails.institution }}, these
+          are your user details and available graph data.
+        </p>
+      </div>
     </div>
+  </div>
+  <div v-if="error">{{ error }}</div>
+  <div>
     <div>
       <Suspense>
         <template #default>
@@ -46,18 +48,3 @@ export default {
   }
 };
 </script>
-
-<style>
-h1 {
-  padding: 0.5%;
-}
-.userDetails {
-  padding: 0.5%;
-}
-
-.user-container {
-  padding: 60px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-}
-</style>

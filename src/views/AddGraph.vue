@@ -1,101 +1,104 @@
 <template>
-  <div class="container">
-    <section>
-      <div class="add-data">
-        <h2>Insert graph data</h2>
-        <form @submit.prevent="submitData">
-          <BaseSelect
-            :options="cardiomyopathyTypeOptions"
-            v-model="cardiomyopathyData.cardiomyopathyType"
-            label="Select Cardiomyopathy Type"
-          />
-          <br />
-          <BaseSelect
-            :options="mutatedGeneTypeOptions"
-            v-model="cardiomyopathyData.mutatedGeneType"
-            label="Select Mutated Gene Type"
-          />
-          <br />
-          <label for="paper">Enter the paper the data was sourced from</label>
-          <input
-            v-model="cardiomyopathyData.paper"
-            type="text"
-            id="paper"
-            placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
-            required
-          />
-          <br />
-          <BaseSelect
-            :options="dataTypeOptions"
-            v-model="cardiomyopathyData.typeOfData"
-            label="Select Data Type"
-          />
-          <h5>Graph information</h5>
-          <label for="xAxisTitle">Enter the title for the x Axis</label>
-          <input
-            v-model="cardiomyopathyData.xAxisTitle"
-            type="text"
-            id="xAxisTitle"
-            placeholder="e.g: Time (sec)"
-            required
-          />
-          <br />
-          <label for="yAxisTitle">Enter the title for the y Axis</label>
-          <input
-            v-model="cardiomyopathyData.yAxisTitle"
-            type="text"
-            id="yAxisTitle"
-            placeholder="e.g: Sarcomere length (µm)"
-            required
-          />
-          <br />
-          <label for="roundYAxisDP"
-            >Enter the decimal place to round Y Axis too</label
-          >
-          <input
-            v-model="cardiomyopathyData.roundYAxisDP"
-            type="number"
-            id="roundYAxisDP"
-            min="0"
-            max="4"
-            required
-          />
-          <br />
-          <label for="yTickAmount"
-            >Enter the amount of Y axis ticks you wish to be displayed on the
-            rendered graph</label
-          >
-          <input
-            v-model="cardiomyopathyData.yTickAmount"
-            type="number"
-            id="yTickAmount"
-            min="3"
-            max="10"
-            required
-          />
-          <p>Select a csv to pull data from</p>
-          <FileReader
-            @load="csvData = $event"
-            @filename="tmpFilename = $event"
-          />
-          <br />
-          <p v-if="chosenFilename">Selected File: {{ chosenFilename }}</p>
-          <div v-if="csvData != ''">
-            <button @click="parseCSVData">
-              Add data
-            </button>
-            <br />
-            <br />
-          </div>
-          <input
-            type="submit"
-            :disabled="parsedData == null"
-            :class="{ clickable: parsedData != null }"
-          />
-        </form>
+  <div class="col s6 m6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Add Graph Data</span>
+        <p>
+          Insert graph data by filling in the form and uploading a CSV file.
+        </p>
       </div>
-    </section>
+    </div>
   </div>
+  <form @submit.prevent="submitData">
+    <BaseSelect
+      :options="cardiomyopathyTypeOptions"
+      v-model="cardiomyopathyData.cardiomyopathyType"
+      label="Select Cardiomyopathy Type"
+    />
+    <br />
+    <BaseSelect
+      :options="mutatedGeneTypeOptions"
+      v-model="cardiomyopathyData.mutatedGeneType"
+      label="Select Mutated Gene Type"
+    />
+    <br />
+    <label for="paper">Enter the paper the data was sourced from</label>
+    <input
+      v-model="cardiomyopathyData.paper"
+      type="text"
+      id="paper"
+      placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
+      required
+    />
+    <br />
+    <BaseSelect
+      :options="dataTypeOptions"
+      v-model="cardiomyopathyData.typeOfData"
+      label="Select Data Type"
+    />
+    <h5>Graph information</h5>
+    <label for="xAxisTitle">Enter the title for the x Axis</label>
+    <input
+      v-model="cardiomyopathyData.xAxisTitle"
+      type="text"
+      id="xAxisTitle"
+      placeholder="e.g: Time (sec)"
+      required
+    />
+    <br />
+    <label for="yAxisTitle">Enter the title for the y Axis</label>
+    <input
+      v-model="cardiomyopathyData.yAxisTitle"
+      type="text"
+      id="yAxisTitle"
+      placeholder="e.g: Sarcomere length (µm)"
+      required
+    />
+    <br />
+    <label for="roundYAxisDP"
+      >Enter the decimal place to round Y Axis too</label
+    >
+    <input
+      v-model="cardiomyopathyData.roundYAxisDP"
+      type="number"
+      id="roundYAxisDP"
+      min="0"
+      max="4"
+      required
+    />
+    <br />
+    <label for="yTickAmount"
+      >Enter the amount of Y axis ticks you wish to be displayed on the rendered
+      graph</label
+    >
+    <input
+      v-model="cardiomyopathyData.yTickAmount"
+      type="number"
+      id="yTickAmount"
+      min="3"
+      max="10"
+      required
+    />
+    <p>Select a csv to pull data from</p>
+    <FileReader @load="csvData = $event" @filename="tmpFilename = $event" />
+    <br />
+    <p v-if="chosenFilename">Selected File: {{ chosenFilename }}</p>
+    <div v-if="csvData != ''">
+      <button @click="parseCSVData">
+        Add data
+      </button>
+      <br />
+      <br />
+    </div>
+    <button
+      class="waves-effect waves-light btn-small blue-grey lighten-2"
+      type="submit"
+      :disabled="parsedData == null"
+      :class="{ clickable: parsedData != null }"
+    >
+      Submit
+    </button>
+  </form>
 </template>
 
 <script>

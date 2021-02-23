@@ -1,6 +1,7 @@
 <template>
   <label v-if="label">{{ label }}</label>
   <select
+    class="displayBlock"
     :value="modelValue"
     v-bind="{
       ...$attrs,
