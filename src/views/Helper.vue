@@ -1,22 +1,27 @@
 <template>
-  <h1>Got any questions?</h1>
+  <h3>Got any questions?</h3>
 
-  <div v-for="question in Questions" :key="question">
-    <div @click="toggleAnswer(question.id)">
-      <h2>{{ question.questions }}</h2>
+  <div v-for="question in Questions" :key="question" class="question-cards">
+    <div
+      @click="toggleAnswer(question.id)"
+      class="card-panel blue-grey lighten-1"
+    >
+      <h4 class="left-align white-text">
+        {{ question.questions }}
+      </h4>
 
-      <div v-if="question.displayAnswer">
+      <div
+        v-if="question.displayAnswer"
+        class="card-panel white  blue-grey-text text-lighten-1"
+      >
         <div v-if="question.type == 'para'">
-          <p>{{ question.answer }}</p>
+          <p class="left-align">{{ question.answer }}</p>
         </div>
         <div v-if="question.type == 'list'">
           <ul v-for="list in question.answer" :key="list">
-            <li>{{ list }}</li>
+            <li class="left-align">{{ list }}</li>
           </ul>
         </div>
-      </div>
-      <div v-else>
-        click me
       </div>
     </div>
   </div>
@@ -38,4 +43,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.question-cards {
+  padding: 0 8rem;
+  cursor: pointer;
+}
+</style>
