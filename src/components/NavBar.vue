@@ -10,8 +10,10 @@
           <router-link class="nav-item" to="/">Home</router-link>
           <router-link class="nav-item" to="/login">Login</router-link>
           <router-link class="nav-item" to="/signup">Sign up</router-link>
+          <router-link class="nav-item" to="/helper">Help</router-link>
         </div>
         <div v-else class="user-items">
+          <router-link class="nav-item" to="/helper">Help</router-link>
           <router-link class="nav-item" to="/global-dashboard"
             >Global Dashboard</router-link
           >
