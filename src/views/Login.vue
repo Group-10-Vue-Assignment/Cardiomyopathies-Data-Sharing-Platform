@@ -1,39 +1,50 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="col s12">
-    <h3>Login</h3>
-    <div v-if="error" class="error card-panel red">
+  <form @submit.prevent="handleSubmit">
+    <h3 class="header">Login</h3>
+    <div v-if="error" class="white-text card-panel red">
       <span>{{ error }}</span>
     </div>
-    <label>Enter your username (Email):</label>
-    <input class="validate" type="email" placeholder="Email" v-model="email" />
-    <label>Enter your password:</label>
-    <input
-      class="validate"
-      type="password"
-      placeholder="Password"
-      v-model="password"
-    />
+    <div class="card-panel col s10 m10">
+      <label>Enter your username (Email):</label>
+      <input
+        class="validate"
+        type="email"
+        min="5"
+        max="50"
+        placeholder="Email"
+        v-model="email"
+      />
+      <label>Enter your password:</label>
+      <input
+        class="validate"
+        type="password"
+        placeholder="Password"
+        v-model="password"
+      />
+    </div>
+    <button class="waves-effect waves-light btn-small blue-grey lighten-1">
+      Login
+    </button>
+    <p class="noSelect">⠀</p>
+    <h6 class="header">Haven't registered or forgotten your password?</h6>
+    <br />
     <center>
-      <button
-        class="btn-position waves-effect waves-light btn-small blue-grey lighten-1"
-      >
-        Log in
-      </button>
+      <div class="button">
+        <router-link to="/signup">
+          <button class="waves-effect waves-light btn-small green lighten-1">
+            Sign Up
+          </button>
+        </router-link>
+      </div>
+      <div class="button">
+        <router-link to="/forgotpassword">
+          <button class="waves-effect waves-light btn-small red lighten-2">
+            Reset Password
+          </button>
+        </router-link>
+      </div>
     </center>
   </form>
-  <div class="switch-user">
-    <p>Haven't registered or forgotten your password?</p>
-    <router-link to="/signup">
-      <button class="waves-effect waves-light btn-small light-green darken-2">
-        Sign Up
-      </button>
-    </router-link>
-    <router-link to="/forgotpassword">
-      <button class="waves-effect waves-light btn-small red darken-1">
-        Reset Password
-      </button>
-    </router-link>
-  </div>
 </template>
 
 <script>
@@ -58,32 +69,6 @@ export default {
 </script>
 
 <style>
-.error {
-  font-size: 90%;
-  color: white;
-  text-align: center;
-}
-
-.switch-user {
-  margin-top: 10px;
-  text-align: center;
-  color: #555;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.btn-position {
-  margin-bottom: -50px;
-}
-
-.switch-user a {
-  margin-top: 7px;
-  text-decoration: none;
-  color: #555;
-}
-
 form {
   width: 35%;
   display: block;
@@ -91,23 +76,7 @@ form {
   text-align: left;
 }
 
-.icon_style {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 20px;
-  color: white;
-  cursor: pointer;
-}
-
-input[type="checkbox"] {
-  display: inline-block;
-  width: 16px;
-  margin: 0 10px 0 0;
-}
-
-button:disabled {
-  background-color: rgb(97 139 202 / 52%);
-  cursor: -moz-grab;
+.button {
+  padding: 1%;
 }
 </style>

@@ -4,9 +4,28 @@
       <div class="nav-wrapper">
         <a class="brand-logo">Cardiomyopathies Data Sharing Platform</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/login">Login</router-link></li>
-          <li><router-link to="/signup">Sign up</router-link></li>
+          <li>
+            <router-link to="/"
+              ><i class="material-icons right">home</i>Home</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/login"
+              ><i class="material-icons right">lock_open</i>Login</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/signup"
+              ><i class="material-icons right">person_add</i>Sign
+              up</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/forgotpassword"
+              ><i class="material-icons right">vpn_key</i>Reset
+              Password</router-link
+            >
+          </li>
         </ul>
       </div>
     </nav>
