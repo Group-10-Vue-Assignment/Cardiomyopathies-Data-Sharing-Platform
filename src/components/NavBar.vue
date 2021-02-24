@@ -46,6 +46,9 @@
             >
           </li>
           <li>
+            <router-link to="/">Home</router-link>
+          </li>
+          <li>
             <router-link to="/global-dashboard">Global Dashboard</router-link>
           </li>
           <li>
