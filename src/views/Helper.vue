@@ -1,6 +1,10 @@
 <template>
-  <h3>Got any questions?</h3>
-
+  <PageBanner>
+    <template v-slot:title>FAQ</template>
+    <template v-slot:description>
+      Got any questions?
+    </template>
+  </PageBanner>
   <div v-for="question in Questions" :key="question" class="question-cards">
     <div
       @click="toggleAnswer(question.id)"
@@ -31,7 +35,11 @@
 <script>
 import { GuideQuestions } from "../composables/sharedData.js";
 import { ref } from "vue";
+import PageBanner from "@/components/PageBanner.vue";
 export default {
+  components: {
+    PageBanner
+  },
   setup() {
     const Questions = ref();
     Questions.value = GuideQuestions;

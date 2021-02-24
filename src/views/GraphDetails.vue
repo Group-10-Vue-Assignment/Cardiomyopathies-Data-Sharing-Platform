@@ -1,4 +1,10 @@
 <template>
+  <PageBanner>
+    <template v-slot:title>Graph Details</template>
+    <template v-slot:description>
+      Viewing specific experimental data stored on our systems
+    </template>
+  </PageBanner>
   <Suspense>
     <template #default>
       <DetailGraph :id="id" />
@@ -12,11 +18,12 @@
 <script>
 import DetailGraph from "@/components/DetailGraph.vue";
 import Loader from "../components/Loader.vue";
-
+import PageBanner from "@/components/PageBanner.vue";
 export default {
   components: {
     DetailGraph,
-    Loader
+    Loader,
+    PageBanner
   },
   props: {
     id: {

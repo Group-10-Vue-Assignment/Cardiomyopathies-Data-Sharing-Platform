@@ -1,8 +1,16 @@
 <template>
+  <PageBanner>
+    <template v-slot:title>Search Page</template>
+    <template v-slot:description>
+      Search through the stored experimental data by Cardiomyopathy type and
+      mutated gene type. This will return data we have stored, and external
+      information from OMIM.
+    </template>
+  </PageBanner>
   <div class="row">
     <div class="col s6 m6">
       <form @submit.prevent="queryData">
-        <h5 class="header">Search Graphs</h5>
+        <h5 class="header">Select Filters</h5>
         <BaseSelect
           :options="cardiomyopathyTypeOptions"
           v-model="cardiomyopathyData.cardiomyopathyType"
@@ -59,6 +67,7 @@ import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import SearchGraph from "@/components/SearchGraph.vue";
 import Loader from "../components/Loader.vue";
 import Info from "../components/Info.vue";
+import PageBanner from "@/components/PageBanner.vue";
 import {
   mutatedGeneTypes,
   cardiomyopathyTypes
@@ -69,7 +78,8 @@ export default {
     SearchGraph,
     BaseSelect,
     Loader,
-    Info
+    Info,
+    PageBanner
   },
   setup() {
     const searchId = ref(0);

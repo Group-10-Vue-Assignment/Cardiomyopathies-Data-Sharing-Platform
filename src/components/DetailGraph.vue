@@ -1,24 +1,22 @@
 <template>
-  <div class="col s6 m6">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Graph Details</span>
-        <div>
-          <p>{{ graphInformation.cardiomyopathyType }}</p>
-          <p>{{ graphInformation.mutatedGeneType }}</p>
-          <p>{{ graphInformation.typeOfData }}</p>
-          <p>{{ graphInformation.paper }}</p>
-          <p>Added on: {{ date.toDateString() }}</p>
-        </div>
-      </div>
+  <div class="graph">
+    <LineChart class="center" :graphInformation="graphInformation">
+      <button
+        class="waves-effect waves-light btn-small red lighten-2"
+        v-if="user.uid == graphInformation.userId"
+        @click="deleteGraph(id)"
+      >
+        Delete My Graph
+      </button>
+    </LineChart>
+    <div class="white-text card-panel blue-grey lighten-1">
+      <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
+      <p>Mutated Gene Type: {{ graphInformation.mutatedGeneType }}</p>
+      <p>Type of Data: {{ graphInformation.typeOfData }}</p>
+      <p>Paper: {{ graphInformation.paper }}</p>
+      <p>Added on: {{ date.toDateString() }}</p>
     </div>
   </div>
-  <div class="graph">
-    <LineChart class="center" :graphInformation="graphInformation" />
-  </div>
-  <button v-if="user.uid == graphInformation.userId" @click="deleteGraph(id)">
-    Delete My Graph
-  </button>
   <div v-if="error" class="error">{{ error }}</div>
 </template>
 
@@ -73,4 +71,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

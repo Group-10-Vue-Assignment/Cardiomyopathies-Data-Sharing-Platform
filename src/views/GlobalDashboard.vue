@@ -1,15 +1,11 @@
 <template>
-  <div class="col s6 m6">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Global Dashboard</span>
-        <p>
-          The graphs generated on this page are the ones that have been created
-          by other people.
-        </p>
-      </div>
-    </div>
-  </div>
+  <PageBanner>
+    <template v-slot:title>Global Dashboard</template>
+    <template v-slot:description>
+      The graphs generated on this page are the ones that have been created by
+      other people.
+    </template>
+  </PageBanner>
   <div>
     <Suspense>
       <template #default>
@@ -25,11 +21,12 @@
 <script>
 import GlobalGraph from "@/components/GlobalGraph.vue";
 import Loader from "../components/Loader.vue";
-
+import PageBanner from "@/components/PageBanner.vue";
 export default {
   components: {
     GlobalGraph,
-    Loader
+    Loader,
+    PageBanner
   },
   async setup() {}
 };

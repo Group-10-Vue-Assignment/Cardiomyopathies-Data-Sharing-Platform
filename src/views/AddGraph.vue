@@ -1,14 +1,10 @@
 <template>
-  <div class="col s6 m6">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Add Graph Data</span>
-        <p>
-          Insert graph data by filling in the form and uploading a CSV file.
-        </p>
-      </div>
-    </div>
-  </div>
+  <PageBanner>
+    <template v-slot:title>Add Graph Data</template>
+    <template v-slot:description>
+      Insert graph data by filling in the form and uploading a CSV file.
+    </template>
+  </PageBanner>
   <form @submit.prevent="submitData">
     <BaseSelect
       :options="cardiomyopathyTypeOptions"
@@ -110,6 +106,7 @@ import { graphsCollection } from "@/firebase/config";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import BaseSelect from "@/components/BaseSelect.vue";
+import PageBanner from "@/components/PageBanner.vue";
 import {
   mutatedGeneTypes,
   cardiomyopathyTypes,
@@ -120,7 +117,8 @@ export default {
   name: "AddGraph",
   components: {
     FileReader,
-    BaseSelect
+    BaseSelect,
+    PageBanner
   },
   setup() {
     const store = useStore();

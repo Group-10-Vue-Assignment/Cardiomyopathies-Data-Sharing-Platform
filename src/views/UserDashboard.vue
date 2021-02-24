@@ -1,15 +1,11 @@
 <template>
-  <div class="col s6 m6">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">User Dashboard</span>
-        <p>
-          Hello {{ userDetails.name }} from {{ userDetails.institution }}, these
-          are your user details and available graph data.
-        </p>
-      </div>
-    </div>
-  </div>
+  <PageBanner>
+    <template v-slot:title>User Dashboard</template>
+    <template v-slot:description
+      >Hello {{ userDetails.name }} from {{ userDetails.institution }}, these
+      are your user details and available graph data.
+    </template>
+  </PageBanner>
   <div v-if="error">{{ error }}</div>
   <div>
     <div>
@@ -30,11 +26,13 @@ import getUser from "../firebaseFunctions/getUser.js";
 import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import UserGraph from "@/components/UserGraph.vue";
 import Loader from "../components/Loader.vue";
+import PageBanner from "@/components/PageBanner.vue";
 
 export default {
   components: {
     UserGraph,
-    Loader
+    Loader,
+    PageBanner
   },
   setup() {
     //will get user auth

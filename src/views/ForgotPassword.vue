@@ -1,14 +1,12 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Forgot Password</span>
-        <p>
-          Enter your email below to be sent a one-time link to reset your
-          password.
-        </p>
-      </div>
-    </div>
+    <PageBanner>
+      <template v-slot:title>Forgot Password</template>
+      <template v-slot:description>
+        Enter your email below to be sent a one-time link to reset your
+        password.
+      </template>
+    </PageBanner>
     <div class="card-panel col s10 m10">
       <label>Enter your email address:</label>
       <input
@@ -41,7 +39,11 @@
 <script>
 import { ref } from "vue";
 import { projectAuth } from "../firebase/config.js";
+import PageBanner from "@/components/PageBanner.vue";
 export default {
+  components: {
+    PageBanner
+  },
   setup() {
     const email = ref("");
     const error = ref("");

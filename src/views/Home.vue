@@ -1,17 +1,14 @@
 <template>
-  <div class="row">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Home</span>
-        <i>
-          Cardiomyopathy is a general term for diseases of the heart muscle,
-          where the walls of the heart chambers have become stretched, thickened
-          or stiff. This affects the heart's ability to pump blood around the
-          body.
-        </i>
-      </div>
-    </div>
-  </div>
+  <PageBanner>
+    <template v-slot:title>Home</template>
+    <template v-slot:description>
+      <i>
+        Cardiomyopathy is a general term for diseases of the heart muscle, where
+        the walls of the heart chambers have become stretched, thickened or
+        stiff. This affects the heart's ability to pump blood around the body.
+      </i>
+    </template>
+  </PageBanner>
 
   <div class="row">
     <div class="col s6 m6">
@@ -27,9 +24,12 @@
 </template>
 
 <script>
+import PageBanner from "@/components/PageBanner.vue";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    PageBanner
+  },
   setup() {}
 };
 </script>
