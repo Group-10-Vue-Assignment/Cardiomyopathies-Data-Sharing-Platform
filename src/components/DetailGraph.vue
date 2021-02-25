@@ -1,13 +1,10 @@
 <template>
   <div class="graph">
     <LineChart class="center" :graphInformation="graphInformation">
-      <button
-        class="waves-effect waves-light btn-small red lighten-2"
+      <ConfirmationBox
         v-if="user.uid == graphInformation.userId"
-        @click="deleteGraph(id)"
-      >
-        Delete My Graph
-      </button>
+        @deleteGraph="deleteGraph(id)"
+      />
     </LineChart>
     <div class="white-text card-panel blue-grey lighten-1">
       <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
@@ -27,10 +24,11 @@ import LineChart from "@/components/LineChart";
 import { ref } from "vue";
 import { graphsCollection } from "@/firebase/config";
 import { useRouter } from "vue-router";
-
+import ConfirmationBox from "@/components/ConfirmationBox.vue";
 export default {
   components: {
-    LineChart
+    LineChart,
+    ConfirmationBox
   },
   props: {
     id: {

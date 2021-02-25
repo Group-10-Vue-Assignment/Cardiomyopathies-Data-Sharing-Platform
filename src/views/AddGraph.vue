@@ -80,8 +80,11 @@
     <br />
     <p v-if="chosenFilename">Selected File: {{ chosenFilename }}</p>
     <div v-if="csvData != ''">
-      <button @click="parseCSVData">
-        Add data
+      <button
+        @click="parseCSVData"
+        class="waves-effect waves-light btn-small green lighten-1"
+      >
+        Add CSV
       </button>
       <br />
       <br />
@@ -92,7 +95,7 @@
       :disabled="parsedData == null"
       :class="{ clickable: parsedData != null }"
     >
-      Submit
+      Submit Graph
     </button>
   </form>
 </template>

@@ -79,8 +79,8 @@ export default {
     //handle log out for user
     const handleClick = async () => {
       try {
-        await projectAuth.signOut();
         router.push({ name: "Login" });
+        await projectAuth.signOut();
       } catch (err) {
         console.log(err.message);
       }

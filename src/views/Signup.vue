@@ -51,22 +51,23 @@
         placeholder="Phone Number"
         v-model="phoneNumber"
       />
-    </div>
-    <button class="waves-effect waves-light btn-small green lighten-1">
-      Register
-    </button>
-    <div v-if="error" class="white-text card-panel red">
-      <span>{{ error }}</span>
-    </div>
-    <div>
-      <br />
-      <center>
-        <button class="waves-effect waves-light btn-small blue-grey lighten-1">
-          <router-link to="/login">Return to Login</router-link>
-        </button>
-      </center>
+      <button class="waves-effect waves-light btn-small green lighten-1">
+        Register
+      </button>
     </div>
   </form>
+  <div v-if="error" class="white-text card-panel red">
+    <span>{{ error }}</span>
+  </div>
+  <div>
+    <br />
+
+    <router-link
+      to="/login"
+      class="waves-effect waves-light btn-small blue-grey lighten-1"
+      >Return to Login</router-link
+    >
+  </div>
 </template>
 
 <script>
@@ -118,8 +119,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 a {
   color: white;
+}
+form {
+  margin-bottom: 0px;
 }
 </style>

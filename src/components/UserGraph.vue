@@ -11,12 +11,7 @@
         </button>
         <br />
         <br />
-        <button
-          class="waves-effect waves-light btn-small red lighten-2"
-          @click="deleteGraph(graph.graphId)"
-        >
-          Delete
-        </button>
+        <ConfirmationBox @deleteGraph="deleteGraph(graph.graphId)" />
       </div>
     </line-chart>
     <!-- Below div needs styling - moving to the right in a fixed position -->
@@ -57,10 +52,11 @@ import LineChart from "@/components/LineChart";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { graphsCollection } from "@/firebase/config";
-
+import ConfirmationBox from "@/components/ConfirmationBox.vue";
 export default {
   components: {
-    LineChart
+    LineChart,
+    ConfirmationBox
   },
   props: {
     userId: {

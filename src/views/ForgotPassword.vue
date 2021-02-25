@@ -15,25 +15,23 @@
         placeholder="Email"
         v-model="email"
       />
-    </div>
-    <div v-if="success" class="white-text card light-green lighten-1 popup">
-      <span>Link was successfully delivered to your (junk) email.</span>
-    </div>
-    <div v-if="error" class="white-text card-panel red popup">
-      <span>{{ error }}</span>
-    </div>
-    <button class="waves-effect waves-light btn-small red lighten-2">
-      Reset Password
-    </button>
-    <div>
-      <br />
-      <center>
-        <button class="waves-effect waves-light btn-small blue-grey lighten-1">
-          <router-link to="/login">Return to login</router-link>
-        </button>
-      </center>
+      <button class="waves-effect waves-light btn-small red lighten-2">
+        Reset Password
+      </button>
     </div>
   </form>
+  <div v-if="success" class="white-text card light-green lighten-1 popup">
+    <span>Link was successfully delivered to your (junk) email.</span>
+  </div>
+  <div v-if="error" class="white-text card-panel red popup">
+    <span>{{ error }}</span>
+  </div>
+  <br />
+  <router-link
+    to="/login"
+    class="waves-effect waves-light btn-small blue-grey lighten-1"
+    >Return to login
+  </router-link>
 </template>
 
 <script>
@@ -70,6 +68,9 @@ export default {
 <style scoped>
 a {
   color: white;
+}
+form {
+  margin-bottom: 0px;
 }
 
 .popup {

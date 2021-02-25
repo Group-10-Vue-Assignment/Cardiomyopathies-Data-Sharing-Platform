@@ -9,13 +9,16 @@
 import M from "materialize-css";
 import NavBar from "./components/NavBar.vue";
 import NotificationContainer from "@/components/NotificationContainer.vue";
+import { onMounted } from "vue";
 export default {
   components: {
     NavBar,
     NotificationContainer
   },
-  mounted() {
-    M.AutoInit();
+  setup() {
+    onMounted(() => {
+      M.AutoInit();
+    });
   }
 };
 </script>

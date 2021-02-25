@@ -21,28 +21,31 @@
         placeholder="Password"
         v-model="password"
       />
+      <button
+        type="submit"
+        class="waves-effect waves-light btn-small blue-grey lighten-1"
+      >
+        Login
+      </button>
     </div>
-    <button class="waves-effect waves-light btn-small blue-grey lighten-1">
-      Login
-    </button>
-    <p class="noSelect">⠀</p>
-    <center>
-      <div class="button">
-        <router-link to="/signup">
-          <button class="waves-effect waves-light btn-small green lighten-1">
-            Sign Up
-          </button>
-        </router-link>
-      </div>
-      <div class="button">
-        <router-link to="/forgotpassword">
-          <button class="waves-effect waves-light btn-small red lighten-2">
-            Reset Password
-          </button>
-        </router-link>
-      </div>
-    </center>
   </form>
+  <p class="noSelect">⠀</p>
+  <div>
+    <router-link
+      to="/signup"
+      class="waves-effect waves-light btn-small green lighten-1"
+    >
+      Sign Up
+    </router-link>
+  </div>
+  <div>
+    <router-link
+      to="/forgotpassword"
+      class="waves-effect waves-light btn-small red lighten-2"
+    >
+      Reset Password
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -67,7 +70,7 @@ export default {
 </script>
 
 <style scoped>
-.button {
-  padding: 1%;
+form {
+  margin-bottom: 0px;
 }
 </style>
