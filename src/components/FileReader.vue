@@ -33,8 +33,8 @@ export default {
           type: "error",
           message: "Wrong file type selected! Please select a CSV file"
         };
+        store.dispatch("addNotification", notification);
       }
-      store.dispatch("addNotification", notification);
       e.target.value = "";
     }
 

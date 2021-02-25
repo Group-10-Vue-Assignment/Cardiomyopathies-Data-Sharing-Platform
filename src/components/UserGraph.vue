@@ -53,6 +53,7 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { graphsCollection } from "@/firebase/config";
 import ConfirmationBox from "@/components/ConfirmationBox.vue";
+import { useStore } from "vuex";
 export default {
   components: {
     LineChart,
@@ -66,6 +67,7 @@ export default {
   },
   async setup(props) {
     const router = useRouter();
+    const store = useStore();
 
     let disablePreviousButton = ref(true);
     let disableNextButton = ref(false);
@@ -79,7 +81,9 @@ export default {
     };
 
     async function deleteGraph(graphId) {
-      graphsCollection
+      let notification = {};
+
+      await graphsCollection
         .doc(graphId)
         .delete()
         .then(async () => {
@@ -88,10 +92,20 @@ export default {
           lastVisible = "";
           await getNextGraphUsingPagination();
           disablePreviousButton.value = true;
+          notification = {
+            type: "success",
+            message: "Data has been deleted successfully!"
+          };
         })
         .catch(error => {
           console.error("Error removing document: ", error);
+          notification = {
+            type: "error",
+            message: "Data was not deleted! error: " + error
+          };
         });
+
+      store.dispatch("addNotification", notification);
     }
 
     let lockProcessing = false;

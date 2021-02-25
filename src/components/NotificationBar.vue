@@ -1,6 +1,10 @@
 <template>
-  <div class="notification-bar" :class="notificationTypeClass">
-    <p>{{ notification.message }}</p>
+  <div
+    class="notification-bar"
+    :class="notificationTypeClass"
+    id="flashMessage"
+  >
+    {{ notification.message }}
   </div>
 </template>
 
@@ -29,7 +33,7 @@ export default {
       // we assign a time to a variable to prevent memory leaks
       timeout = setTimeout(() => {
         removeNotification();
-      }, 5000);
+      }, 3000);
     });
 
     onBeforeUnmount(() => {
@@ -44,5 +48,17 @@ export default {
 <style scoped>
 .notification-bar {
   margin: 1em 0 1em;
+}
+@keyframes yellowfade {
+  from {
+    background: yellow;
+  }
+  to {
+    background: transparent;
+  }
+}
+#flashMessage {
+  animation-name: yellowfade;
+  animation-duration: 3s;
 }
 </style>
