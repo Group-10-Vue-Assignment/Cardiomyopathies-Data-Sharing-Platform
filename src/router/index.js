@@ -1,5 +1,34 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import Login from "../views/Login.vue";
+import Signup from "../views/Signup.vue";
+import GlobalDashboard from "../views/GlobalDashboard.vue";
+import UserDashboard from "../views/UserDashboard.vue";
+import AddGraph from "@/views/AddGraph.vue";
+import ForgotPassword from "../views/ForgotPassword.vue";
+import VerifyEmail from "../views/VerifyEmail.vue";
+import SearchPage from "../views/SearchPage.vue";
+import GraphDetails from "@/views/GraphDetails";
+import Helper from "../views/Helper.vue";
+
+// route guard
+import { projectAuth } from "../firebase/config";
+
+const requireAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+  console.log(projectAuth.currentUser);
+  if (!user) {
+    next({ name: "Login" });
+  } else {
+    if (user.emailVerified) {
+      next();
+    } else {
+      next({ name: "VerifyEmail" });
+    }
+  }
+
+  console.log(user.emailVerified);
+};
 
 const routes = [
   {
@@ -8,13 +37,60 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup
+  },
+  {
+    path: "/user-dashboard",
+    name: "UserDashboard",
+    component: UserDashboard,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/global-dashboard",
+    name: "GlobalDashboard",
+    component: GlobalDashboard,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/add-graph",
+    name: "AddGraph",
+    component: AddGraph,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/graph-details/:id",
+    name: "GraphDetails",
+    component: GraphDetails,
+    props: true,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/forgotpassword",
+    name: "ForgotPassword",
+    component: ForgotPassword
+  },
+  {
+    path: "/verifyemail",
+    name: "VerifyEmail",
+    component: VerifyEmail
+  },
+  {
+    path: "/searchpage",
+    name: "SearchPage",
+    component: SearchPage,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/helper",
+    name: "Helper",
+    component: Helper
   }
 ];
 

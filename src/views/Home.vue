@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <PageBanner>
+    <template v-slot:title>Home</template>
+    <template v-slot:description>
+      <i>
+        Cardiomyopathy is a general term for diseases of the heart muscle, where
+        the walls of the heart chambers have become stretched, thickened or
+        stiff. This affects the heart's ability to pump blood around the body.
+      </i>
+    </template>
+  </PageBanner>
+
+  <div class="row">
+    <div class="col s6 m6">
+      <h2>NEWS FEED</h2>
+    </div>
+
+    <div class="col s6 m6">
+      <img
+        src="https://th.bing.com/th/id/Raff457c45a3c0529dfb7aa3e621c4761?rik=INC2goEiftfGlQ&riu=http%3a%2f%2fwww.secondscount.org%2fimage.axd%3fid%3dc690e631-5670-4ebf-9874-b359a1947faf%26t%3d635776851219130000&ehk=Bb3GdTOGrHNAOq9sngvKVyljipE1B8hKHuTput6045E%3d&risl=&pid=ImgRaw"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
+import PageBanner from "@/components/PageBanner.vue";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld,
+    PageBanner
   },
+  setup() {}
 };
 </script>
