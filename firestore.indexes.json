@@ -1,0 +1,69 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "graphs",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "cardiomyopathyType",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "mutatedGeneType",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timeOfInsert",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "graphs",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "cardiomyopathyType",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "mutatedGeneType",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "timeOfInsert",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "graphs",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timeOfInsert",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "graphs",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "userId",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "timeOfInsert",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -2,8 +2,8 @@
   <PageBanner>
     <template v-slot:title>Global Dashboard</template>
     <template v-slot:description>
-      The graphs generated on this page are the ones that have been created by
-      other people.
+      This dashboard displays graphs created by all users, sorted by newest
+      first.
     </template>
   </PageBanner>
   <div>

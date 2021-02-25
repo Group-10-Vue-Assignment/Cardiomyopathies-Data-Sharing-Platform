@@ -12,7 +12,11 @@
 
   <div class="row">
     <div class="col s6 m6">
-      <h2>NEWS FEED</h2>
+      <div v-if="showData.length">
+        <div v-for="entry in showData" :key="entry">
+          <Info :items="entry.entry" />
+        </div>
+      </div>
     </div>
 
     <div class="col s6 m6">
@@ -24,12 +28,36 @@
 </template>
 
 <script>
+import { ref, computed } from "vue";
 import PageBanner from "@/components/PageBanner.vue";
 export default {
   name: "Home",
   components: {
     PageBanner
   },
-  setup() {}
+  setup() {
+    const extraData = ref([]);
+
+    const newsFeed = async () => {
+      const apiData = await fetch(
+        `https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.news-medical.net%2Ftag%2Ffeed%2FCardiomyopathy.aspx`
+      );
+
+      let data = await apiData.json();
+
+      let filteredData = data;
+      extraData.value = filteredData;
+      console.log(extraData);
+    };
+
+    const showData = computed(() => {
+      return extraData.value;
+    });
+
+    return {
+      newsFeed,
+      showData
+    };
+  }
 };
 </script>
