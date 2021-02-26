@@ -1,6 +1,6 @@
 <template>
   <PageBanner>
-    <template v-slot:title>Search Page</template>
+    <template v-slot:title>Search Dashboard</template>
     <template v-slot:description>
       Search through the stored experimental data by Cardiomyopathy type and
       mutated gene type. This will return data we have stored, and external
@@ -38,9 +38,12 @@
     >
       <Suspense>
         <template #default>
-          <SearchGraph
-            :cardiomyopathyTypeValue="chosenCardiomyopathyType"
-            :mutatedGeneTypeValue="chosenMutatedGeneType"
+          <Dashboard
+            :userId="user.uid"
+            :firebaseNextQueryResults="firebaseNextQueryResults"
+            :firebasePreviousQueryResults="firebasePreviousQueryResults"
+            @firebaseNextQuery="firebaseNextQuery($event)"
+            @firebasePreviousQuery="firebasePreviousQuery($event)"
             :key="searchId"
           />
         </template>
@@ -52,7 +55,7 @@
     <p v-else>Please search for a graph, results will show here.</p>
   </div>
   <!-- fix wahab styling -->
-  <div v-if="showData.length">
+  <div v-if="showData.length > 0">
     <div v-for="entry in showData" :key="entry">
       <Info :entry="entry.entry" />
     </div>
@@ -63,11 +66,12 @@
 import { reactive, ref, computed } from "vue";
 import getUser from "../firebaseFunctions/getUser.js";
 import BaseSelect from "@/components/BaseSelect.vue";
-import getUserDetails from "../firebaseFunctions/getUserDetails.js";
-import SearchGraph from "@/components/SearchGraph.vue";
 import Loader from "../components/Loader.vue";
 import Info from "../components/Info.vue";
 import PageBanner from "@/components/PageBanner.vue";
+import { graphsCollection } from "@/firebase/config";
+import Dashboard from "@/components/Dashboard.vue";
+
 import {
   mutatedGeneTypes,
   cardiomyopathyTypes
@@ -75,7 +79,7 @@ import {
 
 export default {
   components: {
-    SearchGraph,
+    Dashboard,
     BaseSelect,
     Loader,
     Info,
@@ -84,18 +88,9 @@ export default {
   setup() {
     const searchId = ref(0);
 
-    const hideCardioType = ref(false);
-    const hideGeneType = ref(true);
-
     const { user } = getUser();
 
-    const { userDetails, error } = getUserDetails(`${user.value.uid}`);
-    console.log(userDetails.value);
-
     const cardiomyopathyData = createFreshCardiomyopathySearchObject();
-    const chosenCardiomyopathyType = ref("");
-    const chosenMutatedGeneType = ref("");
-
     // matches graphs on firebase, havent included graphdata
     function createFreshCardiomyopathySearchObject() {
       return reactive({
@@ -106,11 +101,13 @@ export default {
     }
 
     let mutatedGeneTypeOptions = ref(mutatedGeneTypes);
-
     let cardiomyopathyTypeOptions = ref(cardiomyopathyTypes);
+    const chosenCardiomyopathyType = ref("");
+    const chosenMutatedGeneType = ref("");
+
     const extraData = ref([]);
 
-    const queryData = async () => {
+    async function queryData() {
       chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
       chosenMutatedGeneType.value = cardiomyopathyData.mutatedGeneType;
 
@@ -128,11 +125,34 @@ export default {
         .filter(e => e.entry.clinicalSynopsis.oldFormat == null);
       extraData.value = filteredData;
       console.log(extraData);
-    };
+    }
 
     const showData = computed(() => {
       return extraData.value;
     });
+
+    let graphPaginationLimit = 1;
+    const firebaseNextQueryResults = ref({});
+    const firebasePreviousQueryResults = ref({});
+    // Both the firebaseNextQuery method and firebasePreviousQuery
+    // is linked to the dashboard component via emits up, and props down
+    function firebaseNextQuery(lastVisible) {
+      firebaseNextQueryResults.value = graphsCollection
+        .where("cardiomyopathyType", "==", chosenCardiomyopathyType.value)
+        .where("mutatedGeneType", "==", chosenMutatedGeneType.value)
+        .orderBy("timeOfInsert", "desc")
+        .startAfter(lastVisible)
+        .limit(graphPaginationLimit);
+    }
+
+    function firebasePreviousQuery(firstVisible) {
+      firebasePreviousQueryResults.value = graphsCollection
+        .where("cardiomyopathyType", "==", chosenCardiomyopathyType.value)
+        .where("mutatedGeneType", "==", chosenMutatedGeneType.value)
+        .orderBy("timeOfInsert", "desc")
+        .endBefore(firstVisible)
+        .limitToLast(graphPaginationLimit);
+    }
 
     return {
       searchId,
@@ -142,12 +162,12 @@ export default {
       chosenCardiomyopathyType,
       chosenMutatedGeneType,
       user,
-      userDetails,
-      error,
       queryData,
-      hideCardioType,
-      hideGeneType,
-      showData
+      showData,
+      firebaseNextQuery,
+      firebaseNextQueryResults,
+      firebasePreviousQuery,
+      firebasePreviousQueryResults
     };
   }
 };

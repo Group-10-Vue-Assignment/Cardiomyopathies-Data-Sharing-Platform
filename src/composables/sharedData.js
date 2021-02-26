@@ -28,7 +28,7 @@ let GuideQuestions = [
     type: "para",
 
     answer:
-      "Simply go on to the Registar page, then input all of the required details. Once you have registered you will then need to verify your account through email. Once you have verified you email you will then have access to the whole website.",
+      "Simply go on to the Register page, then input all of the required details. Once you have registered you will then need to verify your account through email. Once you have verified you email you will then have access to the whole website.",
     displayAnswer: false
   },
   {
@@ -36,7 +36,7 @@ let GuideQuestions = [
     questions: "I forgotten my password",
     type: "para",
     answer:
-      "No worries :) simply click on then forgotten password link. This page will ask you for your email. Once you have given you registared email, it will then send you a reset link that can be used to reset your password.",
+      "No worries :) simply click on then forgotten password link. This page will ask you for your email. Once you have given you registered email, it will then send you a reset link that can be used to reset your password.",
     displayAnswer: false
   },
   {
@@ -48,7 +48,7 @@ let GuideQuestions = [
       "2) Login",
       "3) Click on the add graph link",
       "4) Once you are on the add graph page, fill in the required details.",
-      "5) Input CSV file (Note the system can only take in CSV files, any other file types will not be compatitble)",
+      "5) Input CSV file (Note the system can only take in CSV files, any other file types will not be compatible)",
       "6) Click Submit"
     ],
     displayAnswer: false
@@ -65,8 +65,8 @@ let GuideQuestions = [
     questions: "Whats the difference between the global and user dashboard",
     type: "list",
     answer: [
-      "UserDashbaord - The user dashboard will display your user details, as well as all the graphs you have made. ",
-      "GlobalDashbaord - The Global dashboard will display graphs made by all the users on the system."
+      "UserDashboard - The user dashboard will display your user details, as well as all the graphs you have made. ",
+      "GlobalDashboard - The Global dashboard will display graphs made by all the users on the system."
     ],
     displayAnswer: false
   },

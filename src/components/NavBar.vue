@@ -54,7 +54,9 @@
           <li>
             <router-link to="/user-dashboard">User Dashboard</router-link>
           </li>
-          <li><router-link to="/searchpage">Search Graphs</router-link></li>
+          <li>
+            <router-link to="/search-dashboard">Search Dashboard</router-link>
+          </li>
           <li><router-link to="/add-graph">Add Graph</router-link></li>
           <li class="logout-btn" @click="handleClick">
             <i class="small material-icons">exit_to_app</i>

@@ -1,7 +1,7 @@
 <template>
   <p v-if="graphs.length == 0">No graphs found, add a graph and come back.</p>
   <div v-for="graph in graphs" :key="graph.graphId">
-    <line-chart class="center" :graphInformation="graph.graphInformation">
+    <LineChart class="center" :graphInformation="graph.graphInformation">
       <div class="graph-btns">
         <button
           class="waves-effect waves-light btn-small blue-grey lighten-2"
@@ -11,10 +11,12 @@
         </button>
         <br />
         <br />
-        <ConfirmationBox @deleteGraph="deleteGraph(graph.graphId)" />
+        <ConfirmationBox
+          v-if="userId == graph.graphInformation.userId"
+          @deleteGraph="deleteGraph(graph.graphId)"
+        />
       </div>
-    </line-chart>
-    <!-- Below div needs styling - moving to the right in a fixed position -->
+    </LineChart>
     <div class="white-text card-panel blue-grey lighten-1">
       <p>
         Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
@@ -31,7 +33,7 @@
   <div v-if="graphs.length != 0" class="pagination-btns">
     <button
       class="waves-effect waves-light btn-small blue-grey lighten-2"
-      @click="getPreviousGraph"
+      @click="getPreviousGraph()"
       :disabled="disablePreviousButton"
     >
       <i class="material-icons">arrow_back</i>
@@ -39,7 +41,7 @@
     <a class="noSelect">⠀</a>
     <button
       class="waves-effect waves-light btn-small blue-grey lighten-2"
-      @click="getNextGraph"
+      @click="getNextGraph()"
       :disabled="disableNextButton"
     >
       <i class="material-icons">arrow_forward</i>
@@ -48,13 +50,15 @@
 </template>
 
 <script>
-import LineChart from "@/components/LineChart";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
-import { graphsCollection } from "@/firebase/config";
+import LineChart from "@/components/LineChart";
 import ConfirmationBox from "@/components/ConfirmationBox.vue";
+import { graphsCollection } from "@/firebase/config";
 import { useStore } from "vuex";
+import { ref } from "vue";
+
 export default {
+  emits: ["firebaseNextQuery", "firebasePreviousQuery"],
   components: {
     LineChart,
     ConfirmationBox
@@ -63,18 +67,25 @@ export default {
     userId: {
       type: String,
       required: true
+    },
+    firebaseNextQueryResults: {
+      type: Object,
+      required: true
+    },
+    firebasePreviousQueryResults: {
+      type: Object,
+      required: true
     }
   },
-  async setup(props) {
+  async setup(props, context) {
     const router = useRouter();
     const store = useStore();
 
     let disablePreviousButton = ref(true);
     let disableNextButton = ref(false);
-    let graphs = ref([]);
     let lastVisible = "";
     let firstVisible = "";
-    let graphPaginationLimit = 1;
+    let graphs = ref([]);
 
     const graphDetails = id => {
       router.push({ name: "GraphDetails", params: { id: id } });
@@ -124,18 +135,14 @@ export default {
       // Preparing the next N amount of documents ready to iterate through.
       // StartAfter puts us at the start of a new document, and limit continues onwards for the next N documents.
       // This results in pagination
-      let current = graphsCollection
-        .where("userId", "==", props.userId)
-        .orderBy("timeOfInsert", "desc")
-        .startAfter(lastVisible)
-        .limit(graphPaginationLimit);
+      await context.emit("firebaseNextQuery", lastVisible);
 
       // If the lastVisible variable is empty, the webpage has loaded for the first time
       // This means we want to change the prevent button to disabled.
       let initialLoad = lastVisible ? false : true;
 
       // Get the snapshot of selected
-      await current.get().then(querySnapshot => {
+      await props.firebaseNextQueryResults.get().then(querySnapshot => {
         // Set the last visible document, so we know where to continue on with pagination next time
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
         // Set the first visible document so we know where to go backwards with pagination next time
@@ -154,14 +161,9 @@ export default {
       // If last visible is still empty, then 0 graphs were found above and we don't want to continue
       if (lastVisible) {
         // Grab the next snapshot of 1 document
-        let next = graphsCollection
-          .where("userId", "==", props.userId)
-          .orderBy("timeOfInsert", "desc")
-          .startAfter(lastVisible)
-          .limit(1);
-
+        await context.emit("firebaseNextQuery", lastVisible);
         // check the snap size, if it is 0 then we have reached the end and cannot go forward
-        await next.get().then(snap => {
+        await props.firebaseNextQueryResults.get().then(snap => {
           if (snap.size === 0) {
             disableNextButton.value = true;
           } else {
@@ -190,14 +192,10 @@ export default {
       // Preparing the next N amount of documents ready to iterate through.
       // endBefore puts us to the document before the last one we found,
       // and limitToLast goes backwards N documents. This results in backwards pagination
-      let current = graphsCollection
-        .where("userId", "==", props.userId)
-        .orderBy("timeOfInsert", "desc")
-        .endBefore(firstVisible)
-        .limitToLast(graphPaginationLimit);
+      await context.emit("firebasePreviousQuery", firstVisible);
 
       // Get the snapshot of the above selected
-      await current.get().then(querySnapshot => {
+      await props.firebasePreviousQueryResults.get().then(querySnapshot => {
         // Set last visible document within this snapshot, and the first visible document
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
         firstVisible = querySnapshot.docs[0];
@@ -213,13 +211,9 @@ export default {
 
       // Prepare to get a snapshot of the document before first visible, to see if we
       // should disable the previous button or not
-      let previous = graphsCollection
-        .where("userId", "==", props.userId)
-        .orderBy("timeOfInsert", "desc")
-        .endBefore(firstVisible)
-        .limitToLast(1);
+      await context.emit("firebasePreviousQuery", firstVisible);
 
-      await previous.get().then(snap => {
+      await props.firebasePreviousQueryResults.get().then(snap => {
         // If the snapshot is 0, we hit the end and can no longer go further back
         if (snap.size === 0) {
           disablePreviousButton.value = true;
@@ -236,34 +230,16 @@ export default {
     await getNextGraphUsingPagination();
 
     return {
-      graphs,
       graphDetails,
-      getPreviousGraph,
+      deleteGraph,
       getNextGraph,
+      getPreviousGraph,
+      graphs,
       disablePreviousButton,
-      disableNextButton,
-      deleteGraph
+      disableNextButton
     };
   }
 };
 </script>
 
-<style scoped>
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.graph-btns {
-  margin-right: -8.5%;
-}
-
-.pagination-btns {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  margin: auto;
-}
-</style>
+<style></style>

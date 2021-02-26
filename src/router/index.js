@@ -7,7 +7,7 @@ import UserDashboard from "../views/UserDashboard.vue";
 import AddGraph from "@/views/AddGraph.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
-import SearchPage from "../views/SearchPage.vue";
+import SearchDashboard from "../views/SearchDashboard.vue";
 import GraphDetails from "@/views/GraphDetails";
 import Helper from "../views/Helper.vue";
 
@@ -82,9 +82,9 @@ const routes = [
     component: VerifyEmail
   },
   {
-    path: "/searchpage",
-    name: "SearchPage",
-    component: SearchPage,
+    path: "/search-dashboard",
+    name: "SearchDashboard",
+    component: SearchDashboard,
     beforeEnter: requireAuth
   },
   {
