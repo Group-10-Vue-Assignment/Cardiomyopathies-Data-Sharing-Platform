@@ -1,12 +1,17 @@
 <template>
   <PageBanner>
     <template v-slot:title>User Dashboard</template>
-    <template v-slot:description
-      >Hello {{ userDetails.name }} from {{ userDetails.institution }}, these
-      are your user details and available graph data.
+    <template v-slot:description>
+      <Suspense>
+        <template #default>
+          <UserInformation :userId="user.uid" />
+        </template>
+        <template #fallback>
+          <Loader />
+        </template>
+      </Suspense>
     </template>
   </PageBanner>
-  <div v-if="error">{{ error }}</div>
 
   <Suspense>
     <template #default>
@@ -26,25 +31,23 @@
 
 <script>
 import getUser from "../firebaseFunctions/getUser.js";
-import getUserDetails from "../firebaseFunctions/getUserDetails.js";
 import Loader from "../components/Loader.vue";
 import PageBanner from "@/components/PageBanner.vue";
 import { ref } from "vue";
 import { graphsCollection } from "@/firebase/config";
 import Dashboard from "@/components/Dashboard.vue";
+import UserInformation from "@/components/UserInformation.vue";
 
 export default {
   components: {
     Dashboard,
     Loader,
-    PageBanner
+    PageBanner,
+    UserInformation
   },
   setup() {
     //will get user auth
     const { user } = getUser();
-
-    //will get other use details such as phone number, address institution
-    const { userDetails, error } = getUserDetails(`${user.value.uid}`);
 
     let graphPaginationLimit = 1;
     const firebaseNextQueryResults = ref({});
@@ -70,8 +73,6 @@ export default {
 
     return {
       user,
-      userDetails,
-      error,
       firebaseNextQuery,
       firebaseNextQueryResults,
       firebasePreviousQuery,
