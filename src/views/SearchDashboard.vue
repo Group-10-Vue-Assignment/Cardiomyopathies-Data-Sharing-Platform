@@ -54,24 +54,35 @@
     </div>
     <p v-else>Please search for a graph, results will show here.</p>
   </div>
-  <!-- fix wahab styling -->
-  <div v-if="showData.length > 0">
-    <div v-for="entry in showData" :key="entry">
-      <Info :entry="entry.entry" />
+  <div class="row">
+    <div class="col s12">
+      <!--Fix loading is next task, and copy solution when found to other areas maybe.
+        essentially we want a loading icon every time the search is pressed -->
+      <Suspense>
+        <template #default>
+          <ExternalInformation
+            :chosenMutatedGeneType="chosenMutatedGeneType"
+            :chosenCardiomyopathyType="chosenCardiomyopathyType"
+            :key="searchId"
+          />
+        </template>
+        <template #fallback>
+          <Loader />
+        </template>
+      </Suspense>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, ref, computed } from "vue";
+import { reactive, ref } from "vue";
 import getUser from "../firebaseFunctions/getUser.js";
 import BaseSelect from "@/components/BaseSelect.vue";
 import Loader from "../components/Loader.vue";
-import Info from "../components/Info.vue";
 import PageBanner from "@/components/PageBanner.vue";
 import { graphsCollection } from "@/firebase/config";
 import Dashboard from "@/components/Dashboard.vue";
-
+import ExternalInformation from "@/components/ExternalInformation.vue";
 import {
   mutatedGeneTypes,
   cardiomyopathyTypes
@@ -82,8 +93,8 @@ export default {
     Dashboard,
     BaseSelect,
     Loader,
-    Info,
-    PageBanner
+    PageBanner,
+    ExternalInformation
   },
   setup() {
     const searchId = ref(0);
@@ -105,35 +116,18 @@ export default {
     const chosenCardiomyopathyType = ref("");
     const chosenMutatedGeneType = ref("");
 
-    const extraData = ref([]);
-
     async function queryData() {
       chosenCardiomyopathyType.value = cardiomyopathyData.cardiomyopathyType;
       chosenMutatedGeneType.value = cardiomyopathyData.mutatedGeneType;
 
       console.log("reset");
       searchId.value += 1;
-
-      const apiData = await fetch(
-        `https://api.omim.org/api/entry/search?search=${chosenCardiomyopathyType.value}%20${chosenMutatedGeneType.value}&include=all&exclude=referenceList&exclude=externalLinks&exclude=contributors&format=json&start=0&limit=10&apiKey=tNhHB-RqSsSFIdWm5DPUOA`
-      );
-
-      let data = await apiData.json();
-
-      let filteredData = data.omim.searchResponse.entryList
-        .filter(e => e.entry.phenotypeMapList != null)
-        .filter(e => e.entry.clinicalSynopsis.oldFormat == null);
-      extraData.value = filteredData;
-      console.log(extraData);
     }
-
-    const showData = computed(() => {
-      return extraData.value;
-    });
 
     let graphPaginationLimit = 1;
     const firebaseNextQueryResults = ref({});
     const firebasePreviousQueryResults = ref({});
+
     // Both the firebaseNextQuery method and firebasePreviousQuery
     // is linked to the dashboard component via emits up, and props down
     function firebaseNextQuery(lastVisible) {
@@ -163,7 +157,6 @@ export default {
       chosenMutatedGeneType,
       user,
       queryData,
-      showData,
       firebaseNextQuery,
       firebaseNextQueryResults,
       firebasePreviousQuery,
