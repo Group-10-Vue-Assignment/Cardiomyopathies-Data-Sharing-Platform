@@ -57,8 +57,6 @@
   </div>
   <div class="row">
     <div class="col s12">
-      <!--Fix loading is next task, and copy solution when found to other areas maybe.
-        essentially we want a loading icon every time the search is pressed -->
       <div v-show="externalDataLoaded">
         <Suspense>
           <ExternalInformation

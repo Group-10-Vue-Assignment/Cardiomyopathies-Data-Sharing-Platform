@@ -58,7 +58,7 @@ import { useStore } from "vuex";
 import { ref } from "vue";
 
 export default {
-  emits: ["firebaseNextQuery", "firebasePreviousQuery"],
+  emits: ["firebaseNextQuery", "firebasePreviousQuery", "internalDataLoaded"],
   components: {
     LineChart,
     ConfirmationBox

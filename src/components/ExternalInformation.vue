@@ -48,6 +48,7 @@ import HBOService from "@/services/HBOService.js";
 import OMIMService from "@/services/OMIMService.js";
 
 export default {
+  emits: ["externalDataLoaded"],
   props: {
     chosenMutatedGeneType: {
       type: String,

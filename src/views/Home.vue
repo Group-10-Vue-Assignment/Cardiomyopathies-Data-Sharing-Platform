@@ -12,18 +12,14 @@
 
   <div class="row">
     <div class="col s4 m4">
-      <div v-for="items in newsFeedData.items" :key="items">
-        <div class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <span class="card-title"> {{ items.title }} </span>
-            <p>{{ items.description }}</p>
-            <p>Published on: {{ items.pubDate }}</p>
-          </div>
-          <div class="card-action">
-            <a :href="items.link">Source Article</a>
-          </div>
-        </div>
-      </div>
+      <Suspense>
+        <template #default>
+          <NewsFeed />
+        </template>
+        <template #fallback>
+          <Loader />
+        </template>
+      </Suspense>
     </div>
 
     <div class="col s8 m8">
@@ -35,32 +31,16 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import PageBanner from "@/components/PageBanner.vue";
+import NewsFeed from "@/components/NewsFeed.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "Home",
   components: {
-    PageBanner
-  },
-  async setup() {
-    const newsFeedData = ref([]);
-
-    const newsFeed = async () => {
-      const apiData = await fetch(
-        `https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.news-medical.net%2Ftag%2Ffeed%2FCardiomyopathy.aspx`
-      );
-
-      let data = await apiData.json();
-      console.log(data);
-      newsFeedData.value = data;
-    };
-    newsFeed();
-
-    return {
-      newsFeed,
-      newsFeedData
-    };
+    PageBanner,
+    NewsFeed,
+    Loader
   }
 };
 </script>
