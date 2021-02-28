@@ -36,8 +36,8 @@
       class="col s6 m6"
       v-if="chosenCardiomyopathyType && chosenMutatedGeneType"
     >
-      <Suspense>
-        <template #default>
+      <div v-show="internalDataLoaded">
+        <Suspense>
           <Dashboard
             :userId="user.uid"
             :firebaseNextQueryResults="firebaseNextQueryResults"
@@ -45,12 +45,13 @@
             @firebaseNextQuery="firebaseNextQuery($event)"
             @firebasePreviousQuery="firebasePreviousQuery($event)"
             :key="searchId"
+            @internalDataLoaded="internalDataLoaded = true"
           />
-        </template>
-        <template #fallback>
-          <Loader />
-        </template>
-      </Suspense>
+        </Suspense>
+      </div>
+      <div v-show="!internalDataLoaded">
+        <Loader />
+      </div>
     </div>
     <p v-else>Please search for a graph, results will show here.</p>
   </div>
@@ -58,18 +59,19 @@
     <div class="col s12">
       <!--Fix loading is next task, and copy solution when found to other areas maybe.
         essentially we want a loading icon every time the search is pressed -->
-      <Suspense>
-        <template #default>
+      <div v-show="externalDataLoaded">
+        <Suspense>
           <ExternalInformation
             :chosenMutatedGeneType="chosenMutatedGeneType"
             :chosenCardiomyopathyType="chosenCardiomyopathyType"
             :key="searchId"
+            @externalDataLoaded="externalDataLoaded = true"
           />
-        </template>
-        <template #fallback>
-          <Loader />
-        </template>
-      </Suspense>
+        </Suspense>
+      </div>
+      <div v-show="!externalDataLoaded">
+        <Loader />
+      </div>
     </div>
   </div>
 </template>
@@ -97,9 +99,14 @@ export default {
     ExternalInformation
   },
   setup() {
+    // To update the components used on this page, we will attach a :key to them,
+    // and on each search we will increment it - forcing the component to update.
     const searchId = ref(0);
 
     const { user } = getUser();
+
+    const internalDataLoaded = ref(true);
+    const externalDataLoaded = ref(true);
 
     const cardiomyopathyData = createFreshCardiomyopathySearchObject();
     // matches graphs on firebase, havent included graphdata
@@ -122,6 +129,8 @@ export default {
 
       console.log("reset");
       searchId.value += 1;
+      internalDataLoaded.value = false;
+      externalDataLoaded.value = false;
     }
 
     let graphPaginationLimit = 1;
@@ -160,7 +169,9 @@ export default {
       firebaseNextQuery,
       firebaseNextQueryResults,
       firebasePreviousQuery,
-      firebasePreviousQueryResults
+      firebasePreviousQueryResults,
+      internalDataLoaded,
+      externalDataLoaded
     };
   }
 };

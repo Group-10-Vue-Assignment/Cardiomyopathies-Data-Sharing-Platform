@@ -229,6 +229,7 @@ export default {
     // When the component is created, we want to grab the first graph
     await getNextGraphUsingPagination();
 
+    context.emit("internalDataLoaded");
     return {
       graphDetails,
       deleteGraph,

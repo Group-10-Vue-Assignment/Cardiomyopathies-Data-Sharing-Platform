@@ -58,7 +58,7 @@ export default {
       required: true
     }
   },
-  async setup(props) {
+  async setup(props, context) {
     let externalGeneInformation = await NCBIService.getGeneInformation(
       props.chosenMutatedGeneType
     );
@@ -73,6 +73,7 @@ export default {
       props.chosenCardiomyopathyType
     );
 
+    context.emit("externalDataLoaded");
     return {
       externalGeneInformation,
       externalClinicalSynopsisInformation,
