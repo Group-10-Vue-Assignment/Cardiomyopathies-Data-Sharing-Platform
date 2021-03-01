@@ -14,6 +14,7 @@
     <div class="modal-footer">
       <a class="modal-close waves-effect waves-red btn-flat">No</a>
       <a
+        id="delete-confirmed-test"
         class="modal-close waves-effect waves-green btn-flat"
         @click="$emit('deleteGraph')"
         >Yes</a
@@ -34,5 +35,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

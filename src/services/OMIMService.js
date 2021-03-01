@@ -1,6 +1,7 @@
 import axios from "axios";
 
-// Expires August 2021
+// Expires August 2021. Would not accept as request header in axios method,
+// so placed in url instead.
 let apiKey = "tNhHB-RqSsSFIdWm5DPUOA";
 
 const apiClient = axios.create({

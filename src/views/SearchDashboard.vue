@@ -3,8 +3,8 @@
     <template v-slot:title>Search Dashboard</template>
     <template v-slot:description>
       Search through the stored experimental data by Cardiomyopathy type and
-      mutated gene type. This will return data we have stored, and external
-      information from OMIM.
+      mutated gene type. This will return data we have stored, as well as
+      external information from OMIM, NCBI and HPO.
     </template>
   </PageBanner>
   <div class="row">
