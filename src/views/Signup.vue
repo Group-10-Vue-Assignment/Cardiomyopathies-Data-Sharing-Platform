@@ -1,8 +1,14 @@
-/*eslint-disable */
 <template>
+  <PageBanner>
+    <template v-slot:title>Register Page</template>
+    <template v-slot:description>
+      Create an account to add, view, search and remove specific or all types of
+      data relating to cardiomyopathy.
+    </template>
+  </PageBanner>
+
   <form @submit.prevent="handleSubmit">
-    <h3>Sign up</h3>
-    <div class="card-panel col s10 m10">
+    <div class="card-panel blue-grey col s10 m10">
       <label>Enter your name:</label>
       <input
         class="validate"

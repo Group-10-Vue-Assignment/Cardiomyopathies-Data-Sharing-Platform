@@ -1,11 +1,18 @@
 <template>
+  <PageBanner>
+    <template v-slot:title>Login Page</template>
+    <template v-slot:description>
+      Login to your account to add, view, search and remove specific or all
+      types of data relating to cardiomyopathy.
+    </template>
+  </PageBanner>
+
   <form @submit.prevent="handleSubmit">
-    <h3 class="header">Login</h3>
     <div v-if="error" class="white-text card-panel red">
       <span>{{ error }}</span>
     </div>
-    <div class="card-panel col s10 m10">
-      <label>Enter your username (Email):</label>
+    <div class="card-panel blue-grey col s10 m10">
+      <label class="white-text">Enter your username (email address):</label>
       <input
         class="validate"
         type="email"
@@ -14,7 +21,7 @@
         placeholder="Email"
         v-model="email"
       />
-      <label>Enter your password:</label>
+      <label class="white-text">Enter your password:</label>
       <input
         class="validate"
         type="password"
@@ -50,9 +57,14 @@
 
 <script>
 import { ref } from "vue";
+import PageBanner from "@/components/PageBanner.vue";
 import useLogin from "../firebaseFunctions/useLogin.js";
 import { useRouter } from "vue-router";
 export default {
+  name: "Login",
+  components: {
+    PageBanner
+  },
   setup() {
     const router = useRouter();
 
