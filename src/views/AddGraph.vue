@@ -180,37 +180,6 @@ export default {
       csvFileAsJSON = JSON.stringify(
         formatCSVArrayIntoJSON(parsedData.value.data)
       );
-
-      // // testing as if we got it from firebase
-      // let jsonNow = JSON.stringify(objectToStoreInFirestore)
-      // console.log(jsonNow)
-
-      // let objectAgain = JSON.parse(jsonNow)
-      // console.log(objectAgain)
-    }
-
-    async function submitData() {
-      let notification = {};
-      try {
-        const docRef = await addGraphToFirestoreCollection();
-        notification = {
-          type: "success",
-          message: "Your data has been submitted successfully!"
-        };
-        router.push({
-          name: "GraphDetails",
-          params: { id: docRef.id }
-        });
-        // because we are using an object, we need a new object reference for future
-        this.cardiomyopathyData = createFreshCardiomyopathyDataObject();
-      } catch (err) {
-        notification = {
-          type: "error",
-          message: "There was a problem submitting your data: " + err.message
-        };
-        console.log(err);
-      }
-      store.dispatch("addNotification", notification);
     }
 
     function formatCSVArrayIntoJSON(CSVArray) {
@@ -249,6 +218,30 @@ export default {
         yPlotsObjectCollection.push(yPlotsObject);
       }
       return yPlotsObjectCollection;
+    }
+
+    async function submitData() {
+      let notification = {};
+      try {
+        const docRef = await addGraphToFirestoreCollection();
+        notification = {
+          type: "success",
+          message: "Your data has been submitted successfully!"
+        };
+        router.push({
+          name: "GraphDetails",
+          params: { id: docRef.id }
+        });
+        // because we are using an object, we need a new object reference for future
+        this.cardiomyopathyData = createFreshCardiomyopathyDataObject();
+      } catch (err) {
+        notification = {
+          type: "error",
+          message: "There was a problem submitting your data: " + err.message
+        };
+        console.log(err);
+      }
+      store.dispatch("addNotification", notification);
     }
 
     async function addGraphToFirestoreCollection() {
