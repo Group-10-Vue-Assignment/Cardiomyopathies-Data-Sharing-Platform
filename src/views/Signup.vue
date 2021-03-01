@@ -81,7 +81,11 @@
 import { ref } from "vue";
 import useSignup from "../firebaseFunctions/useSignup.js";
 import { useRouter } from "vue-router";
+import PageBanner from "@/components/PageBanner.vue"
 export default {
+  components: {
+    PageBanner,
+  },
   setup() {
     const router = useRouter();
 
