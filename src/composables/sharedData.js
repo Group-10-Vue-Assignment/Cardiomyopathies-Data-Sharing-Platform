@@ -24,58 +24,60 @@ let dataTypes = [
 let GuideQuestions = [
   {
     id: 0,
-    questions: "How do I make an account",
+    questions: "How do I make an account?",
     type: "para",
 
     answer:
-      "Simply go on to the Register page, then input all of the required details. Once you have registered you will then need to verify your account through email. Once you have verified you email you will then have access to the whole website.",
+      "Visit the register page and fill the form in with appropriate data. Once you have registered, you will need to verify your account through your email. Once you have verified yourself, you will automatically have full access to the entire website.",
     displayAnswer: false
   },
   {
     id: 1,
-    questions: "I forgotten my password",
+    questions: "I have forgotten my password, what shall I do?",
     type: "para",
     answer:
-      "No worries :) simply click on then forgotten password link. This page will ask you for your email. Once you have given you registered email, it will then send you a reset link that can be used to reset your password.",
+      "Click on the 'Reset Password' button. You will be directed to a page that will ask you to input the email associated with your account. Once you have entered your email and submit the form, you will be sent a reset link that can be used to reset your password.",
     displayAnswer: false
   },
   {
     id: 2,
-    questions: "How do I add graph data",
+    questions: "How can I add graph data?",
     type: "list",
     answer: [
-      "1) Register account",
-      "2) Login",
-      "3) Click on the add graph link",
-      "4) Once you are on the add graph page, fill in the required details.",
-      "5) Input CSV file (Note the system can only take in CSV files, any other file types will not be compatible)",
-      "6) Click Submit"
+      "1) Make an account.",
+      "2) Login to the website.",
+      "3) Verify your account.",
+      "4) Click on the 'Add Graph' button.",
+      "5) Once you are on the add graph page, fill in the required details.",
+      "6) Input a CSV file with the appropriate data. (Note: our system only accepts CSV files. Any other file type will not be read).",
+      "7) Finalise everything and submit the data."
     ],
     displayAnswer: false
   },
   {
     id: 3,
-    questions: "How do I delete my graph",
+    questions: "How can I delete a graph?",
     type: "para",
     answer:
-      "For you to delete your graph you would need to hop on to your user dashboard. Assuming you have some graphs, there should a delete button. Click the delete button then your graph should be automatically deleted. (Note user can only delete their own graphs, a user cannot delete other users graphs)"
+      "Visit the 'User Dashboard' and go to the graph that you wish to delete. There will be a delete button next to the graph. Click the delete button and then your graph will be automatically deleted. (Note: user can only delete their own graphs)."
   },
   {
     id: 4,
-    questions: "Whats the difference between the global and user dashboard",
+    questions:
+      "What's the difference between the Global Dashboard and the User Dashboard?",
     type: "list",
     answer: [
-      "UserDashboard - The user dashboard will display your user details, as well as all the graphs you have made. ",
-      "GlobalDashboard - The Global dashboard will display graphs made by all the users on the system."
+      "Global Dashboard - The Global Dashboard will display graphs made by all the users on our website system.",
+      "User Dashboard - The User Dashboard will display your user details, as well as all the graphs that you have made."
     ],
     displayAnswer: false
   },
   {
     id: 5,
-    questions: "I want to see a specific graph",
+    questions: "How can I view specific details of a graph?",
     type: "para",
     answer:
-      "Once you are logged in you can go on to the user, global and search dashboards. There each graph will have a view details button. Click the button then you will be redirected to that specific graph",
+      "Once you are logged in, you can either go to the user dashboard, global dashboard or search dashboard to view graphs, and there will be a 'View Details' button on each graph displayed. Click on the button and you will be redirected to that specific graph which will show all the details.",
     displayAnswer: false
   }
 ];

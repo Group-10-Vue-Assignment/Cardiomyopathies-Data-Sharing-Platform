@@ -11,8 +11,8 @@
     <div v-if="error" class="white-text card-panel red">
       <span>{{ error }}</span>
     </div>
-    <div class="card-panel blue-grey col s10 m10">
-      <label class="white-text">Enter your username (email address):</label>
+    <div class="card-panel col s10 m10">
+      <label>Enter your username (email address):</label>
       <input
         class="validate"
         type="email"
@@ -21,7 +21,7 @@
         placeholder="Email"
         v-model="email"
       />
-      <label class="white-text">Enter your password:</label>
+      <label>Enter your password:</label>
       <input
         class="validate"
         type="password"
@@ -36,16 +36,16 @@
       </button>
     </div>
   </form>
-  <p class="noSelect">⠀</p>
-  <div>
+  <br />
+  <div class="button">
     <router-link
       to="/signup"
-      class="waves-effect waves-light btn-small green lighten-1"
+      class="waves-effect waves-light btn-small green darken-1"
     >
       Sign Up
     </router-link>
   </div>
-  <div>
+  <div class="button">
     <router-link
       to="/forgotpassword"
       class="waves-effect waves-light btn-small red lighten-2"
@@ -81,8 +81,4 @@ export default {
 };
 </script>
 
-<style scoped>
-form {
-  margin-bottom: 0px;
-}
-</style>
+<style scoped></style>

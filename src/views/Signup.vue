@@ -6,9 +6,11 @@
       data relating to cardiomyopathy.
     </template>
   </PageBanner>
-
   <form @submit.prevent="handleSubmit">
-    <div class="card-panel blue-grey col s10 m10">
+    <div v-if="error" class="white-text card-panel red">
+      <span>{{ error }}</span>
+    </div>
+    <div class="card-panel col s10 m10">
       <label>Enter your name:</label>
       <input
         class="validate"
@@ -17,9 +19,9 @@
         v-model="displayName"
         required
       />
-      <label
-        >Enter the institution you affiliate with (leave blank if none):</label
-      >
+      <label>
+        Enter the institution you affiliate with (leave blank if none):
+      </label>
       <input
         class="validate"
         type="text"
@@ -57,22 +59,18 @@
         placeholder="Phone Number"
         v-model="phoneNumber"
       />
-      <button class="waves-effect waves-light btn-small green lighten-1">
+      <button class="waves-effect waves-light btn-small green darken-1">
         Register
       </button>
     </div>
   </form>
-  <div v-if="error" class="white-text card-panel red">
-    <span>{{ error }}</span>
-  </div>
-  <div>
-    <br />
-
+  <div class="button">
     <router-link
       to="/login"
       class="waves-effect waves-light btn-small blue-grey lighten-1"
-      >Return to Login</router-link
     >
+      Return to Login
+    </router-link>
   </div>
 </template>
 
@@ -128,12 +126,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-a {
-  color: white;
-}
-form {
-  margin-bottom: 0px;
-}
-</style>

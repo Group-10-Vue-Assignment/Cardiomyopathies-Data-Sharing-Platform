@@ -1,39 +1,41 @@
 <template>
   <div v-if="!user" class="non-user">
-    <nav class="blue-grey lighten-1">
-      <div class="nav-wrapper">
-        <a class="brand-logo">Cardiomyopathies Data Sharing Platform</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li>
-            <router-link to="/helper"
-              ><i class="material-icons right">help</i>Help</router-link
-            >
-          </li>
-          <li>
-            <router-link to="/"
-              ><i class="material-icons right">home</i>Home</router-link
-            >
-          </li>
-          <li>
-            <router-link to="/login"
-              ><i class="material-icons right">lock_open</i>Login</router-link
-            >
-          </li>
-          <li>
-            <router-link to="/signup"
-              ><i class="material-icons right">person_add</i>Sign
-              up</router-link
-            >
-          </li>
-          <li>
-            <router-link to="/forgotpassword"
-              ><i class="material-icons right">vpn_key</i>Reset
-              Password</router-link
-            >
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <div class="navbar-fixed">
+      <nav class="blue-grey lighten-1">
+        <div class="nav-wrapper">
+          <a class="brand-logo">Cardiomyopathies Data Sharing Platform</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+              <router-link to="/helper"
+                ><i class="material-icons right">help</i>Help</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/"
+                ><i class="material-icons right">home</i>Home</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/login"
+                ><i class="material-icons right">lock_open</i>Login</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/signup"
+                ><i class="material-icons right">person_add</i>Sign
+                up</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/forgotpassword"
+                ><i class="material-icons right">vpn_key</i>Reset
+                Password</router-link
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   </div>
   <div v-else class="user-items">
     <nav class="blue-grey lighten-1">
@@ -58,8 +60,10 @@
             <router-link to="/search-dashboard">Search Dashboard</router-link>
           </li>
           <li><router-link to="/add-graph">Add Graph</router-link></li>
-          <li class="logout-btn" @click="handleClick">
-            <i class="small material-icons">exit_to_app</i>
+          <li class="logout" @click="handleClick">
+            <router-link to="/">
+              <i class="small material-icons">exit_to_app</i>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -106,7 +110,7 @@ export default {
   display: flex;
 }
 
-.logout-btn {
+.logout {
   margin-right: 8px;
   cursor: pointer;
 }

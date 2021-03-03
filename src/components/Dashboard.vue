@@ -1,22 +1,22 @@
 <template>
   <p v-if="graphs.length == 0">No graphs found, add a graph and come back.</p>
   <div v-for="graph in graphs" :key="graph.graphId">
-    <LineChart class="center" :graphInformation="graph.graphInformation">
-      <div class="graph-btns">
-        <button
-          class="waves-effect waves-light btn-small blue-grey lighten-2"
-          @click="graphDetails(graph.graphId)"
-        >
-          View Details
-        </button>
-        <br />
-        <br />
+    <div class="graph">
+      <LineChart class="center" :graphInformation="graph.graphInformation">
+        <div class="button">
+          <button
+            class="waves-effect waves-light btn-small blue-grey lighten-2"
+            @click="graphDetails(graph.graphId)"
+          >
+            View Details
+          </button>
+        </div>
         <ConfirmationBox
           v-if="userId == graph.graphInformation.userId"
           @deleteGraph="deleteGraph(graph.graphId)"
         />
-      </div>
-    </LineChart>
+      </LineChart>
+    </div>
     <div class="white-text card-panel blue-grey lighten-1">
       <p>
         Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
@@ -242,5 +242,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
