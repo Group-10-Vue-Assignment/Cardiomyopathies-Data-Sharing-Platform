@@ -34,18 +34,17 @@ export default {
   padding: 0%;
   margin: 0%;
 }
+.center {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
 form {
   width: 40%;
   display: block;
   margin: 50px auto;
   margin-bottom: 0;
   text-align: left;
-}
-.graph {
-  margin-left: 72.5px;
-}
-.button {
-  margin-top: 10%;
 }
 .displayBlock {
   display: block;
@@ -57,7 +56,7 @@ form {
   background: #c9e2ff85;
 }
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: #f1f1f1;

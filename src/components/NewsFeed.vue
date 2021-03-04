@@ -15,35 +15,27 @@
           <blockquote class="left-align ">{{ items.description }}</blockquote>
 
           <div class="sourceBtn">
-            <a class="btn valign-wrapper blue-grey lighten-1" :href="items.link"
+            <a
+              class="btn valign-wrapper blue-grey lighten-1"
+              :href="items.link"
+              id="link-test-identifer"
               >Source Article</a
             >
           </div>
         </div>
       </div>
-      <!--
-      <div class="col s12 card-action grey lighten-1">
-        <a :href="items.link">Source Article</a>
-      </div>
-      -->
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import NewsFeedService from "@/services/NewsFeedService.js";
+
 export default {
   async setup() {
-    const newsFeedData = ref([]);
+    let newsFeedData = await NewsFeedService.getNewsFeed();
 
-    const apiData = await fetch(
-      `https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.news-medical.net%2Ftag%2Ffeed%2FCardiomyopathy.aspx`
-    );
-
-    let data = await apiData.json();
-
-    newsFeedData.value = data;
-    console.log(newsFeedData);
+    newsFeedData = newsFeedData.data;
 
     return {
       newsFeedData

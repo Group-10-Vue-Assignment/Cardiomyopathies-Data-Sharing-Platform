@@ -175,12 +175,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.search-btns {
-  display: flex;
-}
-
-.graphs {
-  gap: 332px;
-}
-</style>
+<style scoped></style>

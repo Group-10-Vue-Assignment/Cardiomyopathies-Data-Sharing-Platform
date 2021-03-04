@@ -33,11 +33,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.center {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
-</style>

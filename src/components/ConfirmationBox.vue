@@ -1,12 +1,10 @@
 <template>
-  <div class="button">
-    <button
-      data-target="deleteModal"
-      class="waves-effect waves-light btn-small red lighten-2 modal-trigger"
-    >
-      Delete <i class="material-icons right">delete</i>
-    </button>
-  </div>
+  <button
+    data-target="deleteModal"
+    class="waves-effect waves-light btn-small red lighten-2 modal-trigger"
+  >
+    Delete <i class="material-icons right">delete</i>
+  </button>
 
   <div id="deleteModal" class="modal">
     <div class="modal-content">

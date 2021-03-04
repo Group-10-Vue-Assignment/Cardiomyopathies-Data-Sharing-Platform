@@ -6,9 +6,6 @@
     </template>
   </PageBanner>
   <form @submit.prevent="submitData">
-    <div v-if="error" class="white-text card-panel red">
-      <span>{{ error }}</span>
-    </div>
     <BaseSelect
       :options="cardiomyopathyTypeOptions"
       v-model="cardiomyopathyData.cardiomyopathyType"

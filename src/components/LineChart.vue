@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <apexchart
-      type="line"
-      height="350"
-      width="500"
-      :options="chartOptions"
-      :series="series"
-    ></apexchart>
-    <slot></slot>
-  </div>
+  <apexchart
+    class="center"
+    type="line"
+    height="350"
+    width="500"
+    :options="chartOptions"
+    :series="series"
+  ></apexchart>
 </template>
 
 <script>

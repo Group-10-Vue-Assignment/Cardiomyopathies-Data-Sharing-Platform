@@ -11,23 +11,27 @@
     <div v-if="error" class="white-text card-panel red">
       <span>{{ error }}</span>
     </div>
-    <div class="card-panel col s10 m10">
-      <label>Enter your username (email address):</label>
-      <input
-        class="validate"
-        type="email"
-        min="5"
-        max="50"
-        placeholder="Email"
-        v-model="email"
-      />
-      <label>Enter your password:</label>
-      <input
-        class="validate"
-        type="password"
-        placeholder="Password"
-        v-model="password"
-      />
+    <div class="card-panel">
+      <div class="input-wrapper">
+        <label>Enter your username (email address):</label>
+        <input
+          type="email"
+          class="validate"
+          min="5"
+          max="50"
+          placeholder="Email"
+          v-model="email"
+        />
+      </div>
+      <div class="input-wrapper">
+        <label>Enter your password:</label>
+        <input
+          type="password"
+          class="validate"
+          placeholder="Password"
+          v-model="password"
+        />
+      </div>
       <button
         type="submit"
         class="waves-effect waves-light btn-small blue-grey lighten-1"
@@ -36,7 +40,6 @@
       </button>
     </div>
   </form>
-  <br />
   <div class="button">
     <router-link
       to="/signup"
