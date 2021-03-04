@@ -1,43 +1,53 @@
 <template>
-  <div v-if="externalGeneInformation">
-    <h3>
-      {{ externalGeneInformation.description }},
-      {{ externalGeneInformation.name }}
-    </h3>
-    <h5>{{ externalGeneInformation.name }} Description</h5>
-    <p>{{ externalGeneInformation.summary }}</p>
-  </div>
-  <div v-if="externalClinicalSynopsisInformation">
-    <h3>
-      Disease Name:
-      {{ externalClinicalSynopsisInformation.data.disease.diseaseName }}
-    </h3>
-    <h5>
-      {{ externalClinicalSynopsisInformation.data.catTermsMap[1].catLabel }}
-      Clinical Synopsis
-    </h5>
-    <div
-      v-for="(clinicalSynopsis, index) in externalClinicalSynopsisInformation
-        .data.catTermsMap[1].terms"
-      :key="index"
-    >
-      <p>
-        <b>{{ clinicalSynopsis.name }}</b>
-      </p>
-      <p>{{ clinicalSynopsis.definition }}</p>
+  <div class="info-containers">
+    <div v-if="externalGeneInformation" class="row card">
+      <h5 class="white-text card-panel blue-grey lighten-1">
+        {{ externalGeneInformation.description }},
+        {{ externalGeneInformation.name }}
+      </h5>
+      <div class="content">
+        <h5>{{ externalGeneInformation.name }} Description</h5>
+        <p>{{ externalGeneInformation.summary }}</p>
+      </div>
     </div>
-  </div>
-  <div v-if="externalPhenotypeInformation">
-    <h3>Phenotypes</h3>
-    <div
-      v-for="(element, index) in externalPhenotypeInformation.data.omim
-        .entryList[0].entry.phenotypeMapList"
-      :key="index"
-    >
-      <p>
-        <b>{{ element.phenotypeMap.phenotype }}</b>
-      </p>
-      <p>Gene Symbols: {{ element.phenotypeMap.geneSymbols }}</p>
+    <div v-if="externalClinicalSynopsisInformation" class="row card">
+      <h5 class="white-text card-panel blue-grey lighten-1">
+        Disease Name:
+        {{ externalClinicalSynopsisInformation.data.disease.diseaseName }}
+      </h5>
+
+      <div class="content">
+        <h5>
+          {{ externalClinicalSynopsisInformation.data.catTermsMap[1].catLabel }}
+          Clinical Synopsis
+        </h5>
+
+        <div
+          v-for="(clinicalSynopsis,
+          index) in externalClinicalSynopsisInformation.data.catTermsMap[1]
+            .terms"
+          :key="index"
+        >
+          <p>
+            <b>{{ clinicalSynopsis.name }}</b>
+          </p>
+          <p>{{ clinicalSynopsis.definition }}</p>
+        </div>
+      </div>
+    </div>
+    <div v-if="externalPhenotypeInformation" class="row card">
+      <h5 class="white-text card-panel blue-grey lighten-1">Phenotypes</h5>
+      <div
+        v-for="(element, index) in externalPhenotypeInformation.data.omim
+          .entryList[0].entry.phenotypeMapList"
+        :key="index"
+        class="content"
+      >
+        <p>
+          <b>{{ element.phenotypeMap.phenotype }}</b>
+        </p>
+        <p>Gene Symbols: {{ element.phenotypeMap.geneSymbols }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -83,3 +93,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.info-containers {
+  padding: 0 150px;
+}
+
+.content {
+  padding: 60px;
+  padding-top: 10px;
+}
+</style>
