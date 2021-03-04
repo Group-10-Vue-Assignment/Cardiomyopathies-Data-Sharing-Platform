@@ -5,26 +5,28 @@
     >
   </li>
   <li>
-    <router-link to="/" id="user-home-test-identifier">Home</router-link>
+    <router-link to="/" id="user-home-test-identifier">
+      <i class="material-icons right">home</i>Home</router-link
+    >
   </li>
   <li>
     <router-link to="/global-dashboard" id="user-gdashboard-test-identifier"
-      >Global Dashboard</router-link
+      ><i class="material-icons right">language</i>Global Dashboard</router-link
     >
   </li>
   <li>
     <router-link to="/user-dashboard" id="user-udashboard-test-identifier"
-      >User Dashboard</router-link
+      ><i class="material-icons right">person</i>User Dashboard</router-link
     >
   </li>
   <li>
     <router-link to="/search-dashboard" id="user-sdashboard-test-identifier"
-      >Search Dashboard</router-link
+      ><i class="material-icons right">search</i>Search Dashboard</router-link
     >
   </li>
   <li>
     <router-link to="/add-graph" id="user-add-graph-test-identifier"
-      >Add Graph</router-link
+      ><i class="material-icons right">poll</i>Add Graph</router-link
     >
   </li>
   <li class="logout" @click="$emit('handleClick')">
