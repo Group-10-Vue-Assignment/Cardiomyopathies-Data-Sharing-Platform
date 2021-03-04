@@ -10,7 +10,7 @@
   </PageBanner>
 
   <div class="row">
-    <div class="col s4 m4">
+    <div class="col">
       <Suspense>
         <template #default>
           <NewsFeed />
@@ -19,10 +19,6 @@
           <Loader />
         </template>
       </Suspense>
-    </div>
-
-    <div class="col s8 m8">
-      <img src="/types_of_cardiomyopathy.png" />
     </div>
   </div>
 </template>
