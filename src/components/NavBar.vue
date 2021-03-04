@@ -76,6 +76,12 @@ export default {
   }
 }
 
+@media only screen and (max-width: 565px) {
+  .brand-logo {
+    width: 500px;
+  }
+}
+
 .user-items {
   display: flex;
 }
