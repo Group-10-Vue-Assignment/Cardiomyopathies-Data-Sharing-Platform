@@ -4,9 +4,12 @@
       <div class="card-content white-text">
         <span class="card-title"> {{ items.title }} </span>
         <p>{{ items.description }}</p>
-        <div v-for="enclosure in items" :key="enclosure.items">
-          <img class="responsive-image" :src="enclosure.link" />
-        </div>
+        <img
+          class="responsive-img"
+          height="200"
+          width="200"
+          :src="items.enclosure.link"
+        />
         <p>Published on: {{ items.pubDate }}</p>
       </div>
       <div class="card-action">
