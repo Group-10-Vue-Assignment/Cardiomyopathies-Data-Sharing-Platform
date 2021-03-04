@@ -99,4 +99,8 @@ a.router-link-exact-active {
   background-color: rgba(255, 255, 255, 0.1);
   text-decoration: none;
 }
+
+.sidenav {
+  text-align: left;
+}
 </style>
