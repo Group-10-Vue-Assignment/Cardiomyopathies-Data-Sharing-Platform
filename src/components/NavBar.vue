@@ -1,73 +1,39 @@
 <template>
-  <div v-if="!user" class="non-user">
+  <div v-show="!user" class="non-user">
     <div class="navbar-fixed">
       <nav class="blue-grey lighten-1">
         <div class="nav-wrapper">
-          <a class="brand-logo">Cardiomyopathies Data Sharing Platform</a>
+          <a href="#" class="brand-logo">Cardiomyopathy Hub</a>
+          <a href="#" data-target="mobile-demo-nonuser" class="sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-              <router-link to="/helper"
-                ><i class="material-icons right">help</i>Help</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/"
-                ><i class="material-icons right">home</i>Home</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/login"
-                ><i class="material-icons right">lock_open</i>Login</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/signup"
-                ><i class="material-icons right">person_add</i>Sign
-                up</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/forgotpassword"
-                ><i class="material-icons right">vpn_key</i>Reset
-                Password</router-link
-              >
-            </li>
+            <NonUserNavBarList />
           </ul>
         </div>
       </nav>
     </div>
+    <ul class="sidenav" id="mobile-demo-nonuser">
+      <NonUserNavBarList />
+    </ul>
   </div>
-  <div v-else class="user-items">
-    <nav class="blue-grey lighten-1">
-      <div class="nav-wrapper">
-        <a class="brand-logo">Cardiomyopathies Data-Sharing Platform</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li>
-            <router-link to="/helper"
-              ><i class="material-icons right">help</i>Help</router-link
-            >
-          </li>
-          <li>
-            <router-link to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link to="/global-dashboard">Global Dashboard</router-link>
-          </li>
-          <li>
-            <router-link to="/user-dashboard">User Dashboard</router-link>
-          </li>
-          <li>
-            <router-link to="/search-dashboard">Search Dashboard</router-link>
-          </li>
-          <li><router-link to="/add-graph">Add Graph</router-link></li>
-          <li class="logout" @click="handleClick">
-            <router-link to="/">
-              <i class="small material-icons">exit_to_app</i>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <div v-show="user" class="user-items">
+    <div class="navbar-fixed">
+      <nav class="blue-grey lighten-1">
+        <div class="nav-wrapper">
+          <a class="brand-logo">Cardiomyopathy Hub</a>
+          <a href="#" data-target="mobile-demo-user" class="sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <UserNavBarList @handleClick="handleClick" />
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <ul class="sidenav" id="mobile-demo-user">
+      <UserNavBarList @handleClick="handleClick" />
+    </ul>
   </div>
 </template>
 
@@ -75,8 +41,14 @@
 import getUser from "../firebaseFunctions/getUser.js";
 import { projectAuth } from "../firebase/config";
 import { useRouter } from "vue-router";
+import NonUserNavBarList from "@/components/NonUserNavBarList.vue";
+import UserNavBarList from "@/components/UserNavBarList.vue";
 
 export default {
+  components: {
+    NonUserNavBarList,
+    UserNavBarList
+  },
   setup() {
     const router = useRouter();
     const { user } = getUser();
@@ -98,8 +70,10 @@ export default {
 </script>
 
 <style scoped>
-.brand-logo {
-  margin-left: -48.5%;
+@media only screen and (min-width: 992px) {
+  .brand-logo {
+    left: 0.5rem;
+  }
 }
 
 .user-items {

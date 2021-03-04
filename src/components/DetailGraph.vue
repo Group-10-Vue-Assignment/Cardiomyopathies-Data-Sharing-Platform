@@ -1,11 +1,16 @@
 <template>
   <div class="graph">
-    <LineChart class="center" :graphInformation="graphInformation">
-      <ConfirmationBox
-        v-if="user.uid == graphInformation.userId"
-        @deleteGraph="deleteGraph(id)"
-      />
-    </LineChart>
+    <div class="centered-graph">
+      <LineChart :graphInformation="graphInformation" />
+
+      <div class="side-buttons">
+        <ConfirmationBox
+          v-if="user.uid == graphInformation.userId"
+          @deleteGraph="deleteGraph(id)"
+        />
+      </div>
+    </div>
+
     <div class="white-text card-panel blue-grey lighten-1">
       <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
       <p>Mutated Gene Type: {{ graphInformation.mutatedGeneType }}</p>
@@ -80,3 +85,21 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.centered-graph {
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+  position: relative;
+}
+
+@media only screen and (min-width: 776px) {
+  .side-buttons {
+    position: absolute;
+    left: 420px;
+    top: 145px;
+    width: 120px;
+  }
+}
+</style>

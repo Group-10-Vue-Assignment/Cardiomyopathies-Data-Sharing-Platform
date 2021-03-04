@@ -6,7 +6,7 @@
     </template>
   </PageBanner>
   <form @submit.prevent="handleSubmit">
-    <div class="card-panel col s10 m10">
+    <div class="card-panel">
       <label>Enter your email address:</label>
       <input
         class="validate"
@@ -25,7 +25,6 @@
   <div v-if="error" class="white-text card-panel red popup">
     <span>{{ error }}</span>
   </div>
-  <br />
   <router-link
     to="/login"
     class="waves-effect waves-light btn-small blue-grey lighten-1"

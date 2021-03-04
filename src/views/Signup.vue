@@ -10,55 +10,67 @@
     <div v-if="error" class="white-text card-panel red">
       <span>{{ error }}</span>
     </div>
-    <div class="card-panel col s10 m10">
-      <label>Enter your name:</label>
-      <input
-        class="validate"
-        type="text"
-        placeholder="Name"
-        v-model="displayName"
-        required
-      />
-      <label>
-        Enter the institution you affiliate with (leave blank if none):
-      </label>
-      <input
-        class="validate"
-        type="text"
-        placeholder="Institutional Affiliation"
-        v-model="institution"
-        required
-      />
-      <label>Enter your email address (required):</label>
-      <input
-        class="validate"
-        type="email"
-        placeholder="Email*"
-        v-model="email"
-        required
-      />
-      <label>Enter your password (required):</label>
-      <input
-        class="validate"
-        type="password"
-        placeholder="Password*"
-        v-model="password"
-        required
-      />
-      <label>Enter your address:</label>
-      <input
-        class="validate"
-        type="text"
-        placeholder="Address"
-        v-model="address"
-      />
-      <label>Enter your number:</label>
-      <input
-        class="validate"
-        type="number"
-        placeholder="Phone Number"
-        v-model="phoneNumber"
-      />
+    <div class="card-panel">
+      <div class="input-wrapper">
+        <label>Enter your name:</label>
+        <input
+          class="validate"
+          type="text"
+          placeholder="Name"
+          v-model="displayName"
+          required
+        />
+      </div>
+      <div class="input-wrapper">
+        <label>
+          Enter the institution you affiliate with (leave blank if none):
+        </label>
+        <input
+          class="validate"
+          type="text"
+          placeholder="Institutional Affiliation"
+          v-model="institution"
+          required
+        />
+      </div>
+      <div class="input-wrapper">
+        <label>Enter your email address (required):</label>
+        <input
+          class="validate"
+          type="email"
+          placeholder="Email*"
+          v-model="email"
+          required
+        />
+      </div>
+      <div class="input-wrapper">
+        <label>Enter your password (required):</label>
+        <input
+          class="validate"
+          type="password"
+          placeholder="Password*"
+          v-model="password"
+          required
+        />
+      </div>
+      <div class="input-wrapper">
+        <label>Enter your address:</label>
+        <input
+          class="validate"
+          type="text"
+          placeholder="Address"
+          v-model="address"
+        />
+      </div>
+      <div class="input-wrapper">
+        <label>Enter your number:</label>
+        <input
+          class="validate"
+          type="number"
+          placeholder="Phone Number"
+          v-model="phoneNumber"
+        />
+      </div>
       <button class="waves-effect waves-light btn-small green darken-1">
         Register
       </button>
@@ -109,7 +121,7 @@ export default {
 
       if (!error.value) {
         console.log("user signed up");
-        router.push({ name: "DashBoard" });
+        router.push({ name: "GlobalDashboard" });
       }
     };
 

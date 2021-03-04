@@ -1,21 +1,22 @@
 <template>
   <p v-if="graphs.length == 0">No graphs found, add a graph and come back.</p>
   <div v-for="graph in graphs" :key="graph.graphId">
-    <div class="graph">
-      <LineChart class="center" :graphInformation="graph.graphInformation">
-        <div class="button">
-          <button
-            class="waves-effect waves-light btn-small blue-grey lighten-2"
-            @click="graphDetails(graph.graphId)"
-          >
-            View Details
-          </button>
-        </div>
+    <div class="centered-graph">
+      <LineChart :graphInformation="graph.graphInformation" />
+
+      <div class="side-buttons">
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-2"
+          @click="graphDetails(graph.graphId)"
+        >
+          View Details
+        </button>
+
         <ConfirmationBox
           v-if="userId == graph.graphInformation.userId"
           @deleteGraph="deleteGraph(graph.graphId)"
         />
-      </LineChart>
+      </div>
     </div>
     <div class="white-text card-panel blue-grey lighten-1">
       <p>
@@ -242,3 +243,20 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.centered-graph {
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  position: relative;
+}
+@media only screen and (min-width: 776px) {
+  .side-buttons {
+    position: absolute;
+    left: 420px;
+    top: 145px;
+    width: 120px;
+  }
+}
+</style>
