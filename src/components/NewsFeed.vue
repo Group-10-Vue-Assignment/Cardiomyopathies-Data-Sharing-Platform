@@ -1,24 +1,31 @@
 <template>
-  <div v-for="items in newsFeedData.items" :key="items">
+  <div v-for="items in newsFeedData.items" :key="items" class="feed-container">
     <div class="row card z-depth-3">
+      <div class="col s12 card-action blue-grey lighten-1 white-text">
+        <p class="right-align date">
+          Published on: {{ items.pubDate.substr(0, 10) }}
+        </p>
+      </div>
       <div class="col s12 card-content grey lighten-2">
-        <h5>{{ items.title }}</h5>
-        <div class="col s8">
-          <blockquote>{{ items.description }}</blockquote>
-          <i>Published on: {{ items.pubDate }}</i>
-        </div>
         <div class="col s4">
-          <img
-            class="responsive-img z-depth-2"
-            height="200"
-            width="200"
-            :src="items.enclosure.link"
-          />
+          <img class="responsive-img z-depth-2" :src="items.enclosure.link" />
+        </div>
+        <div class="col s8">
+          <h5 class="left-align">{{ items.title }}</h5>
+          <blockquote class="left-align ">{{ items.description }}</blockquote>
+
+          <div class="sourceBtn">
+            <a class="btn valign-wrapper blue-grey lighten-1" :href="items.link"
+              >Source Article</a
+            >
+          </div>
         </div>
       </div>
+      <!--
       <div class="col s12 card-action grey lighten-1">
         <a :href="items.link">Source Article</a>
       </div>
+      -->
     </div>
   </div>
 </template>
@@ -36,6 +43,7 @@ export default {
     let data = await apiData.json();
 
     newsFeedData.value = data;
+    console.log(newsFeedData);
 
     return {
       newsFeedData
@@ -43,3 +51,23 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.feed-container {
+  padding: 0 120px;
+}
+
+.sourceBtn {
+  display: flex;
+  align-items: flex-start;
+  margin-right: auto;
+}
+
+blockquote {
+  border-left: 5px solid #78909c;
+}
+
+.date {
+  font-style: italic;
+}
+</style>
