@@ -1,18 +1,22 @@
 <template>
   <div v-for="items in newsFeedData.items" :key="items">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title"> {{ items.title }} </span>
-        <p>{{ items.description }}</p>
-        <img
-          class="responsive-img"
-          height="200"
-          width="200"
-          :src="items.enclosure.link"
-        />
-        <p>Published on: {{ items.pubDate }}</p>
+    <div class="row card z-depth-3">
+      <div class="col s12 card-content grey lighten-2">
+        <h5>{{ items.title }}</h5>
+        <div class="col s8">
+          <blockquote>{{ items.description }}</blockquote>
+          <i>Published on: {{ items.pubDate }}</i>
+        </div>
+        <div class="col s4">
+          <img
+            class="responsive-img z-depth-2"
+            height="200"
+            width="200"
+            :src="items.enclosure.link"
+          />
+        </div>
       </div>
-      <div class="card-action">
+      <div class="col s12 card-action grey lighten-1">
         <a :href="items.link">Source Article</a>
       </div>
     </div>

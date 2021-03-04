@@ -9,18 +9,14 @@
     </template>
   </PageBanner>
 
-  <div class="row">
-    <div class="col">
-      <Suspense>
-        <template #default>
-          <NewsFeed />
-        </template>
-        <template #fallback>
-          <Loader />
-        </template>
-      </Suspense>
-    </div>
-  </div>
+  <Suspense>
+    <template #default>
+      <NewsFeed />
+    </template>
+    <template #fallback>
+      <Loader />
+    </template>
+  </Suspense>
 </template>
 
 <script>
