@@ -41,20 +41,27 @@
     </router-link>
   </li>
 
-  <ul id="dashboard-dropdown" class="dropdown-content" v-if="horizontalSwitch">
+  <ul
+    id="dashboard-dropdown"
+    class="dropdown-content blue-grey lighten 5"
+    v-if="horizontalSwitch"
+  >
     <li>
       <router-link to="/global-dashboard" id="user-gdashboard-test-identifier"
-        ><i class="material-icons right">language</i>Global</router-link
+        ><i class="material-icons right white-text">language</i>
+        <p class="white-text">Global</p></router-link
       >
     </li>
     <li>
       <router-link to="/user-dashboard" id="user-udashboard-test-identifier"
-        ><i class="material-icons right">person</i>User</router-link
+        ><i class="material-icons right white-text">person</i>
+        <p class="white-text">User</p></router-link
       >
     </li>
     <li>
       <router-link to="/search-dashboard" id="user-sdashboard-test-identifier"
-        ><i class="material-icons right">search</i>Search</router-link
+        ><i class="material-icons right white-text">search</i>
+        <p class="white-text">Search</p></router-link
       >
     </li>
   </ul>
