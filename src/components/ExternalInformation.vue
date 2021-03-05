@@ -1,7 +1,7 @@
 <template>
   <div class="centered-api-info grey-text">
     <div v-if="externalGeneInformation" class="row card">
-      <h5 class="white-text card-panel blue-grey lighten-1">
+      <h5 class="white-text card-panel blue-grey">
         {{ externalGeneInformation.description }},
         {{ externalGeneInformation.name }}
       </h5>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div v-if="externalClinicalSynopsisInformation" class="row card">
-      <h5 class="white-text card-panel blue-grey lighten-1">
+      <h5 class="white-text card-panel blue-grey">
         Disease Name:
         {{ externalClinicalSynopsisInformation.data.disease.diseaseName }}
       </h5>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div v-if="externalPhenotypeInformation" class="row card">
-      <h5 class="white-text card-panel blue-grey lighten-1">Phenotypes</h5>
+      <h5 class="white-text card-panel blue-grey">Phenotypes</h5>
       <div
         v-for="(element, index) in externalPhenotypeInformation.data.omim
           .entryList[0].entry.phenotypeMapList"
