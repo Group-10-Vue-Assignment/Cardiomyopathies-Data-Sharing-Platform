@@ -43,7 +43,7 @@
 
   <ul
     id="dashboard-dropdown"
-    class="dropdown-content blue-grey lighten 5"
+    class="dropdown-content blue-grey lighten-2"
     v-if="horizontalSwitch"
   >
     <li>

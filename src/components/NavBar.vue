@@ -1,7 +1,7 @@
 <template>
   <div v-show="!user" class="non-user">
     <div class="navbar-fixed">
-      <nav class="blue-grey lighten-1">
+      <nav class="blue-grey lighten-1 noSelect">
         <div class="nav-wrapper">
           <a
             href="#"
@@ -25,7 +25,7 @@
   </div>
   <div v-show="user" class="user-items">
     <div class="navbar-fixed">
-      <nav class="blue-grey lighten-1">
+      <nav class="blue-grey lighten-1 noSelect">
         <div class="nav-wrapper">
           <a
             href="#"

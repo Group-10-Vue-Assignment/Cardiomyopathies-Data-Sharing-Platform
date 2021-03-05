@@ -17,49 +17,41 @@
           @deleteGraph="deleteGraph(graph.graphId)"
         />
       </div>
-    </div>
-    <div class="center">
-      <div class="row">
-        <div class="col s16 m16">
-          <div class="card-panel blue-grey">
-            <span class="white-text">
-              <p>
-                Cardiomyopathy Type:
-                {{ graph.graphInformation.cardiomyopathyType }}
-              </p>
-              <p>
-                Mutated Gene Type: {{ graph.graphInformation.mutatedGeneType }}
-              </p>
-              <p>Type of Data: {{ graph.graphInformation.typeOfData }}</p>
-              <p>Paper: {{ graph.graphInformation.paper }}</p>
-              <p>
-                Added on:
-                {{
-                  graph.graphInformation.timeOfInsert.toDate().toDateString()
-                }}
-              </p>
-            </span>
-          </div>
-        </div>
+      <br />
+      <div v-if="graphs.length != 0" class="pagination-btns">
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-2"
+          @click="getPreviousGraph()"
+          :disabled="disablePreviousButton"
+        >
+          <i class="material-icons">arrow_back</i>
+        </button>
+        <a class="noSelect">⠀</a>
+        <button
+          class="waves-effect waves-light btn-small blue-grey lighten-2"
+          @click="getNextGraph()"
+          :disabled="disableNextButton"
+        >
+          <i class="material-icons">arrow_forward</i>
+        </button>
       </div>
     </div>
-  </div>
-  <div v-if="graphs.length != 0" class="pagination-btns">
-    <button
-      class="waves-effect waves-light btn-small blue-grey lighten-2"
-      @click="getPreviousGraph()"
-      :disabled="disablePreviousButton"
-    >
-      <i class="material-icons">arrow_back</i>
-    </button>
-    <a class="noSelect">⠀</a>
-    <button
-      class="waves-effect waves-light btn-small blue-grey lighten-2"
-      @click="getNextGraph()"
-      :disabled="disableNextButton"
-    >
-      <i class="material-icons">arrow_forward</i>
-    </button>
+
+    <div class="card-panel blue-grey centered-graph-info">
+      <span class="white-text">
+        <p>
+          Cardiomyopathy Type:
+          {{ graph.graphInformation.cardiomyopathyType }}
+        </p>
+        <p>Mutated Gene Type: {{ graph.graphInformation.mutatedGeneType }}</p>
+        <p>Type of Data: {{ graph.graphInformation.typeOfData }}</p>
+        <p>Paper: {{ graph.graphInformation.paper }}</p>
+        <p>
+          Added on:
+          {{ graph.graphInformation.timeOfInsert.toDate().toDateString() }}
+        </p>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -264,6 +256,12 @@ export default {
   width: 350px;
   position: relative;
 }
+.centered-graph-info {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
+}
 @media only screen and (min-width: 776px) {
   .side-buttons {
     position: absolute;
@@ -271,5 +269,9 @@ export default {
     top: 145px;
     width: 120px;
   }
+}
+
+.graph-info {
+  width: 90%;
 }
 </style>

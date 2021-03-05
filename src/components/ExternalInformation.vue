@@ -1,5 +1,5 @@
 <template>
-  <div class="info-containers">
+  <div class="centered-api-info grey-text">
     <div v-if="externalGeneInformation" class="row card">
       <h5 class="white-text card-panel blue-grey lighten-1">
         {{ externalGeneInformation.description }},
@@ -95,8 +95,11 @@ export default {
 </script>
 
 <style scoped>
-.info-containers {
-  padding: 0 150px;
+.centered-api-info {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
 }
 
 .content {

@@ -44,12 +44,14 @@ export default {
   margin-bottom: 15px;
 }
 form {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
   width: 40%;
-  display: block;
-  margin: 50px auto;
-  margin-bottom: 0;
+  position: block;
   text-align: left;
 }
+
 .displayBlock {
   display: block;
 }
