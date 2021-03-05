@@ -49,6 +49,14 @@ form {
 .displayBlock {
   display: block;
 }
+.noSelect {
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 ::-moz-selection {
   background: #c9e2ff85;
 }

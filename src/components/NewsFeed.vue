@@ -6,7 +6,7 @@
           Published on: {{ items.pubDate.substr(0, 10) }}
         </p>
       </div>
-      <div class="col s12 card-content grey lighten-2">
+      <div class="col s12 card-content blue-grey darken-1 white-text">
         <div class="col s4">
           <img class="responsive-img z-depth-2" :src="items.enclosure.link" />
         </div>
@@ -18,6 +18,7 @@
             <a
               class="btn valign-wrapper blue-grey lighten-1"
               :href="items.link"
+              target="article"
               id="link-test-identifer"
               >Source Article</a
             >
@@ -56,7 +57,7 @@ export default {
 }
 
 blockquote {
-  border-left: 5px solid #78909c;
+  border-left: 5px solid #ffffff;
 }
 
 .date {

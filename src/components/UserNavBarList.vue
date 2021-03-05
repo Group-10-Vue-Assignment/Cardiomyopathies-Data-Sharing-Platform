@@ -25,8 +25,8 @@
     >
   </li>
   <li v-if="horizontalSwitch">
-    <a class="dropdown-trigger btn" href="#" data-target="dashboard-dropdown"
-      >Dashboards</a
+    <a class="dropdown-trigger" href="#" data-target="dashboard-dropdown"
+      ><i class="material-icons right">dashboard</i>Dashboard</a
     >
   </li>
   <li>
@@ -44,18 +44,17 @@
   <ul id="dashboard-dropdown" class="dropdown-content" v-if="horizontalSwitch">
     <li>
       <router-link to="/global-dashboard" id="user-gdashboard-test-identifier"
-        ><i class="material-icons right">language</i>Global
-        Dashboard</router-link
+        ><i class="material-icons right">language</i>Global</router-link
       >
     </li>
     <li>
       <router-link to="/user-dashboard" id="user-udashboard-test-identifier"
-        ><i class="material-icons right">person</i>User Dashboard</router-link
+        ><i class="material-icons right">person</i>User</router-link
       >
     </li>
     <li>
       <router-link to="/search-dashboard" id="user-sdashboard-test-identifier"
-        ><i class="material-icons right">search</i>Search Dashboard</router-link
+        ><i class="material-icons right">search</i>Search</router-link
       >
     </li>
   </ul>

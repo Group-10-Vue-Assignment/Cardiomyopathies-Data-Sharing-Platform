@@ -3,7 +3,7 @@
     <div class="navbar-fixed">
       <nav class="blue-grey lighten-1">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo">Cardiomyopathy Hub</a>
+          <a href="#" class="noSelect brand-logo">Cardiomyopathy Hub</a>
           <a href="#" data-target="mobile-demo-nonuser" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
@@ -21,7 +21,7 @@
     <div class="navbar-fixed">
       <nav class="blue-grey lighten-1">
         <div class="nav-wrapper">
-          <a class="brand-logo">Cardiomyopathy Hub</a>
+          <a class="noSelect brand-logo">Cardiomyopathy Hub</a>
           <a href="#" data-target="mobile-demo-user" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >

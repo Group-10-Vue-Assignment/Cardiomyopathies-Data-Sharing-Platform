@@ -9,7 +9,7 @@
   <div v-for="question in Questions" :key="question" class="question-cards">
     <div
       @click="toggleAnswer(question.id)"
-      class="white-text card-panel blue-grey lighten-1"
+      class="noSelect white-text card-panel blue-grey lighten-1"
     >
       <div class="question-icon">
         <h6 class="left-align">{{ question.questions }}</h6>
@@ -60,7 +60,7 @@ export default {
 }
 
 .question-icon i {
-  margin-left: 5px;
+  margin-left: 10px;
   margin-top: 9px;
 }
 </style>
