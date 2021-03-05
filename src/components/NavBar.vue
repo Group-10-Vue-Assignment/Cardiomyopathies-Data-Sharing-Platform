@@ -32,7 +32,7 @@
       </nav>
     </div>
     <ul class="sidenav" id="mobile-demo-user">
-      <UserNavBarList @handleClick="handleClick" />
+      <UserNavBarList @handleClick="handleClick" :horizontalSwitch="false" />
     </ul>
   </div>
 </template>
@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 993px) {
   .brand-logo {
     left: 0.5rem;
   }

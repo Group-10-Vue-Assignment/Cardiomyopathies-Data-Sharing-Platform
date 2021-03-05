@@ -9,19 +9,24 @@
       <i class="material-icons right">home</i>Home</router-link
     >
   </li>
-  <li>
+  <li v-if="!horizontalSwitch">
     <router-link to="/global-dashboard" id="user-gdashboard-test-identifier"
       ><i class="material-icons right">language</i>Global Dashboard</router-link
     >
   </li>
-  <li>
+  <li v-if="!horizontalSwitch">
     <router-link to="/user-dashboard" id="user-udashboard-test-identifier"
       ><i class="material-icons right">person</i>User Dashboard</router-link
     >
   </li>
-  <li>
+  <li v-if="!horizontalSwitch">
     <router-link to="/search-dashboard" id="user-sdashboard-test-identifier"
       ><i class="material-icons right">search</i>Search Dashboard</router-link
+    >
+  </li>
+  <li v-if="horizontalSwitch">
+    <a class="dropdown-trigger btn" href="#" data-target="dashboard-dropdown"
+      >Dashboards</a
     >
   </li>
   <li>
@@ -35,10 +40,36 @@
       Logout
     </router-link>
   </li>
+
+  <ul id="dashboard-dropdown" class="dropdown-content" v-if="horizontalSwitch">
+    <li>
+      <router-link to="/global-dashboard" id="user-gdashboard-test-identifier"
+        ><i class="material-icons right">language</i>Global
+        Dashboard</router-link
+      >
+    </li>
+    <li>
+      <router-link to="/user-dashboard" id="user-udashboard-test-identifier"
+        ><i class="material-icons right">person</i>User Dashboard</router-link
+      >
+    </li>
+    <li>
+      <router-link to="/search-dashboard" id="user-sdashboard-test-identifier"
+        ><i class="material-icons right">search</i>Search Dashboard</router-link
+      >
+    </li>
+  </ul>
 </template>
 
 <script>
 export default {
-  emits: ["handleClick"]
+  emits: ["handleClick"],
+  props: {
+    horizontalSwitch: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  }
 };
 </script>
