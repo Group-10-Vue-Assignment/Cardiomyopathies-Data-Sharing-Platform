@@ -3,7 +3,13 @@
     <div class="navbar-fixed">
       <nav class="blue-grey lighten-1">
         <div class="nav-wrapper">
-          <a href="#" class="noSelect brand-logo">Cardiomyopathy Hub</a>
+          <a
+            href="#"
+            class="noSelect brand-logo tooltipped"
+            data-position="bottom"
+            data-tooltip="A data sharing platform for the different types of cardiomyopathies"
+            >Cardiomyopathy Hub</a
+          >
           <a href="#" data-target="mobile-demo-nonuser" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
@@ -21,7 +27,13 @@
     <div class="navbar-fixed">
       <nav class="blue-grey lighten-1">
         <div class="nav-wrapper">
-          <a class="noSelect brand-logo">Cardiomyopathy Hub</a>
+          <a
+            href="#"
+            class="noSelect brand-logo tooltipped"
+            data-position="bottom"
+            data-tooltip="A data sharing platform for the different types of cardiomyopathies"
+            >Cardiomyopathy Hub</a
+          >
           <a href="#" data-target="mobile-demo-user" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
@@ -93,11 +105,6 @@ export default {
 .logout {
   margin-right: 8px;
   cursor: pointer;
-}
-
-a.router-link-exact-active {
-  background-color: rgba(255, 255, 255, 0.1);
-  text-decoration: none;
 }
 
 .sidenav {

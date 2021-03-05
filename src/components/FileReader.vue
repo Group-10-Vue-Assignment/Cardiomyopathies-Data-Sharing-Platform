@@ -1,6 +1,9 @@
 <template>
-  <label class="text-reader" for="graphData">
-    Input CSV
+  <label
+    class="text-reader waves-effect waves-light btn-small blue-grey lighten-2"
+    for="graphData"
+  >
+    Select CSV File
     <input
       type="file"
       id="graphData"
@@ -9,6 +12,7 @@
       tabindex="-1"
     />
   </label>
+  <br />
 </template>
 
 <script>
@@ -69,20 +73,13 @@ export default {
 
 <style scoped>
 .text-reader {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 8px 12px;
   cursor: pointer;
 }
 .text-reader input {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
   opacity: 0;
+  z-index: -1;
 }
 </style>

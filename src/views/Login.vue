@@ -48,6 +48,7 @@
       Sign Up
     </router-link>
   </div>
+  <br />
   <div class="button">
     <router-link
       to="/forgotpassword"

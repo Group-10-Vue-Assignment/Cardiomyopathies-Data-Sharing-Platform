@@ -8,28 +8,32 @@
     </template>
   </PageBanner>
   <div class="row">
-    <div class="col s6 m6">
+    <div class="col s10 m10">
       <form @submit.prevent="queryData">
-        <h5 class="header">Select Filters</h5>
-        <BaseSelect
-          :options="cardiomyopathyTypeOptions"
-          v-model="cardiomyopathyData.cardiomyopathyType"
-          label="Select Cardiomyopathy Type"
-        />
-        <br />
-        <BaseSelect
-          :options="mutatedGeneTypeOptions"
-          v-model="cardiomyopathyData.mutatedGeneType"
-          label="Select Mutated Gene Type"
-        />
-
-        <br />
-        <button
-          class="waves-effect waves-light btn-small blue-grey lighten-1"
-          type="submit"
-        >
-          Search
-        </button>
+        <div class="card-panel blue-grey">
+          <h5 class="header">Select Filters</h5>
+          <div class="card-panel">
+            <BaseSelect
+              :options="cardiomyopathyTypeOptions"
+              v-model="cardiomyopathyData.cardiomyopathyType"
+              label="Select Cardiomyopathy Type"
+            />
+            <br />
+            <BaseSelect
+              :options="mutatedGeneTypeOptions"
+              v-model="cardiomyopathyData.mutatedGeneType"
+              label="Select Mutated Gene Type"
+            />
+            <br />
+            <button
+              class="waves-effect waves-light btn-small blue-grey lighten-1"
+              type="submit"
+            >
+              Search
+            </button>
+            <br />
+          </div>
+        </div>
       </form>
     </div>
     <div

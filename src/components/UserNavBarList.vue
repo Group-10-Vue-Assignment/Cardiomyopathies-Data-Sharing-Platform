@@ -35,7 +35,7 @@
     >
   </li>
   <li class="logout" @click="$emit('handleClick')">
-    <router-link to="/">
+    <router-link to="/login">
       <i class=" material-icons right">exit_to_app</i>
       Logout
     </router-link>

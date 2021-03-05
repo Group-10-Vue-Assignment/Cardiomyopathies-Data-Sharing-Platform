@@ -28,7 +28,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: grey;
+  color: rgb(255, 255, 255);
 }
 * {
   padding: 0%;
@@ -38,6 +38,10 @@ export default {
   margin: 0 auto;
   display: flex;
   justify-content: center;
+}
+.pagination-btns {
+  margin-top: -15px;
+  margin-bottom: 15px;
 }
 form {
   width: 40%;
@@ -49,7 +53,13 @@ form {
 .displayBlock {
   display: block;
 }
+a.router-link-exact-active {
+  cursor: default;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
 .noSelect {
+  cursor: default;
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;

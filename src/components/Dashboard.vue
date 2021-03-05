@@ -11,24 +11,37 @@
         >
           View Details
         </button>
-
+        <br /><br />
         <ConfirmationBox
           v-if="userId == graph.graphInformation.userId"
           @deleteGraph="deleteGraph(graph.graphId)"
         />
       </div>
     </div>
-    <div class="white-text card-panel blue-grey lighten-1">
-      <p>
-        Cardiomyopathy Type: {{ graph.graphInformation.cardiomyopathyType }}
-      </p>
-      <p>Mutated Gene Type: {{ graph.graphInformation.mutatedGeneType }}</p>
-      <p>Type of Data: {{ graph.graphInformation.typeOfData }}</p>
-      <p>Paper: {{ graph.graphInformation.paper }}</p>
-      <p>
-        Added on:
-        {{ graph.graphInformation.timeOfInsert.toDate().toDateString() }}
-      </p>
+    <div class="center">
+      <div class="row">
+        <div class="col s16 m16">
+          <div class="card-panel blue-grey">
+            <span class="white-text">
+              <p>
+                Cardiomyopathy Type:
+                {{ graph.graphInformation.cardiomyopathyType }}
+              </p>
+              <p>
+                Mutated Gene Type: {{ graph.graphInformation.mutatedGeneType }}
+              </p>
+              <p>Type of Data: {{ graph.graphInformation.typeOfData }}</p>
+              <p>Paper: {{ graph.graphInformation.paper }}</p>
+              <p>
+                Added on:
+                {{
+                  graph.graphInformation.timeOfInsert.toDate().toDateString()
+                }}
+              </p>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div v-if="graphs.length != 0" class="pagination-btns">
