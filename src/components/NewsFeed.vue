@@ -1,12 +1,12 @@
 <template>
   <div v-for="items in newsFeedData.items" :key="items" class="feed-container">
     <div class="row card z-depth-3">
-      <div class="col s12 card-action blue-grey lighten-1 white-text">
+      <div class="col s12 card-action blue-grey darken-1 white-text">
         <p class="right-align date">
           Published on: {{ items.pubDate.substr(0, 10) }}
         </p>
       </div>
-      <div class="col s12 card-content blue-grey darken-1 white-text">
+      <div class="col s12 card-content blue-grey lighten-1 white-text">
         <div class="col s4">
           <img class="responsive-img z-depth-2" :src="items.enclosure.link" />
         </div>
@@ -16,7 +16,7 @@
 
           <div class="sourceBtn">
             <a
-              class="btn valign-wrapper blue-grey lighten-1"
+              class="btn valign-wrapper blue-grey"
               :href="items.link"
               target="article"
               id="link-test-identifer"

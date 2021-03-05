@@ -1,10 +1,5 @@
 <template>
   <li>
-    <router-link to="/helper" id="user-help-test-identifier"
-      ><i class="material-icons right">help</i>Help</router-link
-    >
-  </li>
-  <li>
     <router-link to="/" id="user-home-test-identifier">
       <i class="material-icons right">home</i>Home</router-link
     >
@@ -32,6 +27,11 @@
   <li>
     <router-link to="/add-graph" id="user-add-graph-test-identifier"
       ><i class="material-icons right">poll</i>Add Graph</router-link
+    >
+  </li>
+  <li>
+    <router-link to="/helper" id="user-help-test-identifier">
+      <i class="material-icons right">help</i>Help</router-link
     >
   </li>
   <li class="logout" @click="$emit('handleClick')">
