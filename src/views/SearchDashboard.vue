@@ -10,7 +10,7 @@
   <div class="row">
     <form @submit.prevent="queryData">
       <div class="card-panel blue-grey">
-        <h5 class="header">Select Filters</h5>
+        <h5 class="header white-text">Select Filters</h5>
         <div class="card-panel">
           <BaseSelect
             :options="cardiomyopathyTypeOptions"
@@ -176,11 +176,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.centered-graph-info {
-  margin-left: auto;
-  margin-right: auto;
-  width: 85%;
-  position: relative;
-}
-</style>
+<style scoped></style>

@@ -89,10 +89,10 @@ describe("External Information Test", () => {
 
   it("renders NCBIService data to the screen in correct format", async () => {
     expect(NCBIService.getGeneInformation).toHaveBeenCalledTimes(1);
-    expect(wrapper.findAll("h3")[0].text()).toMatch(
+    expect(wrapper.findAll("h5")[0].text()).toMatch(
       NCBIServiceResponse.description + ", " + NCBIServiceResponse.name
     );
-    expect(wrapper.findAll("h5")[0].text()).toMatch(
+    expect(wrapper.findAll("h5")[1].text()).toMatch(
       NCBIServiceResponse.name + " Description"
     );
     expect(wrapper.findAll("p")[0].text()).toMatch(NCBIServiceResponse.summary);
@@ -100,10 +100,10 @@ describe("External Information Test", () => {
 
   it("renders HBOService data to the screen in correct format", async () => {
     expect(HBOService.getClinicalSynopsis).toHaveBeenCalledTimes(1);
-    expect(wrapper.findAll("h3")[1].text()).toMatch(
+    expect(wrapper.findAll("h5")[2].text()).toMatch(
       "Disease Name: " + HBOServiceResponse.data.disease.diseaseName
     );
-    expect(wrapper.findAll("h5")[1].text()).toMatch(
+    expect(wrapper.findAll("h5")[3].text()).toMatch(
       HBOServiceResponse.data.catTermsMap[1].catLabel + " Clinical Synopsis"
     );
 
@@ -127,7 +127,7 @@ describe("External Information Test", () => {
 
   it("renders OMIMService data to the screen in correct format", async () => {
     expect(OMIMService.getPhenotypes).toHaveBeenCalledTimes(1);
-    expect(wrapper.findAll("h3")[2].text()).toMatch("Phenotypes");
+    expect(wrapper.findAll("h5")[4].text()).toMatch("Phenotypes");
     expect(wrapper.findAll("p")[5].text()).toMatch(
       OMIMServiceResponse.data.omim.entryList[0].entry.phenotypeMapList[0]
         .phenotypeMap.phenotype

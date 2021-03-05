@@ -1,24 +1,23 @@
 <template>
-  <div class="graph">
-    <div class="centered-graph">
-      <LineChart :graphInformation="graphInformation" />
+  <div class="centered-graph">
+    <LineChart :graphInformation="graphInformation" />
 
-      <div class="side-buttons">
-        <ConfirmationBox
-          v-if="user.uid == graphInformation.userId"
-          @deleteGraph="deleteGraph(id)"
-        />
-      </div>
-    </div>
-
-    <div class="white-text card-panel blue-grey lighten-1">
-      <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
-      <p>Mutated Gene Type: {{ graphInformation.mutatedGeneType }}</p>
-      <p>Type of Data: {{ graphInformation.typeOfData }}</p>
-      <p>Paper: {{ graphInformation.paper }}</p>
-      <p>Added on: {{ date.toDateString() }}</p>
+    <div class="side-buttons">
+      <ConfirmationBox
+        v-if="user.uid == graphInformation.userId"
+        @deleteGraph="deleteGraph(id)"
+      />
     </div>
   </div>
+
+  <div class="white-text card-panel blue-grey lighten-1 centered-graph-info">
+    <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
+    <p>Mutated Gene Type: {{ graphInformation.mutatedGeneType }}</p>
+    <p>Type of Data: {{ graphInformation.typeOfData }}</p>
+    <p>Paper: {{ graphInformation.paper }}</p>
+    <p>Added on: {{ date.toDateString() }}</p>
+  </div>
+
   <div v-if="error" class="error">{{ error }}</div>
 </template>
 
@@ -101,5 +100,12 @@ export default {
     top: 145px;
     width: 120px;
   }
+}
+
+.centered-graph-info {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
 }
 </style>

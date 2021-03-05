@@ -22,7 +22,7 @@
     >
   </li>
   <li>
-    <router-link to="/helper" id="user-help-test-identifier">
+    <router-link to="/helper" id="nonuser-help-test-identifier">
       <i class="material-icons right">help</i>Help</router-link
     >
   </li>

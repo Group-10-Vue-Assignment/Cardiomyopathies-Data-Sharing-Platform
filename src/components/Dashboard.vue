@@ -256,12 +256,6 @@ export default {
   width: 350px;
   position: relative;
 }
-.centered-graph-info {
-  margin-left: auto;
-  margin-right: auto;
-  width: 85%;
-  position: relative;
-}
 @media only screen and (min-width: 776px) {
   .side-buttons {
     position: absolute;
@@ -271,7 +265,10 @@ export default {
   }
 }
 
-.graph-info {
-  width: 90%;
+.centered-graph-info {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
 }
 </style>
