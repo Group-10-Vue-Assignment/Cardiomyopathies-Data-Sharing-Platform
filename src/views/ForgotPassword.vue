@@ -70,9 +70,4 @@ a {
 form {
   margin-bottom: 0px;
 }
-
-.popup {
-  padding: 2%;
-  text-align: center;
-}
 </style>

@@ -42,6 +42,10 @@ export default {
   margin-top: -15px;
   margin-bottom: 15px;
 }
+.popup {
+  padding: 2%;
+  text-align: center;
+}
 form {
   margin-left: auto;
   margin-right: auto;
