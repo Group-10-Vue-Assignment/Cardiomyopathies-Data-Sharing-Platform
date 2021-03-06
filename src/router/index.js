@@ -86,7 +86,8 @@ const routes = [
   {
     path: "/forgotpassword",
     name: "ForgotPassword",
-    component: ForgotPassword
+    component: ForgotPassword,
+    beforeEnter: loggedAuth
   },
   {
     path: "/verifyemail",
