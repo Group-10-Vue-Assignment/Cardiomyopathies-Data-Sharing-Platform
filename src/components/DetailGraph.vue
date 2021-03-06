@@ -89,16 +89,20 @@ export default {
 .centered-graph {
   margin-left: auto;
   margin-right: auto;
-  width: 320px;
+  width: 350px;
   position: relative;
 }
-
 @media only screen and (min-width: 776px) {
   .side-buttons {
     position: absolute;
     left: 420px;
     top: 145px;
     width: 120px;
+  }
+}
+@media only screen and (max-width: 775px) {
+  .centered-graph {
+    width: 65%;
   }
 }
 

@@ -50,6 +50,12 @@ form {
   display: block;
   text-align: left;
 }
+
+@media only screen and (max-width: 992px) {
+  form {
+    width: 80%;
+  }
+}
 .centered-graph-info {
   margin-left: auto;
   margin-right: auto;

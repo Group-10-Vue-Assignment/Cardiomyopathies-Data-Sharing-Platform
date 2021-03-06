@@ -88,6 +88,7 @@
       <div v-if="csvData != ''">
         <button
           @click="parseCSVData"
+          type="button"
           class="waves-effect waves-light btn-small green lighten-1"
         >
           Add CSV
@@ -173,20 +174,30 @@ export default {
         dynamicTyping: true
       });
 
-      let notification = {
-        type: "success",
-        message: "CSV file has uploaded successfully!"
-      };
+      let notification = {};
 
-      store.dispatch("addNotification", notification);
-
-      chosenFilename.value = tmpFilename.value;
+      if (parsedData.value.data.length > 0) {
+        csvFileAsJSON = JSON.stringify(
+          formatCSVArrayIntoJSON(parsedData.value.data)
+        );
+        chosenFilename.value = tmpFilename.value;
+        notification = {
+          type: "success",
+          message: "CSV file has uploaded successfully!"
+        };
+      } else {
+        parsedData.value = null;
+        chosenFilename.value = null;
+        notification = {
+          type: "error",
+          message:
+            "CSV file has failed to upload! Ensure the csv file is not empty"
+        };
+      }
       csvData.value = "";
       tmpFilename.value = "";
 
-      csvFileAsJSON = JSON.stringify(
-        formatCSVArrayIntoJSON(parsedData.value.data)
-      );
+      store.dispatch("addNotification", notification);
     }
 
     function formatCSVArrayIntoJSON(CSVArray) {
