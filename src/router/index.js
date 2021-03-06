@@ -30,6 +30,16 @@ const requireAuth = (to, from, next) => {
   console.log(user.emailVerified);
 };
 
+const loggedAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+
+  if (user) {
+    next({ name: "Home" });
+  } else {
+    next();
+  }
+};
+
 const routes = [
   {
     path: "/",
@@ -39,12 +49,14 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: Login
+    component: Login,
+    beforeEnter: loggedAuth
   },
   {
     path: "/signup",
     name: "Signup",
-    component: Signup
+    component: Signup,
+    beforeEnter: loggedAuth
   },
   {
     path: "/user-dashboard",
