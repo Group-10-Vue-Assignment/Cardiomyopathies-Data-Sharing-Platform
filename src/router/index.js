@@ -103,6 +103,10 @@ const routes = [
     path: "/helper",
     name: "Helper",
     component: Helper
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    component: Home
   }
 ];
 
