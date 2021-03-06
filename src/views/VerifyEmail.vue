@@ -13,7 +13,7 @@
         <template v-slot:title>Verify Your Email</template>
         <template v-slot:description>
           You need to verify your account by clicking the verification link in
-          your (junk) email.
+          your (junk) email. <b>Once verified, please refresh the browser.</b>
         </template>
       </PageBanner>
       <div v-if="success" class="white-text card light-green lighten-1 popup">
@@ -24,8 +24,8 @@
       </div>
       <div v-if="!success" class="white-text card blue-grey popup">
         <span
-          >Did not recieve the verification email? Click on the button below to
-          recieve a new one. Make sure to check your spam/junk folder too.
+          >Did not receive the verification email? Click on the button below to
+          receive a new one. Make sure to check your spam/junk folder too.
         </span>
       </div>
       <button
