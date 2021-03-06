@@ -1,19 +1,23 @@
 <template>
-  <div class="graph">
-    <LineChart class="center" :graphInformation="graphInformation">
+  <div class="centered-graph">
+    <LineChart :graphInformation="graphInformation" />
+
+    <div class="side-buttons">
       <ConfirmationBox
         v-if="user.uid == graphInformation.userId"
         @deleteGraph="deleteGraph(id)"
       />
-    </LineChart>
-    <div class="white-text card-panel blue-grey lighten-1">
-      <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
-      <p>Mutated Gene Type: {{ graphInformation.mutatedGeneType }}</p>
-      <p>Type of Data: {{ graphInformation.typeOfData }}</p>
-      <p>Paper: {{ graphInformation.paper }}</p>
-      <p>Added on: {{ date.toDateString() }}</p>
     </div>
   </div>
+
+  <div class="white-text card-panel blue-grey lighten-1 centered-graph-info">
+    <p>Cardiomyopathy Type: {{ graphInformation.cardiomyopathyType }}</p>
+    <p>Mutated Gene Type: {{ graphInformation.mutatedGeneType }}</p>
+    <p>Type of Data: {{ graphInformation.typeOfData }}</p>
+    <p>Paper: {{ graphInformation.paper }}</p>
+    <p>Added on: {{ date.toDateString() }}</p>
+  </div>
+
   <div v-if="error" class="error">{{ error }}</div>
 </template>
 
@@ -81,10 +85,31 @@ export default {
 };
 </script>
 
-<style>
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+<style scoped>
+.centered-graph {
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  position: relative;
+}
+@media only screen and (min-width: 776px) {
+  .side-buttons {
+    position: absolute;
+    left: 420px;
+    top: 145px;
+    width: 120px;
+  }
+}
+@media only screen and (max-width: 775px) {
+  .centered-graph {
+    width: 65%;
+  }
+}
+
+.centered-graph-info {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
 }
 </style>

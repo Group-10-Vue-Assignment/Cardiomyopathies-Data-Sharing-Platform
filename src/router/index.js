@@ -7,10 +7,10 @@ import UserDashboard from "../views/UserDashboard.vue";
 import AddGraph from "@/views/AddGraph.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
-import SearchPage from "../views/SearchPage.vue";
+import SearchDashboard from "../views/SearchDashboard.vue";
 import GraphDetails from "@/views/GraphDetails";
 import Helper from "../views/Helper.vue";
-
+import PageNotFound from "@/views/PageNotFound.vue";
 // route guard
 import { projectAuth } from "../firebase/config";
 
@@ -30,6 +30,16 @@ const requireAuth = (to, from, next) => {
   console.log(user.emailVerified);
 };
 
+const loggedAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+
+  if (user) {
+    next({ name: "Home" });
+  } else {
+    next();
+  }
+};
+
 const routes = [
   {
     path: "/",
@@ -39,12 +49,14 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: Login
+    component: Login,
+    beforeEnter: loggedAuth
   },
   {
     path: "/signup",
     name: "Signup",
-    component: Signup
+    component: Signup,
+    beforeEnter: loggedAuth
   },
   {
     path: "/user-dashboard",
@@ -74,7 +86,8 @@ const routes = [
   {
     path: "/forgotpassword",
     name: "ForgotPassword",
-    component: ForgotPassword
+    component: ForgotPassword,
+    beforeEnter: loggedAuth
   },
   {
     path: "/verifyemail",
@@ -82,15 +95,19 @@ const routes = [
     component: VerifyEmail
   },
   {
-    path: "/searchpage",
-    name: "SearchPage",
-    component: SearchPage,
+    path: "/search-dashboard",
+    name: "SearchDashboard",
+    component: SearchDashboard,
     beforeEnter: requireAuth
   },
   {
     path: "/helper",
     name: "Helper",
     component: Helper
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    component: PageNotFound
   }
 ];
 

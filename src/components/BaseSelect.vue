@@ -1,7 +1,7 @@
 <template>
   <label v-if="label">{{ label }}</label>
   <select
-    class="displayBlock"
+    class="displayBlock browser-default"
     :value="modelValue"
     v-bind="{
       ...$attrs,
@@ -11,6 +11,7 @@
     }"
     required
   >
+    <option hidden disabled selected value> -- select an option -- </option>
     <option
       v-for="option in options"
       :value="option"

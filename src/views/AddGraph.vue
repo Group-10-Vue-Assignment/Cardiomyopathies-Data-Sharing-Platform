@@ -6,97 +6,105 @@
     </template>
   </PageBanner>
   <form @submit.prevent="submitData">
-    <BaseSelect
-      :options="cardiomyopathyTypeOptions"
-      v-model="cardiomyopathyData.cardiomyopathyType"
-      label="Select Cardiomyopathy Type"
-    />
-    <br />
-    <BaseSelect
-      :options="mutatedGeneTypeOptions"
-      v-model="cardiomyopathyData.mutatedGeneType"
-      label="Select Mutated Gene Type"
-    />
-    <br />
-    <label for="paper">Enter the paper the data was sourced from</label>
-    <input
-      v-model="cardiomyopathyData.paper"
-      type="text"
-      id="paper"
-      placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
-      required
-    />
-    <br />
-    <BaseSelect
-      :options="dataTypeOptions"
-      v-model="cardiomyopathyData.typeOfData"
-      label="Select Data Type"
-    />
-    <h5>Graph information</h5>
-    <label for="xAxisTitle">Enter the title for the x Axis</label>
-    <input
-      v-model="cardiomyopathyData.xAxisTitle"
-      type="text"
-      id="xAxisTitle"
-      placeholder="e.g: Time (sec)"
-      required
-    />
-    <br />
-    <label for="yAxisTitle">Enter the title for the y Axis</label>
-    <input
-      v-model="cardiomyopathyData.yAxisTitle"
-      type="text"
-      id="yAxisTitle"
-      placeholder="e.g: Sarcomere length (µm)"
-      required
-    />
-    <br />
-    <label for="roundYAxisDP"
-      >Enter the decimal place to round Y Axis too</label
-    >
-    <input
-      v-model="cardiomyopathyData.roundYAxisDP"
-      type="number"
-      id="roundYAxisDP"
-      min="0"
-      max="4"
-      required
-    />
-    <br />
-    <label for="yTickAmount"
-      >Enter the amount of Y axis ticks you wish to be displayed on the rendered
-      graph</label
-    >
-    <input
-      v-model="cardiomyopathyData.yTickAmount"
-      type="number"
-      id="yTickAmount"
-      min="3"
-      max="10"
-      required
-    />
-    <p>Select a csv to pull data from</p>
-    <FileReader @load="csvData = $event" @filename="tmpFilename = $event" />
-    <br />
-    <p v-if="chosenFilename">Selected File: {{ chosenFilename }}</p>
-    <div v-if="csvData != ''">
-      <button
-        @click="parseCSVData"
-        class="waves-effect waves-light btn-small green lighten-1"
+    <div class="card-panel">
+      <h4 class="grey-text">Cardiomyopathy Information</h4>
+
+      <BaseSelect
+        :options="cardiomyopathyTypeOptions"
+        v-model="cardiomyopathyData.cardiomyopathyType"
+        label="Select Cardiomyopathy Type"
+      />
+      <br />
+      <BaseSelect
+        :options="mutatedGeneTypeOptions"
+        v-model="cardiomyopathyData.mutatedGeneType"
+        label="Select Mutated Gene Type"
+      />
+      <br />
+      <label for="paper">Enter the paper the data was sourced from</label>
+      <input
+        v-model="cardiomyopathyData.paper"
+        type="text"
+        id="paper"
+        placeholder="e.g: Measurement of Myofilament-Localized Calcium Dynamics in Adult Cardiomyocytes and the Effect of Hypertrophic Cardiomyopathy Mutations"
+        required
+      />
+      <br />
+      <BaseSelect
+        :options="dataTypeOptions"
+        v-model="cardiomyopathyData.typeOfData"
+        label="Select Data Type"
+      />
+      <h4 class="grey-text">Graph Information</h4>
+      <label for="xAxisTitle">Enter the title for the x Axis</label>
+      <input
+        v-model="cardiomyopathyData.xAxisTitle"
+        type="text"
+        id="xAxisTitle"
+        placeholder="e.g: Time (sec)"
+        required
+      />
+      <br />
+      <label for="yAxisTitle">Enter the title for the y Axis</label>
+      <input
+        v-model="cardiomyopathyData.yAxisTitle"
+        type="text"
+        id="yAxisTitle"
+        placeholder="e.g: Sarcomere length (µm)"
+        required
+      />
+      <br />
+      <label for="roundYAxisDP"
+        >Enter the decimal place to round Y Axis too</label
       >
-        Add CSV
+      <input
+        v-model="cardiomyopathyData.roundYAxisDP"
+        type="number"
+        id="roundYAxisDP"
+        min="0"
+        max="4"
+        required
+      />
+      <br />
+      <label for="yTickAmount"
+        >Enter the amount of Y axis ticks you wish to be displayed on the
+        rendered graph</label
+      >
+      <input
+        v-model="cardiomyopathyData.yTickAmount"
+        type="number"
+        id="yTickAmount"
+        min="3"
+        max="10"
+        required
+      />
+      <label>Select a CSV file to pull data from:</label>
+      <br />
+      <FileReader @load="csvData = $event" @filename="tmpFilename = $event" />
+      <br />
+      <div class="white-text card-panel blue-grey" v-if="chosenFilename">
+        <span>Selected File: {{ chosenFilename }}</span>
+      </div>
+      <div v-if="csvData != ''">
+        <button
+          @click="parseCSVData"
+          type="button"
+          class="waves-effect waves-light btn-small green lighten-1"
+        >
+          Add CSV
+        </button>
+        <br />
+        <br />
+      </div>
+      <button
+        class="waves-effect waves-light btn-small blue-grey lighten-2"
+        type="submit"
+        :disabled="parsedData == null"
+        :class="{ clickable: parsedData != null }"
+      >
+        Submit Graph
       </button>
-      <br />
-      <br />
     </div>
-    <button
-      class="waves-effect waves-light btn-small blue-grey lighten-2"
-      type="submit"
-      :disabled="parsedData == null"
-      :class="{ clickable: parsedData != null }"
-    >
-      Submit Graph
-    </button>
   </form>
 </template>
 
@@ -166,50 +174,29 @@ export default {
         dynamicTyping: true
       });
 
-      let notification = {
-        type: "success",
-        message: "CSV file has uploaded successfully!"
-      };
+      let notification = {};
 
-      store.dispatch("addNotification", notification);
-
-      chosenFilename.value = tmpFilename.value;
+      if (parsedData.value.data.length > 0) {
+        csvFileAsJSON = JSON.stringify(
+          formatCSVArrayIntoJSON(parsedData.value.data)
+        );
+        chosenFilename.value = tmpFilename.value;
+        notification = {
+          type: "success",
+          message: "CSV file has uploaded successfully!"
+        };
+      } else {
+        parsedData.value = null;
+        chosenFilename.value = null;
+        notification = {
+          type: "error",
+          message:
+            "CSV file has failed to upload! Ensure the csv file is not empty"
+        };
+      }
       csvData.value = "";
       tmpFilename.value = "";
 
-      csvFileAsJSON = JSON.stringify(
-        formatCSVArrayIntoJSON(parsedData.value.data)
-      );
-
-      // // testing as if we got it from firebase
-      // let jsonNow = JSON.stringify(objectToStoreInFirestore)
-      // console.log(jsonNow)
-
-      // let objectAgain = JSON.parse(jsonNow)
-      // console.log(objectAgain)
-    }
-
-    async function submitData() {
-      let notification = {};
-      try {
-        const docRef = await addGraphToFirestoreCollection();
-        notification = {
-          type: "success",
-          message: "Your data has been submitted successfully!"
-        };
-        router.push({
-          name: "GraphDetails",
-          params: { id: docRef.id }
-        });
-        // because we are using an object, we need a new object reference for future
-        this.cardiomyopathyData = createFreshCardiomyopathyDataObject();
-      } catch (err) {
-        notification = {
-          type: "error",
-          message: "There was a problem submitting your data: " + err.message
-        };
-        console.log(err);
-      }
       store.dispatch("addNotification", notification);
     }
 
@@ -249,6 +236,30 @@ export default {
         yPlotsObjectCollection.push(yPlotsObject);
       }
       return yPlotsObjectCollection;
+    }
+
+    async function submitData() {
+      let notification = {};
+      try {
+        const docRef = await addGraphToFirestoreCollection();
+        notification = {
+          type: "success",
+          message: "Your data has been submitted successfully!"
+        };
+        router.push({
+          name: "GraphDetails",
+          params: { id: docRef.id }
+        });
+        // because we are using an object, we need a new object reference for future
+        this.cardiomyopathyData = createFreshCardiomyopathyDataObject();
+      } catch (err) {
+        notification = {
+          type: "error",
+          message: "There was a problem submitting your data: " + err.message
+        };
+        console.log(err);
+      }
+      store.dispatch("addNotification", notification);
     }
 
     async function addGraphToFirestoreCollection() {

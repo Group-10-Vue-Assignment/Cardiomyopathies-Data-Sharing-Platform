@@ -24,10 +24,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* .notification-container {
-  position: fixed;
-  bottom: 0;
-} */
-</style>
