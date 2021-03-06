@@ -66,8 +66,6 @@ export default {
           error.value = err.message;
           success.value = "";
         });
-      success.value = "Link was successfully delivered to your (junk) email.";
-      console.log("Clicked");
     };
     return { user, handleClick, success, error };
   }
