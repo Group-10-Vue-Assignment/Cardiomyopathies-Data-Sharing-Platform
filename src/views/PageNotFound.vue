@@ -1,9 +1,21 @@
 <template>
-  <h2>The page you’re looking for can’t be found.</h2>
+  <PageBanner>
+    <template v-slot:title>Page Not Found</template>
+    <template v-slot:description>
+      The page you have tried searching for does not exist.
+    </template>
+  </PageBanner>
 </template>
 
 <script>
-export default {};
+import PageBanner from "@/components/PageBanner.vue";
+
+export default {
+  name: "PageNotFound",
+  components: {
+    PageBanner
+  }
+};
 </script>
 
 <style></style>
