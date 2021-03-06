@@ -8,38 +8,35 @@
     </template>
   </PageBanner>
   <div class="row">
-    <div class="col s10 m10">
-      <form @submit.prevent="queryData">
-        <div class="card-panel blue-grey">
-          <h5 class="header">Select Filters</h5>
-          <div class="card-panel">
-            <BaseSelect
-              :options="cardiomyopathyTypeOptions"
-              v-model="cardiomyopathyData.cardiomyopathyType"
-              label="Select Cardiomyopathy Type"
-            />
-            <br />
-            <BaseSelect
-              :options="mutatedGeneTypeOptions"
-              v-model="cardiomyopathyData.mutatedGeneType"
-              label="Select Mutated Gene Type"
-            />
-            <br />
-            <button
-              class="waves-effect waves-light btn-small blue-grey lighten-1"
-              type="submit"
-            >
-              Search
-            </button>
-            <br />
-          </div>
+    <form @submit.prevent="queryData">
+      <div class="card-panel blue-grey">
+        <h5 class="header white-text">Select Filters</h5>
+        <div class="card-panel">
+          <BaseSelect
+            :options="cardiomyopathyTypeOptions"
+            v-model="cardiomyopathyData.cardiomyopathyType"
+            label="Select Cardiomyopathy Type"
+          />
+          <br />
+          <BaseSelect
+            :options="mutatedGeneTypeOptions"
+            v-model="cardiomyopathyData.mutatedGeneType"
+            label="Select Mutated Gene Type"
+          />
+          <br />
+          <button
+            class="waves-effect waves-light btn-small blue-grey lighten-1"
+            type="submit"
+          >
+            Search
+          </button>
+          <br />
         </div>
-      </form>
-    </div>
-    <div
-      class="col s6 m6"
-      v-if="chosenCardiomyopathyType && chosenMutatedGeneType"
-    >
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <div v-if="chosenCardiomyopathyType && chosenMutatedGeneType">
       <div v-show="internalDataLoaded">
         <Suspense>
           <Dashboard

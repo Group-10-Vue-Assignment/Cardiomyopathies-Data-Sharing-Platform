@@ -7,6 +7,8 @@
   </PageBanner>
   <form @submit.prevent="submitData">
     <div class="card-panel">
+      <h4 class="grey-text">Cardiomyopathy Information</h4>
+
       <BaseSelect
         :options="cardiomyopathyTypeOptions"
         v-model="cardiomyopathyData.cardiomyopathyType"
@@ -33,7 +35,7 @@
         v-model="cardiomyopathyData.typeOfData"
         label="Select Data Type"
       />
-      <h5>Graph information</h5>
+      <h4 class="grey-text">Graph Information</h4>
       <label for="xAxisTitle">Enter the title for the x Axis</label>
       <input
         v-model="cardiomyopathyData.xAxisTitle"

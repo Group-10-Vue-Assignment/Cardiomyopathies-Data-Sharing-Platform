@@ -28,7 +28,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: rgb(255, 255, 255);
 }
 * {
   padding: 0%;
@@ -44,12 +43,20 @@ export default {
   margin-bottom: 15px;
 }
 form {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
   width: 40%;
   display: block;
-  margin: 50px auto;
-  margin-bottom: 0;
   text-align: left;
 }
+.centered-graph-info {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
+}
+
 .displayBlock {
   display: block;
 }

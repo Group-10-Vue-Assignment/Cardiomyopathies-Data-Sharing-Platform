@@ -9,13 +9,13 @@
   <div v-for="question in Questions" :key="question" class="question-cards">
     <div
       @click="toggleAnswer(question.id)"
-      class="noSelect white-text card-panel blue-grey lighten-1"
+      class="noSelect white-text card-panel blue-grey darken-1"
     >
-      <div class="question-icon">
+      <div class="question-icon question">
         <h6 class="left-align">{{ question.questions }}</h6>
         <i class="material-icons right">help</i>
       </div>
-      <div v-if="question.displayAnswer" class="card-panel blue-grey darken-1">
+      <div v-if="question.displayAnswer" class="card-panel blue-grey lighten-1">
         <div v-if="question.type == 'para'">
           <p class="left-align">{{ question.answer }}</p>
         </div>
@@ -52,6 +52,9 @@ export default {
 <style scoped>
 .question-cards {
   padding: 0 8rem;
+}
+
+.question {
   cursor: pointer;
 }
 

@@ -1,5 +1,9 @@
 <template>
-  <div v-for="items in newsFeedData.items" :key="items" class="feed-container">
+  <div
+    v-for="items in newsFeedData.items"
+    :key="items"
+    class="centered-news-info"
+  >
     <div class="row card z-depth-3">
       <div class="col s12 card-action blue-grey darken-1 white-text">
         <p class="right-align date">
@@ -46,10 +50,6 @@ export default {
 </script>
 
 <style scoped>
-.feed-container {
-  padding: 0 120px;
-}
-
 .sourceBtn {
   display: flex;
   align-items: flex-start;
@@ -62,5 +62,12 @@ blockquote {
 
 .date {
   font-style: italic;
+}
+
+.centered-news-info {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
 }
 </style>

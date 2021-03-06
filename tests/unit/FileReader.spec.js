@@ -13,7 +13,7 @@ describe("FileReader Test", () => {
   });
 
   it("Displays 'Input CSV' and input file type for the user", () => {
-    expect(wrapper.text()).toMatch("Input CSV");
+    expect(wrapper.text()).toMatch("Select CSV File");
     expect(wrapper.find("#graphData").isVisible()).toBe(true);
   });
 });
