@@ -264,6 +264,11 @@ export default {
     width: 120px;
   }
 }
+@media only screen and (max-width: 775px) {
+  .centered-graph {
+    width: 65%;
+  }
+}
 
 .centered-graph-info {
   margin-left: auto;

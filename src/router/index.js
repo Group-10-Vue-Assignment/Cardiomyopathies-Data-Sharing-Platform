@@ -10,7 +10,7 @@ import VerifyEmail from "../views/VerifyEmail.vue";
 import SearchDashboard from "../views/SearchDashboard.vue";
 import GraphDetails from "@/views/GraphDetails";
 import Helper from "../views/Helper.vue";
-
+import PageNotFound from "@/views/PageNotFound.vue";
 // route guard
 import { projectAuth } from "../firebase/config";
 
@@ -107,7 +107,7 @@ const routes = [
   },
   {
     path: "/:pathMatch(.*)*",
-    component: Home
+    component: PageNotFound
   }
 ];
 
