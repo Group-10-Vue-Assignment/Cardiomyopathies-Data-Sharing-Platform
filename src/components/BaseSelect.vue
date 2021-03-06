@@ -11,6 +11,7 @@
     }"
     required
   >
+    <option hidden disabled selected value> -- select an option -- </option>
     <option
       v-for="option in options"
       :value="option"
