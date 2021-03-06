@@ -74,7 +74,17 @@ export default {
         floating: true,
         offsetY: -25,
         offsetX: -5
-      }
+      },
+      responsive: [
+        {
+          breakpoint: 510,
+          options: {
+            chart: {
+              width: "100%"
+            }
+          }
+        }
+      ]
     });
     const series = ref([]);
 

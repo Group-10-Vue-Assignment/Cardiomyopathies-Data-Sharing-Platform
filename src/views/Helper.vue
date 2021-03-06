@@ -51,7 +51,10 @@ export default {
 
 <style scoped>
 .question-cards {
-  padding: 0 8rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  position: relative;
 }
 
 .question {
